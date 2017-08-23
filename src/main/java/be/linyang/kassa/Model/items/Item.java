@@ -1,4 +1,4 @@
-package be.linyang.kassa.Model;
+package be.linyang.kassa.Model.items;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
@@ -12,6 +12,11 @@ public class Item {
     private String name;
     private double price;
     private double tax;
+
+    public Item()
+    {
+
+    }
 
     public Item(String quicklink, String name, double price) {
         this.quicklink = quicklink;
