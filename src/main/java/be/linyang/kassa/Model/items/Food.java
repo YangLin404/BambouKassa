@@ -11,8 +11,8 @@ public class Food extends Item {
 
     }
 
-    public Food(String quicklink, String name, double price) {
-        super(quicklink, name, price);
+    public Food(String quicklink, String name, String ch_name, double price) {
+        super(quicklink, name, ch_name, price);
     }
 
 

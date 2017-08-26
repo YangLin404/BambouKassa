@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="ticket">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nr</th>
+            <th>omschrijving</th>
+            <th>aantal</th>
+            <th>totaal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${ticket.items}">
+            <td class="text-center" th:text="${item.item.quicklink}"></td>
+            <td th:text="${item.item.name}"></td>
+            <td class="text-center" th:text="${item.count}"></td>
+            <td class="text-center" th:text="${item.totalPrice}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-center bg-primary text-white total" th:text="${ticket.totalPrice}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

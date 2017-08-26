@@ -1,3 +1,19 @@
 .ticket {
-    background-color: lightgrey;
+    background-color: #d2d6D9;
+    float: left;
+    display: block;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+.ticket > .total {
+    font-size: 0.9em;
+}
+
+.restaurantTable {
+    margin: 10px 0;
+}
+
+.navbar {
+    margin-bottom: 10px;
 }

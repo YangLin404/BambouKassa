@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/global.js}"></script>
     <link rel="stylesheet" type="text/css" media="all"
           href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
     <link rel="stylesheet" type="text/css" media="all"
           href="../static/css/global.css" th:href="@{/css/global.css}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"/>
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
@@ -24,11 +24,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="restaurant.html">Restaurant</a>
+                <a class="nav-link" href="/">Home </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Restaurant <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="#">meenemen</a>
@@ -44,9 +44,27 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <div class="row col-12" >
-        <div class="col-6 ticket" th:each="ticket : ${tickets}">
+    <div class="row" >
+        <!--/*@thymesVar id="tables" type="be.linyang.kassa.Model.Table"*/-->
+        <div id="restaurantTables" class="col-xs-12 col-sm-12 col-md-12 col-lg-6 restaurantTable" th:each="table : ${tables}">
+            <button class="btn btn-success btn-lg btn-block" type="button" th:text="'Tafel '+${table.tableNr}" data-toggle="collapse" th:attr="data-target='#table'+${table.tableNr},aria-controls='#table'+${table.tableNr},data-parent='#restaurantTables'"  aria-expanded="false"></button>
+            <div class="collapse" th:attr="id='table'+${table.tableNr}">
+                <div class="card card-block ticket">
+                    <div th:id="'ticket' + ${table.ticket.ticketNr}" th:if="${not table.isTableEmpty()}">
 
+                    </div>
+                    <div>
+                        <form class="form-inline" id="addItem" th:action="@{/spring/guests/insert}">
+                            <label class="sr-only" for="inlineFormInput">item</label>
+                            <input type="text" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0" id="inlineFormInput" placeholder="voeg een product toe"/>
+                            <button type="submit" class="col-1 text-center btn btn-primary">+</button>
+                        </form>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

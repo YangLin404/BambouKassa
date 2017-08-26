@@ -10,6 +10,7 @@ public class Item {
     private ObjectId id;
     private String quicklink;
     private String name;
+    private String ch_name;
     private double price;
     private double tax;
 
@@ -18,10 +19,11 @@ public class Item {
 
     }
 
-    public Item(String quicklink, String name, double price) {
+    public Item(String quicklink, String name, String ch_name, double price) {
         this.quicklink = quicklink;
         this.name = name;
         this.price = price;
+        this.ch_name = ch_name;
     }
 
     public ObjectId getId() {
@@ -50,5 +52,13 @@ public class Item {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getCh_name() {
+        return ch_name;
+    }
+
+    public void setCh_name(String ch_name) {
+        this.ch_name = ch_name;
     }
 }

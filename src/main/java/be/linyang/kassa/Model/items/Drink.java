@@ -10,7 +10,7 @@ public class Drink extends Item {
 
     }
 
-    public Drink(String quicklink, String name, double price) {
-        super(quicklink, name, price);
+    public Drink(String quicklink, String name, String ch_name, double price) {
+        super(quicklink, name, ch_name, price);
     }
 }

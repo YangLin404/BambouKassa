@@ -23,25 +23,41 @@ public class Ticket {
     private String date;
     private String time;
 
+    private Status status;
+
     @Reference
     private List<TicketItem> items;
+
+
+    private String tableNr;
 
     public Ticket()
     {
         this.date = LocalDate.now().toString();
         this.time = LocalTime.now().toString();
+        this.status = Status.ACTIVE;
     }
 
     public Ticket(String date, List<TicketItem> items) {
+        this();
         this.date = date;
         this.items = items;
         this.name = "";
     }
 
     public Ticket(String date, List<TicketItem> items, String name) {
+        this();
         this.date = date;
         this.items = items;
         this.name = name;
+    }
+
+    public Ticket(String ticketNr, String name, List<TicketItem> items, String tableNr) {
+        this();
+        this.ticketNr = ticketNr;
+        this.name = name;
+        this.items = items;
+        this.tableNr = tableNr;
     }
 
     public ObjectId getId() {
@@ -76,12 +92,28 @@ public class Ticket {
         return time;
     }
 
-    public void setTicketNr(String ticketNr) {
-        this.ticketNr = ticketNr;
+    public void setTicketNr(int ticketNr) {
+        this.ticketNr = this.date + "-" + ticketNr;
     }
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTable() {
+        return tableNr;
+    }
+
+    public void setTableNr(String tableNr) {
+        this.tableNr = tableNr;
     }
 
     public double getTotalPrice()
@@ -89,5 +121,21 @@ public class Ticket {
         return this.items.stream()
                 .mapToDouble(TicketItem::getTotalPrice)
                 .sum();
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getTableNr() {
+        return tableNr;
+    }
+
+    public enum Status{
+        ACTIVE,PAID;
     }
 }
