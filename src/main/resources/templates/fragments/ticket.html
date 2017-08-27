@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="ticket">
+<div th:fragment="ticket" th:id="'ticket' + ${ticket.ticketNr}">
     <table class="table">
         <thead>
         <tr>
@@ -30,6 +30,15 @@
         </tr>
         </tbody>
     </table>
+    <div>
+        <form class="form-inline" id="addItem" th:action="@{/spring/guests/insert}">
+            <input type="text" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0" th:id="'inputTicket'+${ticket.tableNr}" placeholder="voeg een product toe"/>
+            <button type="submit" class="col-1 text-center btn btn-primary">+</button>
+        </form>
+    </div>
 </div>
+
+<button th:fragment="newTicketBtn" th:id="'createNewTicketBtn'+${tableNr}" type="button" class="btn btn-primary btn-lg">voeg een ticket toe</button>
+
 </body>
 </html>

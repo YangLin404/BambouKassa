@@ -4,12 +4,10 @@ import be.linyang.kassa.Model.Table;
 import be.linyang.kassa.Model.TicketItem;
 import be.linyang.kassa.Model.items.Item;
 import be.linyang.kassa.Model.ticket.Ticket;
-import be.linyang.kassa.Model.items.Drink;
 import be.linyang.kassa.Model.items.Food;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.query.Query;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Repository;
 
@@ -25,8 +23,7 @@ public class MongoRepo {
     final Morphia morphia = new Morphia();
     final Datastore datastore = morphia.createDatastore(new MongoClient(), "bambou");
 
-    private List<Item> items;
-    private List<Table> tables;
+
 
 
     @PostConstruct
@@ -39,7 +36,6 @@ public class MongoRepo {
         datastore.getDB().dropDatabase();
 
         this.setupTestData();
-        this.loadData();
 
         datastore.ensureIndexes();
 
@@ -62,7 +58,7 @@ public class MongoRepo {
         for (int i=0; i<=10; i++) {
             datastore.save(new Table(String.valueOf(i)));
         }
-        this.tables = findAllTables();
+        List<Table> tables = findAllTables();
 
         LinkedList<Item> items = new LinkedList<>();
         items.add(new Food("1", "Kippensoep met Chinese champignons","冬菇雞湯", 3.2d));
@@ -90,12 +86,12 @@ public class MongoRepo {
         Ticket ticket = new Ticket();
         ticket.setItems(ticketItems);
         ticket.setTicketNr(1);
-        ticket.setTableNr(this.tables.get(0).getTableNr());
+        ticket.setTableNr(tables.get(0).getTableNr());
 
         Ticket ticket2 = new Ticket();
         ticket2.setItems(ticketItems2);
         ticket2.setTicketNr(2);
-        ticket2.setTableNr(this.tables.get(1).getTableNr());
+        ticket2.setTableNr(tables.get(1).getTableNr());
 
         datastore.save(ticket);
         datastore.save(ticket2);
@@ -103,18 +99,13 @@ public class MongoRepo {
 
     }
 
-    private void loadData(){
-        this.items = findAllItems();
-        this.tables = findAllTables();
-    }
-
-    public List<Ticket> getAllTickets()
+    public List<Ticket> findAllTickets()
     {
         return datastore.createQuery(Ticket.class)
                 .asList();
     }
 
-    public Ticket getActiveTicketByTable(String tableNr)
+    public Ticket findActiveTicketByTable(String tableNr)
     {
         return datastore.createQuery(Ticket.class)
                 .field("tableNr").equal(tableNr)
@@ -122,16 +113,13 @@ public class MongoRepo {
                 .get();
     }
 
+    public Ticket createTicket(Ticket ticket) {
 
 
-    public List<Item> getAllItems()
-    {
-        return this.items;
-    }
+        this.datastore.save(ticket);
+        Ticket createdTicket = findActiveTicketByTable(ticket.getTableNr());
+        return createdTicket;
 
-    public List<Table> getTables() {
-        this.tables.forEach(t -> t.setTicket(getActiveTicketByTable(t.getTableNr())));
-        return this.tables;
     }
 
     public List<Item> findAllItems() {
@@ -140,11 +128,19 @@ public class MongoRepo {
     }
 
     public List<Table> findAllTables() {
-        return datastore.createQuery(Table.class)
+        List<Table> tables = datastore.createQuery(Table.class)
+                .asList();
+        tables.forEach(t -> t.setTicket(findActiveTicketByTable(t.getTableNr())));
+        return tables;
+    }
+
+    public List<Ticket> findAllTicketByDate(LocalDate date) {
+        return datastore.createQuery(Ticket.class)
+                .field("date").equal(date.toString())
                 .asList();
     }
 
-    public Ticket getTicketByNr(String ticketNr) {
+    public Ticket findTicketByNr(String ticketNr) {
         return datastore.createQuery(Ticket.class)
                 .field("ticketNr").equal(ticketNr)
                 .get();

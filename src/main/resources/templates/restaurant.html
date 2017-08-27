@@ -44,23 +44,13 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <div class="row" >
+    <div class="row" id="restaurantTables">
         <!--/*@thymesVar id="tables" type="be.linyang.kassa.Model.Table"*/-->
-        <div id="restaurantTables" class="col-xs-12 col-sm-12 col-md-12 col-lg-6 restaurantTable" th:each="table : ${tables}">
+        <div th:id="'restaurantTable'+${table.tableNr}" class="col-xs-12 col-sm-12 col-md-12 col-lg-6 restaurantTable" th:each="table : ${tables}">
             <button class="btn btn-success btn-lg btn-block" type="button" th:text="'Tafel '+${table.tableNr}" data-toggle="collapse" th:attr="data-target='#table'+${table.tableNr},aria-controls='#table'+${table.tableNr},data-parent='#restaurantTables'"  aria-expanded="false"></button>
             <div class="collapse" th:attr="id='table'+${table.tableNr}">
                 <div class="card card-block ticket">
-                    <div th:id="'ticket' + ${table.ticket.ticketNr}" th:if="${not table.isTableEmpty()}">
-
-                    </div>
-                    <div>
-                        <form class="form-inline" id="addItem" th:action="@{/spring/guests/insert}">
-                            <label class="sr-only" for="inlineFormInput">item</label>
-                            <input type="text" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0" id="inlineFormInput" placeholder="voeg een product toe"/>
-                            <button type="submit" class="col-1 text-center btn btn-primary">+</button>
-                        </form>
-                    </div>
-                    <div>
+                    <div th:id="'tableContent' + ${table.tableNr}">
 
                     </div>
                 </div>

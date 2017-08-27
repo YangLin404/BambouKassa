@@ -15,7 +15,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("tickets",mongoRepo.getAllTickets());
+        model.addAttribute("tickets",mongoRepo.findAllTickets());
 
         return "index";
     }
