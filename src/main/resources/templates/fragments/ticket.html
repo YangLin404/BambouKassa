@@ -6,6 +6,7 @@
 </head>
 <body>
 <div th:fragment="ticket" th:id="'ticket' + ${ticket.ticketNr}">
+    <input id="hiddenTicketNr" type="hidden" th:text="${ticket.ticketNr}" th:value="${ticket.ticketNr}" />
     <table class="table">
         <thead>
         <tr>
@@ -32,8 +33,8 @@
     </table>
     <div>
         <form class="form-inline" id="addItem" th:action="@{/spring/guests/insert}">
-            <input type="text" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0" th:id="'inputTicket'+${ticket.tableNr}" placeholder="voeg een product toe"/>
-            <button type="submit" class="col-1 text-center btn btn-primary">+</button>
+            <input type="text" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0" th:id="'inputTicket'+${ticket.ticketNr}" placeholder="voeg een product toe"/>
+            <button type="submit" class="col-1 text-center btn btn-primary" th:id="'btnAddItem'+${ticket.ticketNr}">+</button>
         </form>
     </div>
 </div>

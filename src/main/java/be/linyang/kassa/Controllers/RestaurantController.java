@@ -48,4 +48,13 @@ public class RestaurantController {
         model.addAttribute("ticket",createdTicket);
         return "/fragments/ticket :: ticket";
     }
+
+    @PostMapping(value = "/restaurant/addItemToTicket/{ticketNr}")
+    public String addItemToTicket(Model model, @PathVariable("ticketNr") String ticketNr, @RequestParam("itemQL") String ItemQL) {
+
+
+
+
+        return "/fragments/ticket :: ticket";
+    }
 }

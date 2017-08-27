@@ -2,6 +2,7 @@ package be.linyang.kassa;
 
 
 import be.linyang.kassa.Model.Table;
+import be.linyang.kassa.Model.TicketItem;
 import be.linyang.kassa.Model.items.Item;
 import be.linyang.kassa.Model.ticket.Ticket;
 import be.linyang.kassa.Repository.MongoRepo;
@@ -56,5 +57,20 @@ public class RestoManager {
 
     public Ticket getActiveTicketOfTable(String tableNr) {
         return mongoRepo.findActiveTicketByTable(tableNr);
+    }
+
+    public Ticket addItemToTicket(String ticketNr, String itemQL) {
+        Ticket ticket = ticketsToday.stream()
+                .filter(t -> t.getTicketNr().equals(ticketNr))
+                .findFirst()
+                .get();
+        Item item = items.stream()
+                .filter(t -> t.getQuicklink().equals(itemQL))
+                .findFirst()
+                .get();
+        TicketItem ticketItem = new TicketItem();
+
+        return ticket;
+
     }
 }

@@ -1,6 +1,7 @@
 package be.linyang.kassa.Model.ticket;
 
 import be.linyang.kassa.Model.TicketItem;
+import be.linyang.kassa.Model.items.Item;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -133,6 +134,10 @@ public class Ticket {
 
     public String getTableNr() {
         return tableNr;
+    }
+
+    public void addItemToTicket(TicketItem ticketItem) {
+        this.items.add(ticketItem);
     }
 
     public enum Status{

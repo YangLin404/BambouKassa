@@ -11,13 +11,21 @@ function retrieveTicket(tableNr) {
         console.log(status);
         if (status == "success") {
             $("#tableContent" + tableNr).empty().append(data);
-            $("#inputTicket" + tableNr).focus();
+            var ticketNr = $("#hiddenTicketNr").val();
+            $("#inputTicket" + ticketNr).focus();
+            $("btnAddItem" + ticketNr).click(function () {
+                var itemQL = $("#inputTicket" + ticketNr).val();
+                addItemToTicket(ticketNr,itemQL);
+            })
             $("#createNewTicketBtn"+tableNr).click(function () {
                 createTicket(tableNr);
             })
         }
-
     })
+}
+
+function addItemToTicket(ticketNr, itemQL) {
+
 }
 
 function createTicket(tableNr) {
@@ -25,7 +33,8 @@ function createTicket(tableNr) {
         console.log(data);
         $("#tableContent"+tableNr).empty().append(data);
         $("#createNewTicketBtn"+tableNr).hide();
-        $("#inputTicket" + tableNr).focus();
+        var ticketNr = $("#hiddenTicketNr").val();
+        $("#inputTicket" + ticketNr).focus();
     })
 
 
