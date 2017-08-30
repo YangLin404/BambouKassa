@@ -1,6 +1,7 @@
 package be.linyang.kassa.Controllers;
 
 import be.linyang.kassa.Model.Table;
+import be.linyang.kassa.Model.items.Item;
 import be.linyang.kassa.Model.ticket.Ticket;
 import be.linyang.kassa.RestoManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,20 +41,25 @@ public class RestaurantController {
         return restoManager.getTables();
     }
 
+    @GetMapping(value = "/restaurant/getItems", produces = "application/json")
+    public @ResponseBody
+    List<Item> getAllItems() {
+        return restoManager.getItems();
+    }
+
     @PostMapping(value = "/restaurant/createTicket")
     public String createTicket(Model model, @RequestParam("tableNr") String tableNr) {
         Ticket ticket = new Ticket();
         ticket.setTableNr(tableNr);
-        Ticket createdTicket = restoManager.addTicket(ticket);
+        Ticket createdTicket = restoManager.createTicket(ticket);
         model.addAttribute("ticket",createdTicket);
         return "/fragments/ticket :: ticket";
     }
 
     @PostMapping(value = "/restaurant/addItemToTicket/{ticketNr}")
-    public String addItemToTicket(Model model, @PathVariable("ticketNr") String ticketNr, @RequestParam("itemQL") String ItemQL) {
-
-
-
+    public String addItemToTicket(Model model, @PathVariable("ticketNr") String ticketNr, @RequestParam("itemQL") String itemQL) {
+        Ticket ticket = restoManager.addItemToTicket(ticketNr, itemQL);
+        model.addAttribute("ticket", ticket);
 
         return "/fragments/ticket :: ticket";
     }

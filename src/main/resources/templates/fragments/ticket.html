@@ -32,9 +32,9 @@
         </tbody>
     </table>
     <div>
-        <form class="form-inline" id="addItem" th:action="@{/spring/guests/insert}">
+        <form class="form-inline" id="addItem">
             <input type="text" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0" th:id="'inputTicket'+${ticket.ticketNr}" placeholder="voeg een product toe"/>
-            <button type="submit" class="col-1 text-center btn btn-primary" th:id="'btnAddItem'+${ticket.ticketNr}">+</button>
+            <button type="submit" class="col-1 text-center btn btn-primary" th:id="'btnAddItem'+${ticket.ticketNr}" th:value="${ticket.ticketNr}" onclick="addItemToTicket(this)">+</button>
         </form>
     </div>
 </div>

@@ -7,6 +7,9 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Entity("ticketItem")
 public class TicketItem {
 
@@ -51,6 +54,8 @@ public class TicketItem {
     }
 
     public double getTotalPrice() {
-        return item.getPrice() * count;
+        return BigDecimal.valueOf(item.getPrice() * count)
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
     }
 }

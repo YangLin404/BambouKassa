@@ -4,7 +4,6 @@ import be.linyang.kassa.Model.Table;
 import be.linyang.kassa.Model.TicketItem;
 import be.linyang.kassa.Model.items.Item;
 import be.linyang.kassa.Model.ticket.Ticket;
-import be.linyang.kassa.Model.items.Food;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -61,10 +60,10 @@ public class MongoRepo {
         List<Table> tables = findAllTables();
 
         LinkedList<Item> items = new LinkedList<>();
-        items.add(new Food("1", "Kippensoep met Chinese champignons","冬菇雞湯", 3.2d));
-        items.add(new Food("2", "Kippensoep met champignons", "毛菇雞湯",3d));
-        items.add(new Food("3", "Kippensoep met asperges","蘆筍雞湯", 3d));
-        items.add(new Food("3", "Kippensoep met bamboe","竹筍雞湯", 3d));
+        items.add(new Item("1", "Kippensoep met Chinese champignons","冬菇雞湯", 3.2d));
+        items.add(new Item("2", "Kippensoep met champignons", "毛菇雞湯",3d));
+        items.add(new Item("3", "Kippensoep met asperges","蘆筍雞湯", 3d));
+        items.add(new Item("4", "Kippensoep met bamboe","竹筍雞湯", 3d));
 
         items.forEach(datastore::save);
 
@@ -113,13 +112,8 @@ public class MongoRepo {
                 .get();
     }
 
-    public Ticket createTicket(Ticket ticket) {
-
-
+    public void createTicket(Ticket ticket) {
         this.datastore.save(ticket);
-        Ticket createdTicket = findActiveTicketByTable(ticket.getTableNr());
-        return createdTicket;
-
     }
 
     public List<Item> findAllItems() {
@@ -145,4 +139,14 @@ public class MongoRepo {
                 .field("ticketNr").equal(ticketNr)
                 .get();
     }
+
+    public void saveTicketItem(TicketItem ticketItem){
+        this.datastore.save(ticketItem);
+    }
+
+    public void saveTicket(Ticket ticket){
+        this.datastore.save(ticket);
+    }
+
+
 }

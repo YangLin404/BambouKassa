@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-@Entity
+@Entity("item")
 public class Item {
     @Id
     private ObjectId id;
@@ -60,5 +60,20 @@ public class Item {
 
     public void setCh_name(String ch_name) {
         this.ch_name = ch_name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Item item = (Item) o;
+
+        return quicklink != null ? quicklink.equals(item.quicklink) : item.quicklink == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return quicklink != null ? quicklink.hashCode() : 0;
     }
 }

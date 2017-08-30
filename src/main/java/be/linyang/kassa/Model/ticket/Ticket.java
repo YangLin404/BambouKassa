@@ -9,6 +9,7 @@ import org.mongodb.morphia.annotations.Reference;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity("tickets")
@@ -37,6 +38,7 @@ public class Ticket {
         this.date = LocalDate.now().toString();
         this.time = LocalTime.now().toString();
         this.status = Status.ACTIVE;
+        this.items = new LinkedList<>();
     }
 
     public Ticket(String date, List<TicketItem> items) {
@@ -119,6 +121,8 @@ public class Ticket {
 
     public double getTotalPrice()
     {
+        if (this.items == null)
+            return 0d;
         return this.items.stream()
                 .mapToDouble(TicketItem::getTotalPrice)
                 .sum();
@@ -136,8 +140,8 @@ public class Ticket {
         return tableNr;
     }
 
-    public void addItemToTicket(TicketItem ticketItem) {
-        this.items.add(ticketItem);
+    public void addItemToTicket(Item item) {
+
     }
 
     public enum Status{
