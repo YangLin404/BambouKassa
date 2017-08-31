@@ -5,7 +5,6 @@ var items = [];
 $(document).ready(function () {
     initTable();
     initItems();
-    console.log(items);
 })
 
 
@@ -22,6 +21,7 @@ function retrieveTicket(tableNr) {
             $("#createNewTicketBtn"+tableNr).click(function () {
                 createTicket(tableNr);
             })
+            initTypeahead();
         }
     })
 }
@@ -43,6 +43,7 @@ function addItemToTicket(elem) {
                 var itemQL = $("#inputTicket" + ticketNr).val();
                 addItemToTicket(ticketNr,itemQL);
             })
+            initTypeahead();
 
         })
     }
@@ -55,6 +56,7 @@ function createTicket(tableNr) {
         $("#createNewTicketBtn"+tableNr).hide();
         var ticketNr = $("#hiddenTicketNr").val();
         $("#inputTicket" + ticketNr).focus();
+        initTypeahead();
     })
 }
 
@@ -63,33 +65,47 @@ function initTable() {
         console.log(data);
         data.forEach(t => {
             $("#table"+t.tableNr).on('show.bs.collapse', function () {
-                retrieveTicket(t.tableNr);
+            retrieveTicket(t.tableNr);
 
-                $("#restaurantTable"+t.tableNr).removeClass("col-lg-6");
-            });
+            $("#restaurantTable"+t.tableNr).removeClass("col-lg-6");
+        });
 
-            $("#table"+t.tableNr).on('hide.bs.collapse', function () {
-                $("#restaurantTable"+t.tableNr).addClass("col-lg-6");
-            });
-        })
+        $("#table"+t.tableNr).on('hide.bs.collapse', function () {
+            $("#restaurantTable"+t.tableNr).addClass("col-lg-6");
+        });
     })
-}
-
-function initItems() {
-    $.get("/restaurant/getItems", function (data) {
-        for (var i in data) {
-            items[i] = new Item();
-            items[i].quickLink = data[i].quickLink;
-            items[i].name = data[i].name;
-
-
-        }
     })
 }
 
 function Item() {
 
-    this.quickLink='';
+    this.quicklink='';
     this.name='';
+};
+
+function initItems() {
+    $.get("/restaurant/getItems", function (data) {
+        for (var i in data) {
+            items[i] = new Item();
+            items[i].quicklink = data[i].quicklink;
+            items[i].name = data[i].name;
+        }
+    })
 }
 
+function initTypeahead() {
+    $('.js-typeahead').typeahead({
+        order: "asc",
+        display: ["quicklink", "name"],
+        source: items,
+        minLength: 1,
+        maxItem: 8,
+        highlight: true,
+        template: '<span>' +
+        '<span class="name">{{quicklink}} | </span>' +
+        '<span class="quicklink">{{name}}</span>' +
+        '</span>',
+        templateValue: "{{quicklink}}",
+        cancelButton: false
+    });
+}

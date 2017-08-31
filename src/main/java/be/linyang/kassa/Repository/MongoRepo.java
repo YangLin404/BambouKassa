@@ -3,6 +3,7 @@ package be.linyang.kassa.Repository;
 import be.linyang.kassa.Model.Table;
 import be.linyang.kassa.Model.TicketItem;
 import be.linyang.kassa.Model.items.Item;
+import be.linyang.kassa.Model.items.Type;
 import be.linyang.kassa.Model.ticket.Ticket;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
@@ -54,16 +55,16 @@ public class MongoRepo {
 
     private void setupTestData(){
 
-        for (int i=0; i<=10; i++) {
+        for (int i=1; i<=10; i++) {
             datastore.save(new Table(String.valueOf(i)));
         }
         List<Table> tables = findAllTables();
 
         LinkedList<Item> items = new LinkedList<>();
-        items.add(new Item("1", "Kippensoep met Chinese champignons","冬菇雞湯", 3.2d));
-        items.add(new Item("2", "Kippensoep met champignons", "毛菇雞湯",3d));
-        items.add(new Item("3", "Kippensoep met asperges","蘆筍雞湯", 3d));
-        items.add(new Item("4", "Kippensoep met bamboe","竹筍雞湯", 3d));
+        items.add(new Item("1", "Kippensoep met Chinese champignons","冬菇雞湯", 3.2d, Type.Soup));
+        items.add(new Item("2", "Kippensoep met champignons", "毛菇雞湯",3d, Type.Soup));
+        items.add(new Item("3", "Kippensoep met asperges","蘆筍雞湯", 3d, Type.Soup));
+        items.add(new Item("4", "Kippensoep met bamboe","竹筍雞湯", 3d, Type.Soup));
 
         items.forEach(datastore::save);
 
