@@ -3,10 +3,6 @@ package be.linyang.kassa.Model.items;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity("item")
 public class Item {
@@ -17,23 +13,20 @@ public class Item {
     private String ch_name;
     private double price;
     private double tax;
-    private Type type;
-
-    @Reference
-    private List<Extra> extras;
+    private ItemType itemType;
 
     public Item()
     {
-        this.extras = new LinkedList<>();
+
     }
 
-    public Item(String quicklink, String name, String ch_name, double price, Type type) {
+    public Item(String quicklink, String name, String ch_name, double price, ItemType itemType) {
         this();
         this.quicklink = quicklink;
         this.name = name;
         this.price = price;
         this.ch_name = ch_name;
-        this.type = type;
+        this.itemType = itemType;
     }
 
     public ObjectId getId() {
@@ -82,25 +75,15 @@ public class Item {
         return quicklink != null ? quicklink.equals(item.quicklink) : item.quicklink == null;
     }
 
-    public Type getType() {
-        return type;
+    public ItemType getItemType() {
+        return itemType;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
     }
 
-    public List<Extra> getExtras() {
-        return extras;
-    }
 
-    public void setExtras(List<Extra> extras) {
-        this.extras = extras;
-    }
-
-    public void addExtra(Extra extra) {
-        this.extras.add(extra);
-    }
 
     @Override
     public int hashCode() {

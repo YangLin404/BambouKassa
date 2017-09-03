@@ -2,8 +2,9 @@ package be.linyang.kassa.Repository;
 
 import be.linyang.kassa.Model.Table;
 import be.linyang.kassa.Model.TicketItem;
+import be.linyang.kassa.Model.items.Extra;
 import be.linyang.kassa.Model.items.Item;
-import be.linyang.kassa.Model.items.Type;
+import be.linyang.kassa.Model.items.ItemType;
 import be.linyang.kassa.Model.ticket.Ticket;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
@@ -60,22 +61,35 @@ public class MongoRepo {
         }
         List<Table> tables = findAllTables();
 
-        LinkedList<Item> items = new LinkedList<>();
-        items.add(new Item("1", "Kippensoep met Chinese champignons","冬菇雞湯", 3.2d, Type.Soup));
-        items.add(new Item("2", "Kippensoep met champignons", "毛菇雞湯",3d, Type.Soup));
-        items.add(new Item("3", "Kippensoep met asperges","蘆筍雞湯", 3d, Type.Soup));
-        items.add(new Item("4", "Kippensoep met bamboe","竹筍雞湯", 3d, Type.Soup));
+        LinkedList<Extra> extras = new LinkedList<>();
 
-        items.forEach(datastore::save);
+        extras.add(new Extra("rijst",2d));
+        extras.add(new Extra("friet",2d));
+        extras.add(new Extra("nasi",2d));
+        extras.add(new Extra("bami",2d));
+        extras.add(new Extra("mihoen",2d));
+        datastore.save(extras);
+
+        LinkedList<Item> items = new LinkedList<>();
+        items.add(new Item("1", "Kippensoep met Chinese champignons","冬菇雞湯", 3.2d, ItemType.Soup));
+        items.add(new Item("2", "Kippensoep met champignons", "毛菇雞湯",3d, ItemType.Soup));
+        items.add(new Item("3", "Kippensoep met asperges","蘆筍雞湯", 3d, ItemType.Soup));
+        items.add(new Item("4", "Kippensoep met bamboe","竹筍雞湯", 3d, ItemType.Soup));
+        items.add(new Item("58","Rundvlees in currysaus", "test",10d, ItemType.MainDishe));
+
+        datastore.save(items);
 
         TicketItem ticketItem1 = new TicketItem(items.get(0));
         TicketItem ticketItem2 = new TicketItem(items.get(1));
         TicketItem ticketItem3 = new TicketItem(items.get(2));
+        TicketItem ticketItem4 = new TicketItem(items.get(4));
         ticketItem2.addOne();
+        ticketItem4.setExtras(extras.subList(0,0));
         List<TicketItem> ticketItems = new LinkedList<>();
         ticketItems.add(ticketItem1);
         ticketItems.add(ticketItem2);
         ticketItems.add(ticketItem3);
+        ticketItems.add(ticketItem4);
 
         List<TicketItem> ticketItems2 = new LinkedList<>();
         ticketItems2.add(ticketItem3);
@@ -127,6 +141,11 @@ public class MongoRepo {
                 .asList();
         tables.forEach(t -> t.setTicket(findActiveTicketByTable(t.getTableNr())));
         return tables;
+    }
+
+    public List<Extra> findAllExtra() {
+        return datastore.createQuery(Extra.class)
+                .asList();
     }
 
     public List<Ticket> findAllTicketByDate(LocalDate date) {

@@ -96,7 +96,7 @@ public class Ticket {
     }
 
     public void setTicketNr(int ticketNr) {
-        this.ticketNr = this.date + "-" + ticketNr;
+        this.ticketNr = this.date + "_" + ticketNr;
     }
 
     public void setTime(String time) {

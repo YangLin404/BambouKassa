@@ -20,25 +20,40 @@
         <tbody>
         <tr th:each="item : ${ticket.items}">
             <td>
-                <button th:id="'btnExtra'+${ticket.ticketNr}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                <button th:id="'btnExtra'+${ticket.ticketNr}+'_'+${item.item.quicklink}" type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:attr="data-target='#modal'+${ticket.ticketNr}+'_'+${item.item.quicklink}">
                     config
                 </button>
                 <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" th:id="'modal'+${ticket.ticketNr}+'_'+${item.item.quicklink}" tabindex="-1" role="dialog" th:attr="aria-labelledby='modalExtra'+${ticket.ticketNr}+'_'+${item.item.quicklink}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" th:id="'modalExtra'+${ticket.ticketNr}+'_'+${item.item.quicklink}">Modal title</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                ...
+                                <div>
+                                    <button data-dismiss="modal" th:onclick="'addExtraToTicketItem(\'rijst\',\''+${ticket.ticketNr}+'\',\''+${item.item.quicklink}+'\',\''+${ticket.tableNr}+'\')'" type="button" class="btnExtra btn btn-success col-2">
+                                        rijst
+                                    </button>
+                                    <button data-dismiss="modal" th:onclick="'addExtraToTicketItem(\'friet\',\''+${ticket.ticketNr}+'\',\''+${item.item.quicklink}+'\',\''+${ticket.tableNr}+'\')'" type="button" class="btnExtra btn btn-success col-2">
+                                        friet
+                                    </button>
+                                    <button data-dismiss="modal" th:onclick="'addExtraToTicketItem(\'nasi\',\''+${ticket.ticketNr}+'\',\''+${item.item.quicklink}+'\',\''+${ticket.tableNr}+'\')'" type="button" class="btnExtra btn btn-success col-2">
+                                        nasi
+                                    </button>
+                                    <button data-dismiss="modal" th:onclick="'addExtraToTicketItem(\'bami\',\''+${ticket.ticketNr}+'\',\''+${item.item.quicklink}+'\',\''+${ticket.tableNr}+'\')'" type="button" class="btnExtra btn btn-success col-2">
+                                        bami
+                                    </button>
+                                    <button data-dismiss="modal" th:onclick="'addExtraToTicketItem(\'mihoen\',\''+${ticket.ticketNr}+'\',\''+${item.item.quicklink}+'\',\''+${ticket.tableNr}+'\')'" type="button" class="btnExtra btn btn-success col-2">
+                                        mihoen
+                                    </button>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -46,11 +61,20 @@
 
             </td>
             <td class="text-center" th:text="${item.item.quicklink}"></td>
-            <td th:text="${item.item.name}"></td>
-            <td class="text-center" th:text="${item.count}"></td>
+            <td>
+                <div>
+                    <span th:text="${item.item.name}"></span>
+                    <div th:if="${item.extras}!=null" th:each="extra : ${item.extras}">
+                        <div th:text="${extra.name}" class="bg-warning text-white col-2 text-center" style="float: left; margin-right: 1px"></div>
+                    </div>
+                    <div th:if="${item.extras}==null"></div>
+                </div>
+            </td>
+            <td th:id="'itemCount'+${ticket.ticketNr}+'_'+${item.item.quicklink}" class="text-center" th:text="${item.count}"></td>
             <td class="text-center" th:text="${item.totalPrice}"></td>
         </tr>
         <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>

@@ -51,7 +51,7 @@
     <div class="row" id="restaurantTables">
         <!--/*@thymesVar id="tables" type="be.linyang.kassa.Model.Table"*/-->
         <div th:id="'restaurantTable'+${table.tableNr}" class="col-xs-12 col-sm-12 col-md-12 col-lg-6 restaurantTable" th:each="table : ${tables}">
-            <button class="btn btn-success btn-lg btn-block" type="button" th:text="'Tafel '+${table.tableNr}" data-toggle="collapse" th:attr="data-target='#table'+${table.tableNr},aria-controls='#table'+${table.tableNr},data-parent='#restaurantTables'"  aria-expanded="false"></button>
+            <button class="btn btn-success btn-lg btn-block tableBtn" type="button" th:text="'Tafel '+${table.tableNr}" data-toggle="collapse" th:attr="data-target='#table'+${table.tableNr},aria-controls='#table'+${table.tableNr},data-parent='#restaurantTables'" aria-expanded="false"></button>
             <div class="collapse" th:attr="id='table'+${table.tableNr}">
                 <div class="card card-block ticket">
                     <div th:id="'tableContent' + ${table.tableNr}">

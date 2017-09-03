@@ -3,6 +3,7 @@ package be.linyang.kassa;
 
 import be.linyang.kassa.Model.Table;
 import be.linyang.kassa.Model.TicketItem;
+import be.linyang.kassa.Model.items.Extra;
 import be.linyang.kassa.Model.items.Item;
 import be.linyang.kassa.Model.ticket.Ticket;
 import be.linyang.kassa.Repository.MongoRepo;
@@ -19,6 +20,7 @@ public class RestoManager {
     @Autowired
     private MongoRepo mongoRepo;
 
+    private List<Extra> extras;
     private List<Item> items;
     private List<Table> tables;
     private List<Ticket> ticketsToday;
@@ -35,6 +37,7 @@ public class RestoManager {
     public List<Item> getItems() { return this.items;}
 
     private void loadData() {
+        extras = mongoRepo.findAllExtra();
         tables = mongoRepo.findAllTables();
         items = mongoRepo.findAllItems();
         ticketsToday = mongoRepo.findAllTicketByDate(LocalDate.now());
@@ -53,6 +56,28 @@ public class RestoManager {
         return ticket;
     }
 
+    public Ticket addExtraToItem(String ticketNr, String quicklink, String extra) {
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        TicketItem ticketItem = ticket.getItems().stream()
+                .filter(t -> t.getItem().getQuicklink().equals(quicklink))
+                .findFirst()
+                .orElse(null);
+
+        Extra extraToAdd = extras.stream()
+                .filter(e -> e.getName().equals(extra))
+                .findFirst()
+                .orElse(null);
+
+        if (ticketItem == null || extraToAdd == null)
+            return null;
+        else {
+            ticketItem.addExtra(extraToAdd);
+            mongoRepo.saveTicketItem(ticketItem);
+            return ticket;
+        }
+
+    }
+
     public Ticket getTicketByNr(String ticketNr) {
         return mongoRepo.findTicketByNr(ticketNr);
     }
@@ -62,10 +87,7 @@ public class RestoManager {
     }
 
     public Ticket addItemToTicket(String ticketNr, String itemQL) {
-        Ticket ticket = ticketsToday.stream()
-                .filter(t -> t.getTicketNr().equals(ticketNr))
-                .findFirst()
-                .orElse(null);
+        Ticket ticket = findTodayTicketByNr(ticketNr);
         if (ticket == null)
             return null;
         Item item = items.stream()
@@ -92,5 +114,12 @@ public class RestoManager {
         }
 
         return ticket;
+    }
+
+    private Ticket findTodayTicketByNr(String ticketNr) {
+        return ticketsToday.stream()
+                .filter(t -> t.getTicketNr().equals(ticketNr))
+                .findFirst()
+                .orElse(null);
     }
 }

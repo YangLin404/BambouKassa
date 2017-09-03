@@ -57,8 +57,18 @@ public class RestaurantController {
     }
 
     @PostMapping(value = "/restaurant/addItemToTicket/{ticketNr}")
-    public String addItemToTicket(Model model, @PathVariable("ticketNr") String ticketNr, @RequestParam("itemQL") String itemQL) {
-        Ticket ticket = restoManager.addItemToTicket(ticketNr, itemQL);
+    public String addItemToTicket(Model model, @PathVariable("ticketNr") String ticketNr, @RequestParam("quicklink") String quicklink) {
+        Ticket ticket = restoManager.addItemToTicket(ticketNr, quicklink);
+        model.addAttribute("ticket", ticket);
+
+        return "/fragments/ticket :: ticket";
+    }
+
+    @PostMapping(value = "/restaurant/{ticketNr}/{quicklink}/AddExtraToItem")
+    public String addExtraToItem(Model model, @PathVariable("ticketNr") String ticketNr,
+                                 @PathVariable("quicklink") String quicklink,
+                                 @RequestParam("extra") String extra) {
+        Ticket ticket = restoManager.addExtraToItem(ticketNr,quicklink,extra);
         model.addAttribute("ticket", ticket);
 
         return "/fragments/ticket :: ticket";

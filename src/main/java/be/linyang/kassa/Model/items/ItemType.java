@@ -1,5 +1,5 @@
 package be.linyang.kassa.Model.items;
 
-public enum  Type {
+public enum ItemType {
     Drink, MainDishe, Soup, Entree
 }
