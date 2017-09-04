@@ -76,6 +76,10 @@ function createTicket(tableNr) {
     })
 }
 
+function payTicket(ticketNr, tableNr) {
+
+}
+
 function initTable() {
     $.get("/restaurant/getTables", function (data){
         console.log(data);

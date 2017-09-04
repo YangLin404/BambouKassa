@@ -79,6 +79,12 @@ public class RestoManager {
         return ticket;
     }
 
+    public Ticket payTicket(String ticketNr) {
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        ticket.payTicket();
+        return ticket;
+    }
+
     public Ticket getTicketByNr(String ticketNr) {
         return mongoRepo.findTicketByNr(ticketNr);
     }

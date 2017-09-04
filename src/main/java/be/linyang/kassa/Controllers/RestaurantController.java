@@ -74,4 +74,11 @@ public class RestaurantController {
 
         return "/fragments/ticket :: ticket";
     }
+
+    @PostMapping(value = "/restaurant/{ticketNr}/pay")
+	public String payTicket(Model model, @PathVariable("ticketNr") String ticketNr) {
+    	Ticket ticket = restoManager.payTicket(ticketNr);
+    	model.addAttribute("ticket", ticket);
+    	return "/fragments/ticket :: ticket";
+    }
 }

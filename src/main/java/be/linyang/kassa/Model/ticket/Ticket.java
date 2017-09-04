@@ -119,6 +119,10 @@ public class Ticket {
         this.tableNr = tableNr;
     }
 
+    public void payTicket() {
+        this.setStatus(Status.PAID);
+    }
+
     public double getTotalPrice()
     {
         if (this.items == null)
