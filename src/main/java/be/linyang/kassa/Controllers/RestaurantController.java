@@ -76,9 +76,10 @@ public class RestaurantController {
     }
 
     @PostMapping(value = "/restaurant/{ticketNr}/pay")
-	public String payTicket(Model model, @PathVariable("ticketNr") String ticketNr) {
+    @ResponseBody
+	public boolean payTicket(Model model, @PathVariable("ticketNr") String ticketNr) {
     	Ticket ticket = restoManager.payTicket(ticketNr);
     	model.addAttribute("ticket", ticket);
-    	return "/fragments/ticket :: ticket";
+    	return true;
     }
 }

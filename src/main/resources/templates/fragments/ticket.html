@@ -78,8 +78,7 @@
             <td></td>
             <td></td>
             <td>
-	            <button th:onclick="'payTicket(\''+${ticket.ticketNr}+'\',\''+${ticket.tableNr}+'\')'" class="btn btn-warning btn-block btn-lg col-6" style="float: left">Betalen</button>
-	            <button th:id="'payTicketModalBtn'+${ticket.ticketNr}" type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:attr="data-target='#payModal'+${ticket.ticketNr}">
+	            <button th:id="'payTicketModalBtn'+${ticket.ticketNr}" type="button" class="btn btn-warning btn-lg btn-block" data-toggle="modal" th:attr="data-target='#payModal'+${ticket.ticketNr}">
 		            Betalen
 	            </button>
 	            <!-- Modal -->
@@ -93,9 +92,17 @@
 					            </button>
 				            </div>
 				            <div class="modal-body">
-					            <h1>Te Betalen: <span class="badge badge-default">New</span></h1>
+					            <h1>Te Betalen: <span class="badge badge-default" th:id="'amountToPay'+${ticket.ticketNr}" th:text="${ticket.totalPrice}"></span></h1>
+                                <form class="form-control">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">€</div>
+                                        <input type="number" th:id="'payAmount'+${ticket.ticketNr}" th:onkeyup="'payAmountChanged(\''+${ticket.ticketNr}+'\')'"/>
+                                    </div>
+                                </form>
+                                <h2>Terug te geven: <span th:id="'payBackAmount'+${ticket.ticketNr}" class="badge badge-success"></span></h2>
 				            </div>
 				            <div class="modal-footer">
+                                <button th:onclick="'payTicket(\''+${ticket.ticketNr}+'\',\''+${ticket.tableNr}+'\')'" class="btn btn-primary" data-dismiss="modal">Betalen</button>
 					            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				            </div>
 			            </div>

@@ -82,6 +82,7 @@ public class RestoManager {
     public Ticket payTicket(String ticketNr) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         ticket.payTicket();
+        mongoRepo.saveTicket(ticket);
         return ticket;
     }
 
@@ -90,7 +91,12 @@ public class RestoManager {
     }
 
     public Ticket getActiveTicketOfTable(String tableNr) {
-        return mongoRepo.findActiveTicketByTable(tableNr);
+        return ticketsToday.stream()
+                .filter(t -> t.getTableNr().equals(tableNr))
+                .filter(t -> t.getStatus().equals(Ticket.Status.ACTIVE))
+                .findFirst()
+                .orElse(null);
+
     }
 
     public Ticket addItemToTicket(String ticketNr, String itemQL) {

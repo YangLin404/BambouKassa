@@ -77,12 +77,21 @@ function createTicket(tableNr) {
 }
 
 function payTicket(ticketNr, tableNr) {
+    $('#payModal'+ticketNr).on('hidden.bs.modal', function (e) {
+        $.post("/restaurant/" + ticketNr + "/pay", function (data) {
+            retrieveTicket(tableNr);
+        });
+    });
+}
 
+function payAmountChanged(ticketNr) {
+    var amountToPay = $("#amountToPay" + ticketNr).text();
+    var payAmount = $("#payAmount" + ticketNr).val();
+    $("#payBackAmount" + ticketNr).text('€ ' + ((payAmount - amountToPay).toFixed(2)));
 }
 
 function initTable() {
     $.get("/restaurant/getTables", function (data){
-        console.log(data);
         data.forEach(t => {
             $("#table"+t.tableNr).on('show.bs.collapse', function () {
                 retrieveTicket(t.tableNr);
