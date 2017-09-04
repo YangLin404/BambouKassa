@@ -11,7 +11,6 @@ function addExtraToTicketItem(extra, ticketNr, quicklink, tableNr) {
     $('#modal'+ticketNr+'_'+quicklink).on('hidden.bs.modal', function (e) {
         $.post("/restaurant/"+ticketNr+"/"+quicklink+"/AddExtraToItem?extra="+extra, function (data, status) {
             $("#tableContent"+tableNr).empty().append(data);
-            console.log(data);
             $("#inputTicket" + ticketNr).focus();
             $("#btnAddItem" + ticketNr).click(function () {
                 var itemQL = $("#inputTicket" + ticketNr).val();

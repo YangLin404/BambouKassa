@@ -95,5 +95,16 @@ public class TicketItem {
                 .doubleValue();
     }
 
+    public boolean isMaxExtra() {
+        return this.extras.size() == count;
+    }
+
+    public void replaceLastExtra(Extra extra) {
+        if (this.extras.size() > 0) {
+            this.extras.remove(this.extras.size() - 1);
+            this.addExtra(extra);
+        }
+    }
+
 
 }

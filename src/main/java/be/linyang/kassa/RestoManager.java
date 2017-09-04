@@ -62,20 +62,21 @@ public class RestoManager {
                 .filter(t -> t.getItem().getQuicklink().equals(quicklink))
                 .findFirst()
                 .orElse(null);
-
         Extra extraToAdd = extras.stream()
                 .filter(e -> e.getName().equals(extra))
                 .findFirst()
                 .orElse(null);
-
-        if (ticketItem == null || extraToAdd == null)
-            return null;
-        else {
-            ticketItem.addExtra(extraToAdd);
-            mongoRepo.saveTicketItem(ticketItem);
-            return ticket;
+        if (ticketItem.isMaxExtra()) {
+            ticketItem.replaceLastExtra(extraToAdd);
+        } else {
+            if (ticketItem == null || extraToAdd == null)
+                return null;
+            else {
+                ticketItem.addExtra(extraToAdd);
+                mongoRepo.saveTicketItem(ticketItem);
+            }
         }
-
+        return ticket;
     }
 
     public Ticket getTicketByNr(String ticketNr) {

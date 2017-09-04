@@ -17,7 +17,6 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-@DependsOn("embeddedMongo")
 @Repository
 public class MongoRepo {
 

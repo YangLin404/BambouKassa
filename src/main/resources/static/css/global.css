@@ -6,8 +6,9 @@
     width: 100%;
 }
 
-.ticket > .total {
-    font-size: 0.9em;
+.total {
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .restaurantTable {
@@ -16,4 +17,8 @@
 
 .navbar {
     margin-bottom: 10px;
+}
+
+.itemExtra {
+    font-size: 20px;
 }

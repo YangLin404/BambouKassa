@@ -68,6 +68,7 @@ public class RestaurantController {
     public String addExtraToItem(Model model, @PathVariable("ticketNr") String ticketNr,
                                  @PathVariable("quicklink") String quicklink,
                                  @RequestParam("extra") String extra) {
+
         Ticket ticket = restoManager.addExtraToItem(ticketNr,quicklink,extra);
         model.addAttribute("ticket", ticket);
 

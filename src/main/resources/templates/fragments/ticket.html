@@ -64,21 +64,23 @@
             <td>
                 <div>
                     <span th:text="${item.item.name}"></span>
-                    <div th:if="${item.extras}!=null" th:each="extra : ${item.extras}">
-                        <div th:text="${extra.name}" class="bg-warning text-white col-2 text-center" style="float: left; margin-right: 1px"></div>
+                    <div class="itemExtra" th:if="${item.extras}!=null" th:each="extra : ${item.extras}">
+                        <div th:text="${extra.name}" class="badge badge-pill badge-info" style="float: left; margin-right: 1px"></div>
                     </div>
                     <div th:if="${item.extras}==null"></div>
                 </div>
             </td>
             <td th:id="'itemCount'+${ticket.ticketNr}+'_'+${item.item.quicklink}" class="text-center" th:text="${item.count}"></td>
-            <td class="text-center" th:text="${item.totalPrice}"></td>
+            <td class="text-center" th:text="'€ ' + ${item.totalPrice}"></td>
         </tr>
         <tr>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td class="text-center bg-primary text-white total" th:text="${ticket.totalPrice}"></td>
+            <td>
+	            <button class="btn btn-warning btn-block btn-lg col-6" style="float: left">Betalen</button>
+            </td>
+            <td class="text-center bg-primary text-white total" th:text="'€ ' + ${ticket.totalPrice}"></td>
         </tr>
         </tbody>
 
