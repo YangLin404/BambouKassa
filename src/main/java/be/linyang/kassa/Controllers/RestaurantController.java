@@ -29,9 +29,9 @@ public class RestaurantController {
         Ticket ticketToShow = restoManager.getActiveTicketOfTable(ticketNr);
         if (ticketToShow != null) {
             model.addAttribute("ticket", ticketToShow);
-            return "/fragments/ticket :: ticket";
+            return "fragments/ticket :: ticket";
         }
-        return "/fragments/ticket :: newTicketBtn";
+        return "fragments/ticket :: newTicketBtn";
     }
 
     @GetMapping(value = "/restaurant/getTables", produces = "application/json")
@@ -53,7 +53,7 @@ public class RestaurantController {
         ticket.setTableNr(tableNr);
         Ticket createdTicket = restoManager.createTicket(ticket);
         model.addAttribute("ticket",createdTicket);
-        return "/fragments/ticket :: ticket";
+        return "fragments/ticket :: ticket";
     }
 
     @PostMapping(value = "/restaurant/addItemToTicket/{ticketNr}")
@@ -61,7 +61,7 @@ public class RestaurantController {
         Ticket ticket = restoManager.addItemToTicket(ticketNr, quicklink);
         model.addAttribute("ticket", ticket);
 
-        return "/fragments/ticket :: ticket";
+        return "fragments/ticket :: ticket";
     }
 
     @PostMapping(value = "/restaurant/{ticketNr}/{quicklink}/AddExtraToItem")
@@ -72,7 +72,7 @@ public class RestaurantController {
         Ticket ticket = restoManager.addExtraToItem(ticketNr,quicklink,extra);
         model.addAttribute("ticket", ticket);
 
-        return "/fragments/ticket :: ticket";
+        return "fragments/ticket :: ticket";
     }
 
     @PostMapping(value = "/restaurant/{ticketNr}/pay")
