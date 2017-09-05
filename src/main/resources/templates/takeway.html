@@ -3,7 +3,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/global.js}"></script>
-    <script type="text/javascript" th:src="@{/js/resto.js}"></script>
+    <script type="text/javascript" th:src="@{/js/takeway.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery.typeahead.js}"></script>
     <link rel="stylesheet" type="text/css" media="all"
           href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
@@ -33,10 +33,10 @@
                 <a class="nav-link" href="/">Home </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Restaurant <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="restaurant.html">Restaurant</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="takeway.html">meenemen</a>
+                <a class="nav-link " href="#">meenemen<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="#">configuration</a>
@@ -48,18 +48,29 @@
         </form>
     </div>
 </nav>
+
+
 <div class="container-fluid">
-    <div class="row" id="restaurantTables">
-        <!--/*@thymesVar id="tables" type="be.linyang.kassa.Model.Table"*/-->
-        <div th:id="'restaurantTable'+${table.tableNr}" class="col-xs-12 col-sm-12 col-md-12 col-lg-6 restaurantTable" th:each="table : ${tables}">
-            <button class="btn btn-success btn-lg btn-block tableBtn" type="button" th:text="'Tafel '+${table.tableNr}" data-toggle="collapse" th:attr="data-target='#table'+${table.tableNr},aria-controls='#table'+${table.tableNr},data-parent='#restaurantTables'" aria-expanded="false"></button>
-            <div class="collapse" th:attr="id='table'+${table.tableNr}">
+    <div class="row" id="takewayTicketsContainer">
+        <div th:id="'takewayTicketContent'+${ticket.ticketNr}" class="col-xs-12 col-sm-12 col-md-12 col-lg-6" th:each="ticket : ${tickets}">
+            <button class="btn btn-info btn-block tableBtn" type="button" data-toggle="collapse" th:attr="data-target='#ticket'+${ticket.ticketNr},aria-controls='#ticket'+${ticket.tableNr},data-parent='#takewayTicketContent'+${ticket.ticketNr}" aria-expanded="false" th:onclick="'retrieveTicket(\''+${ticket.ticketNr}+'\')'">
+                <div class="d-flex flex-row justify-content-between">
+                    <div class="p-2" th:text="'Nr:' + ${ticket.ticketNr}"></div>
+                    <div class="p-2" th:text="${ticket.name}" ></div>
+                    <div class="p-2" th:text="'Uur:' + ${ticket.time}"></div>
+                    <div class="p-2" th:text="'Total: €' + ${ticket.totalPrice}"></div>
+                </div>
+            </button>
+            <div class="collapse" th:attr="id='ticket'+${ticket.ticketNr}">
                 <div class="card card-block ticket">
-                    <div th:id="'tableContent' + ${table.tableNr}">
+                    <div th:id="'ticketContent' + ${ticket.ticketNr}">
 
                     </div>
                 </div>
             </div>
+        </div>
+        <div>
+            <button class="btn btn-primary">New ticket</button>
         </div>
     </div>
 </div>

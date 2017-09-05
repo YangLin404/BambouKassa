@@ -93,8 +93,12 @@ public class MongoRepo {
         List<TicketItem> ticketItems2 = new LinkedList<>();
         ticketItems2.add(ticketItem3);
 
+        List<TicketItem> ticketItems3 = new LinkedList<>();
+        ticketItems3.add(ticketItem1);
+
         datastore.save(ticketItems);
         datastore.save(ticketItems2);
+        datastore.save(ticketItems3);
 
         Ticket ticket = new Ticket();
         ticket.setItems(ticketItems);
@@ -106,8 +110,14 @@ public class MongoRepo {
         ticket2.setTicketNr(2);
         ticket2.setTableNr(tables.get(1).getTableNr());
 
+        Ticket ticket3 = new Ticket();
+        ticket3.setItems(ticketItems3);
+        ticket3.setTicketNr(3);
+        ticket3.setName("Jan");
+
         datastore.save(ticket);
         datastore.save(ticket2);
+        datastore.save(ticket3);
 
 
     }

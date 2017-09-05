@@ -25,13 +25,20 @@ public class RestaurantController {
     }
 
     @RequestMapping(value = "/restaurant/{tableNr}", method = RequestMethod.GET)
-    public String showTicket(Model model, @PathVariable("tableNr") String ticketNr){
-        Ticket ticketToShow = restoManager.getActiveTicketOfTable(ticketNr);
+    public String showTicket(Model model, @PathVariable("tableNr") String tableNr){
+        Ticket ticketToShow = restoManager.getActiveTicketOfTable(tableNr);
         if (ticketToShow != null) {
             model.addAttribute("ticket", ticketToShow);
             return "fragments/ticket :: ticket";
         }
         return "fragments/ticket :: newTicketBtn";
+    }
+
+    @GetMapping(value = "/takeway/{ticketNr}")
+    public String showTicket(Model model, @PathVariable("ticketNr") int ticketNr) {
+        Ticket ticketToShow = restoManager.findTodayTicketByNr(ticketNr);
+        model.addAttribute("ticket", ticketToShow);
+        return "fragments/ticket :: ticket";
     }
 
     @GetMapping(value = "/restaurant/getTables", produces = "application/json")
@@ -58,7 +65,7 @@ public class RestaurantController {
 
     @PostMapping(value = "/restaurant/addItemToTicket/{ticketNr}")
     public String addItemToTicket(Model model, @PathVariable("ticketNr") String ticketNr, @RequestParam("quicklink") String quicklink) {
-        Ticket ticket = restoManager.addItemToTicket(ticketNr, quicklink);
+        Ticket ticket = restoManager.addItemToTicket(Integer.valueOf(ticketNr), quicklink);
         model.addAttribute("ticket", ticket);
 
         return "fragments/ticket :: ticket";
@@ -69,7 +76,7 @@ public class RestaurantController {
                                  @PathVariable("quicklink") String quicklink,
                                  @RequestParam("extra") String extra) {
 
-        Ticket ticket = restoManager.addExtraToItem(ticketNr,quicklink,extra);
+        Ticket ticket = restoManager.addExtraToItem(Integer.valueOf(ticketNr),quicklink,extra);
         model.addAttribute("ticket", ticket);
 
         return "fragments/ticket :: ticket";
@@ -79,8 +86,15 @@ public class RestaurantController {
     @ResponseBody
 	public boolean payTicket(Model model, @PathVariable("ticketNr") String ticketNr,
                              @RequestParam("payMethod") String payMethod) {
-    	Ticket ticket = restoManager.payTicket(ticketNr, payMethod);
+    	Ticket ticket = restoManager.payTicket(Integer.valueOf(ticketNr), payMethod);
     	model.addAttribute("ticket", ticket);
     	return true;
+    }
+
+    @RequestMapping("/takeway")
+    public String takeway(Model model) {
+        model.addAttribute("tickets", restoManager.getTodaysTakewayTicket());
+
+        return "takeway";
     }
 }

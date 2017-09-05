@@ -5,20 +5,24 @@ import be.linyang.kassa.Model.items.Item;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.NotSaved;
 import org.mongodb.morphia.annotations.Reference;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
 @Entity("tickets")
 public class Ticket {
+    @NotSaved
+    final private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     @Id
     private ObjectId id;
 
-    private String ticketNr;
+    private int ticketNr;
 
     private String name;
 
@@ -37,10 +41,11 @@ public class Ticket {
     public Ticket()
     {
         this.date = LocalDate.now().toString();
-        this.time = LocalTime.now().toString();
+        this.time = LocalTime.now().format(timeFormatter);
         this.status = Status.ACTIVE;
         this.items = new LinkedList<>();
         this.payMethod = PayMethod.Cash;
+        this.tableNr = "";
     }
 
     public Ticket(String date, List<TicketItem> items) {
@@ -57,7 +62,7 @@ public class Ticket {
         this.name = name;
     }
 
-    public Ticket(String ticketNr, String name, List<TicketItem> items, String tableNr) {
+    public Ticket(int ticketNr, String name, List<TicketItem> items, String tableNr) {
         this();
         this.ticketNr = ticketNr;
         this.name = name;
@@ -89,7 +94,7 @@ public class Ticket {
         this.items = items;
     }
 
-    public String getTicketNr() {
+    public int getTicketNr() {
         return ticketNr;
     }
 
@@ -98,7 +103,7 @@ public class Ticket {
     }
 
     public void setTicketNr(int ticketNr) {
-        this.ticketNr = this.date + "_" + ticketNr;
+         this.ticketNr = ticketNr;
     }
 
     public void setTime(String time) {
@@ -154,6 +159,11 @@ public class Ticket {
     public void setPayMethod(PayMethod payMethod) {
         this.payMethod = payMethod;
     }
+
+    public boolean isTakeway() {
+        return this.tableNr.isEmpty();
+    }
+
 
     public enum Status{
         ACTIVE,PAID;

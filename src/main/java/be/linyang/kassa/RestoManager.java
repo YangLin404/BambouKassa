@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RestoManager {
@@ -33,6 +34,12 @@ public class RestoManager {
 
     public List<Table> getTables() {
         return this.tables;
+    }
+
+    public List<Ticket> getTodaysTakewayTicket() {
+        return ticketsToday.stream()
+                .filter(Ticket::isTakeway)
+                .collect(Collectors.toList());
     }
 
     public List<Item> getItems() { return this.items;}
@@ -57,7 +64,7 @@ public class RestoManager {
         return ticket;
     }
 
-    public Ticket addExtraToItem(String ticketNr, String quicklink, String extra) {
+    public Ticket addExtraToItem(int ticketNr, String quicklink, String extra) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         TicketItem ticketItem = ticket.getItems().stream()
                 .filter(t -> t.getItem().getQuicklink().equals(quicklink))
@@ -80,7 +87,7 @@ public class RestoManager {
         return ticket;
     }
 
-    public Ticket payTicket(String ticketNr, String payMethod) {
+    public Ticket payTicket(int ticketNr, String payMethod) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         ticket.payTicket(PayMethod.valueOf(payMethod));
         mongoRepo.saveTicket(ticket);
@@ -100,7 +107,7 @@ public class RestoManager {
 
     }
 
-    public Ticket addItemToTicket(String ticketNr, String itemQL) {
+    public Ticket addItemToTicket(int ticketNr, String itemQL) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         if (ticket == null)
             return null;
@@ -130,9 +137,9 @@ public class RestoManager {
         return ticket;
     }
 
-    private Ticket findTodayTicketByNr(String ticketNr) {
+    public Ticket findTodayTicketByNr(int ticketNr) {
         return ticketsToday.stream()
-                .filter(t -> t.getTicketNr().equals(ticketNr))
+                .filter(t -> t.getTicketNr() == ticketNr)
                 .findFirst()
                 .orElse(null);
     }
