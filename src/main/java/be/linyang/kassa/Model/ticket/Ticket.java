@@ -26,6 +26,7 @@ public class Ticket {
     private String time;
 
     private Status status;
+    private PayMethod payMethod;
 
     @Reference
     private List<TicketItem> items;
@@ -39,6 +40,7 @@ public class Ticket {
         this.time = LocalTime.now().toString();
         this.status = Status.ACTIVE;
         this.items = new LinkedList<>();
+        this.payMethod = PayMethod.Cash;
     }
 
     public Ticket(String date, List<TicketItem> items) {
@@ -119,8 +121,9 @@ public class Ticket {
         this.tableNr = tableNr;
     }
 
-    public void payTicket() {
+    public void payTicket(PayMethod payMethod) {
         this.setStatus(Status.PAID);
+        this.setPayMethod(payMethod);
     }
 
     public double getTotalPrice()
@@ -144,8 +147,12 @@ public class Ticket {
         return tableNr;
     }
 
-    public void addItemToTicket(Item item) {
+    public PayMethod getPayMethod() {
+        return payMethod;
+    }
 
+    public void setPayMethod(PayMethod payMethod) {
+        this.payMethod = payMethod;
     }
 
     public enum Status{

@@ -97,12 +97,13 @@
                                     <div class="input-group">
                                         <div class="input-group-addon">€</div>
                                         <input type="number" th:id="'payAmount'+${ticket.ticketNr}" th:onkeyup="'payAmountChanged(\''+${ticket.ticketNr}+'\')'"/>
+                                        <button class="btn btn-success" th:onclick="'payTicket(\''+${ticket.ticketNr}+'\',\''+${ticket.tableNr}+'\',\'Card\')'" data-dismiss="modal">Card</button>
                                     </div>
                                 </form>
                                 <h2>Terug te geven: <span th:id="'payBackAmount'+${ticket.ticketNr}" class="badge badge-success"></span></h2>
 				            </div>
 				            <div class="modal-footer">
-                                <button th:onclick="'payTicket(\''+${ticket.ticketNr}+'\',\''+${ticket.tableNr}+'\')'" class="btn btn-primary" data-dismiss="modal">Betalen</button>
+                                <button th:onclick="'payTicket(\''+${ticket.ticketNr}+'\',\''+${ticket.tableNr}+'\',\'Cash\')'" class="btn btn-primary" data-dismiss="modal">Betalen</button>
 					            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				            </div>
 			            </div>

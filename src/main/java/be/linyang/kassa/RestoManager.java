@@ -5,6 +5,7 @@ import be.linyang.kassa.Model.Table;
 import be.linyang.kassa.Model.TicketItem;
 import be.linyang.kassa.Model.items.Extra;
 import be.linyang.kassa.Model.items.Item;
+import be.linyang.kassa.Model.ticket.PayMethod;
 import be.linyang.kassa.Model.ticket.Ticket;
 import be.linyang.kassa.Repository.MongoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,9 +80,9 @@ public class RestoManager {
         return ticket;
     }
 
-    public Ticket payTicket(String ticketNr) {
+    public Ticket payTicket(String ticketNr, String payMethod) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
-        ticket.payTicket();
+        ticket.payTicket(PayMethod.valueOf(payMethod));
         mongoRepo.saveTicket(ticket);
         return ticket;
     }
