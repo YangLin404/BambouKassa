@@ -32,10 +32,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="restaurant.html">Restaurant</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link " href="#">meenemen<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -49,19 +49,22 @@
     </div>
 </nav>
 
-
 <div class="container-fluid">
     <div class="row" id="takewayTicketsContainer">
-        <div th:id="'takewayTicketContent'+${ticket.ticketNr}" class="col-xs-12 col-sm-12 col-md-12 col-lg-6" th:each="ticket : ${tickets}">
+        <div th:id="'takewayTicketContent'+${ticket.ticketNr}" class="ticketContent col-xs-12 col-sm-12 col-md-12 col-lg-6" th:each="ticket : ${tickets}">
             <button class="btn btn-info btn-block tableBtn" type="button" data-toggle="collapse" th:attr="data-target='#ticket'+${ticket.ticketNr},aria-controls='#ticket'+${ticket.tableNr},data-parent='#takewayTicketContent'+${ticket.ticketNr}" aria-expanded="false" th:onclick="'retrieveTicket(\''+${ticket.ticketNr}+'\')'">
                 <div class="d-flex flex-row justify-content-between">
                     <div class="p-2" th:text="'Nr:' + ${ticket.ticketNr}"></div>
-                    <div class="p-2" th:text="${ticket.name}" ></div>
-                    <div class="p-2" th:text="'Uur:' + ${ticket.time}"></div>
-                    <div class="p-2" th:text="'Total: €' + ${ticket.totalPrice}"></div>
+                    <div class="p-2" th:id="'ticketNameLabel'+${ticket.ticketNr}" th:text="${ticket.name}"></div>
+                    <div class="p-2" th:id="'ticketTimeLabel'+${ticket.ticketNr}" th:text="'Uur:' + ${ticket.time}"></div>
+                    <div class="p-2" th:inline="text" th:text="'Total: €' + ${ticket.totalPrice}"></div>
+                    <div class="p-2 bg-success text-white" th:if="${ticket.isPaid()}">betaald</div>
                 </div>
             </button>
             <div class="collapse" th:attr="id='ticket'+${ticket.ticketNr}">
+                <div class="card card-block">
+                    <button class="btn btn-warning col-4" type="button" data-toggle="modal" data-target="#myModal" th:attr="data-name=${ticket.name}, data-time=${ticket.time}, data-ticketnr=${ticket.ticketNr}">Edit</button>
+                </div>
                 <div class="card card-block ticket">
                     <div th:id="'ticketContent' + ${ticket.ticketNr}">
 
@@ -69,8 +72,36 @@
                 </div>
             </div>
         </div>
-        <div>
-            <button class="btn btn-primary">New ticket</button>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">pas aan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="client-name" class="form-control-label">name:</label>
+                                <input type="text" class="form-control" id="client-name" name="client-name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="ticket-time" class="form-control-label">tijd:</label>
+                                <input type="time" class="form-control" id="ticket-time" name="ticket-time"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button data-dismiss="modal" name="save" type="button" class="btn btn-primary">bewaar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ticketContent col-6">
+            <button class="btn btn-primary btn-lg btn-block" id="newTicket">New ticket</button>
         </div>
     </div>
 </div>

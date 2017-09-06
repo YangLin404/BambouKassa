@@ -36,3 +36,52 @@ function retrieveTicket(tableNr) {
         }
     })
 }
+
+function addItemToTicket(elem) {
+    event.preventDefault();
+
+    var ticketNr = $(elem).val();
+    var inputElem = $("#inputTicket"+ticketNr);
+    var tableContent = inputElem.closest("[id^=tableContent]");
+    if (!inputElem.val()) {
+
+    } else {
+        var quicklink = inputElem.val();
+        var postUrl = "/restaurant/addItemToTicket/"+ticketNr+"?quicklink="+quicklink;
+        $.post(postUrl, function (data, status) {
+            tableContent.empty().append(data);
+            $("#inputTicket" + ticketNr).focus();
+            $("#btnAddItem" + ticketNr).click(function () {
+                var itemQL = $("#inputTicket" + ticketNr).val();
+                addItemToTicket(ticketNr,itemQL);
+            });
+            if (doesItemNeedExtra(quicklink)) {
+                $("#btnExtra"+ticketNr+'_'+quicklink).trigger("click");
+            }
+            initTypeahead();
+        })
+    }
+}
+
+function addExtraToTicketItem(extra, ticketNr, quicklink, tableNr) {
+    $('#modal'+ticketNr+'_'+quicklink).on('hidden.bs.modal', function (e) {
+        $.post("/restaurant/"+ticketNr+"/"+quicklink+"/AddExtraToItem?extra="+extra, function (data, status) {
+            $("#tableContent"+tableNr).empty().append(data);
+            $("#inputTicket" + ticketNr).focus();
+            $("#btnAddItem" + ticketNr).click(function () {
+                var itemQL = $("#inputTicket" + ticketNr).val();
+                addItemToTicket(ticketNr,itemQL);
+            })
+            initTypeahead();
+        })
+    })
+}
+
+function payTicket(ticketNr, tableNr, payMethod) {
+    $('#payModal'+ticketNr).on('hidden.bs.modal', function (e) {
+        console.log(payMethod);
+        $.post("/restaurant/" + ticketNr + "/pay?payMethod="+ payMethod, function (data) {
+            retrieveTicket(tableNr);
+        });
+    });
+}

@@ -164,6 +164,10 @@ public class Ticket {
         return this.tableNr.isEmpty();
     }
 
+    public boolean isPaid() {
+        return this.status == Status.PAID;
+    }
+
 
     public enum Status{
         ACTIVE,PAID;

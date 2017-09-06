@@ -63,6 +63,24 @@ public class RestaurantController {
         return "fragments/ticket :: ticket";
     }
 
+    @PostMapping(value = "/takeway/createTicket")
+    @ResponseBody
+    public Ticket createTicket(Model model) {
+        Ticket ticket = restoManager.createTicket();
+        if (ticket != null)
+            return ticket;
+        return null;
+    }
+
+    @PostMapping(value = "/takeway/updateTicket/{ticketNr}")
+    @ResponseBody
+    public Ticket updateTicket(Model model, @PathVariable("ticketNr") int ticketNr,
+                               @RequestParam("name") String name,
+                               @RequestParam("time") String time) {
+        return restoManager.updateTicket(ticketNr,name,time);
+
+    }
+
     @PostMapping(value = "/restaurant/addItemToTicket/{ticketNr}")
     public String addItemToTicket(Model model, @PathVariable("ticketNr") String ticketNr, @RequestParam("quicklink") String quicklink) {
         Ticket ticket = restoManager.addItemToTicket(Integer.valueOf(ticketNr), quicklink);

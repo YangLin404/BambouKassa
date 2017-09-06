@@ -58,9 +58,25 @@ public class RestoManager {
                 .findFirst()
                 .get();
         this.ticketsToday.add(ticket);
-        ticket.setTicketNr(this.ticketsToday.size());
+        ticket.setTicketNr(this.ticketsToday.size()+1);
         mongoRepo.createTicket(ticket);
         table.setTicket(ticket);
+        return ticket;
+    }
+
+    public Ticket createTicket() {
+        Ticket ticket = new Ticket();
+        ticket.setTicketNr(ticketsToday.size()+1);
+        this.ticketsToday.add(ticket);
+        mongoRepo.createTicket(ticket);
+        return ticket;
+    }
+
+    public Ticket updateTicket(int ticketNr, String name, String time) {
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        ticket.setName(name);
+        ticket.setTime(time);
+        mongoRepo.saveTicket(ticket);
         return ticket;
     }
 
