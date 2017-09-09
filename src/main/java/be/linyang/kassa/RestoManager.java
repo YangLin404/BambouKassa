@@ -26,6 +26,7 @@ public class RestoManager {
     private List<Item> items;
     private List<Table> tables;
     private List<Ticket> ticketsToday;
+    private int ticketNrSequence;
 
     @PostConstruct
     private void init() {
@@ -49,6 +50,8 @@ public class RestoManager {
         tables = mongoRepo.findAllTables();
         items = mongoRepo.findAllItems();
         ticketsToday = mongoRepo.findAllTicketByDate(LocalDate.now());
+        ticketNrSequence = ticketsToday.size();
+
 
     }
 
@@ -58,7 +61,7 @@ public class RestoManager {
                 .findFirst()
                 .get();
         this.ticketsToday.add(ticket);
-        ticket.setTicketNr(this.ticketsToday.size()+1);
+        ticket.setTicketNr(++ticketNrSequence);
         mongoRepo.createTicket(ticket);
         table.setTicket(ticket);
         return ticket;
@@ -66,7 +69,7 @@ public class RestoManager {
 
     public Ticket createTicket() {
         Ticket ticket = new Ticket();
-        ticket.setTicketNr(ticketsToday.size()+1);
+        ticket.setTicketNr(++ticketNrSequence);
         this.ticketsToday.add(ticket);
         mongoRepo.createTicket(ticket);
         return ticket;
@@ -87,7 +90,7 @@ public class RestoManager {
                 .findFirst()
                 .orElse(null);
         Extra extraToAdd = extras.stream()
-                .filter(e -> e.getName().equals(extra))
+                .filter(e -> e.getName().toLowerCase().equals(extra.toLowerCase()))
                 .findFirst()
                 .orElse(null);
         if (ticketItem.isMaxExtra()) {
@@ -108,6 +111,16 @@ public class RestoManager {
         ticket.payTicket(PayMethod.valueOf(payMethod));
         mongoRepo.saveTicket(ticket);
         return ticket;
+    }
+
+    public boolean deleteTodayTicket(int ticketNr) {
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        if (ticket != null) {
+            mongoRepo.deleteTicket(ticket);
+            this.ticketsToday.remove(ticket);
+            return true;
+        } else
+            return false;
     }
 
     public Ticket getTicketByNr(String ticketNr) {

@@ -22,7 +22,7 @@
 </head>
 <body>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">Bambou</a>
@@ -63,7 +63,10 @@
             </button>
             <div class="collapse" th:attr="id='ticket'+${ticket.ticketNr}">
                 <div class="card card-block">
-                    <button class="btn btn-warning col-4" type="button" data-toggle="modal" data-target="#myModal" th:attr="data-name=${ticket.name}, data-time=${ticket.time}, data-ticketnr=${ticket.ticketNr}">Edit</button>
+                    <div class="form-inline">
+                        <button class="btn btn-warning col-2 mr-2" type="button" data-toggle="modal" data-target="#myModal" th:attr="data-name=${ticket.name}, data-time=${ticket.time}, data-ticketnr=${ticket.ticketNr}">Edit</button>
+                        <button class="btn btn-danger col-2" type="button" onclick="deleteTicket(this);" th:value="${ticket.ticketNr}">verwijderen</button>
+                    </div>
                 </div>
                 <div class="card card-block ticket">
                     <div th:id="'ticketContent' + ${ticket.ticketNr}">

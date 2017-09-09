@@ -18,7 +18,6 @@ function createTicket(tableNr) {
 
 function payTicket(ticketNr, tableNr, payMethod) {
     $('#payModal'+ticketNr).on('hidden.bs.modal', function (e) {
-        console.log(payMethod);
         $.post("/restaurant/" + ticketNr + "/pay?payMethod="+ payMethod, function (data) {
             retrieveTicket(tableNr);
         });
@@ -59,7 +58,6 @@ function initItems() {
             items[i].quicklink = data[i].quicklink;
             items[i].name = data[i].name;
             items[i].itemType = data[i].itemType;
-            console.log(items[i]);
         }
     })
 }

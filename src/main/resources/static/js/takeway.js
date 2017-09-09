@@ -40,7 +40,6 @@ function retrieveTicket(ticketNr) {
 
 function payTicket(ticketNr, tableNr, payMethod) {
     $('#payModal'+ticketNr).on('hidden.bs.modal', function (e) {
-        console.log(payMethod);
         $.post("/restaurant/" + ticketNr + "/pay?payMethod="+ payMethod, function (data) {
             retrieveTicket(ticketNr);
         });
@@ -87,6 +86,34 @@ function addExtraToTicketItem(extra, ticketNr, quicklink, tableNr) {
     })
 }
 
+function updateTicket(ticketNr, name, ticketTime) {
+    var paras = {
+        name:name,
+        time:ticketTime
+    };
+    var url = "/takeway/updateTicket/"+ticketNr+"?" + $.param(paras);
+    $.post(url, function (data) {
+        if (data !== null) {
+            var ticket = new Ticket();
+            ticket.name = data.name;
+            ticket.time = data.time;
+            ticket.ticketNr = data.ticketNr;
+            $('#ticketNameLabel' + ticket.ticketNr).text(ticket.name);
+            $('#ticketTimeLabel' + ticket.ticketNr).text(ticket.time);
+        }
+
+    })
+}
+
+function deleteTicket(elem) {
+    var ticketNr = $(elem).val();
+
+    $.post("/takeway/"+ticketNr+"/delete", function (data) {
+        location.reload(true);
+    })
+
+}
+
 function initModal() {
     $('#myModal').on('show.bs.modal', function(e) {
 
@@ -103,26 +130,6 @@ function initModal() {
             updateTicket(ticketNr, inputName.val(), inputTime.val());
         })
     });
-}
-
-function updateTicket(ticketNr, name, ticketTime) {
-    var paras = {
-        name:name,
-        time:ticketTime
-    };
-    var url = "/takeway/updateTicket/"+ticketNr+"?" + $.param(paras);
-    console.log(url);
-    $.post(url, function (data) {
-        if (data !== null) {
-            var ticket = new Ticket();
-            ticket.name = data.name;
-            ticket.time = data.time;
-            ticket.ticketNr = data.ticketNr;
-            $('#ticketNameLabel' + ticket.ticketNr).text(ticket.name);
-            $('#ticketTimeLabel' + ticket.ticketNr).text(ticket.time);
-        }
-
-    })
 }
 
 function Ticket() {

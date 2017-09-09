@@ -9,7 +9,7 @@ import be.linyang.kassa.Model.ticket.Ticket;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -23,8 +23,8 @@ public class MongoRepo {
     final Morphia morphia = new Morphia();
     final Datastore datastore = morphia.createDatastore(new MongoClient(), "bambou");
 
-
-
+    @Autowired
+    private DataFactory dataFactory;
 
     @PostConstruct
     private void init()
@@ -33,23 +33,10 @@ public class MongoRepo {
         // can be called multiple times with different packages or classes
         morphia.mapPackage("be.linyang.kassa.Model");
 
-        datastore.getDB().dropDatabase();
-
-        this.setupTestData();
+        //this.setupTestData();
 
         datastore.ensureIndexes();
-
-
-        /*
-        Food food = new Food("2","eten2", 20d);
-        datastore.save(food);
-        List<Ticket> tickets = datastore.createQuery(Ticket.class)
-                .field("date")
-                .equal(LocalDate.now().toString())
-                .asList();
-        tickets.get(0).getItems().add(food);
-        datastore.save(tickets.get(0));
-        */
+        //this.resetData();
 
     }
 
@@ -175,6 +162,21 @@ public class MongoRepo {
 
     public void saveTicket(Ticket ticket){
         this.datastore.save(ticket);
+    }
+
+    public void deleteTicket(Ticket ticket) {
+        this.datastore.delete(ticket);
+    }
+
+    private void resetData() {
+        datastore.getDB().dropDatabase();
+        List<Item> items = dataFactory.initItems();
+        List<Extra> extras = dataFactory.initExtra();
+        datastore.save(items);
+        datastore.save(extras);
+        for (int i=1; i<=10; i++) {
+            datastore.save(new Table(String.valueOf(i)));
+        }
     }
 
 

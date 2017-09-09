@@ -109,10 +109,23 @@ public class RestaurantController {
     	return true;
     }
 
+    @PostMapping(value = "/takeway/{ticketNr}/delete")
+    @ResponseBody
+    public boolean deleteTicket(Model model, @PathVariable("ticketNr") String ticketNr) {
+        return restoManager.deleteTodayTicket(Integer.valueOf(ticketNr));
+
+    }
+
     @RequestMapping("/takeway")
     public String takeway(Model model) {
         model.addAttribute("tickets", restoManager.getTodaysTakewayTicket());
 
         return "takeway";
+    }
+
+    @GetMapping("/test")
+    public String test(Model model) {
+        model.addAttribute("tables", restoManager.getTables());
+        return "test";
     }
 }

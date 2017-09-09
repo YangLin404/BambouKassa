@@ -79,7 +79,6 @@ function addExtraToTicketItem(extra, ticketNr, quicklink, tableNr) {
 
 function payTicket(ticketNr, tableNr, payMethod) {
     $('#payModal'+ticketNr).on('hidden.bs.modal', function (e) {
-        console.log(payMethod);
         $.post("/restaurant/" + ticketNr + "/pay?payMethod="+ payMethod, function (data) {
             retrieveTicket(tableNr);
         });
