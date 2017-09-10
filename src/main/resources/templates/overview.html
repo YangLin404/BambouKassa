@@ -3,7 +3,6 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/global.js}"></script>
-    <script type="text/javascript" th:src="@{/js/resto.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery.typeahead.js}"></script>
     <link rel="stylesheet" type="text/css" media="all"
           href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
@@ -22,7 +21,7 @@
 </head>
 <body>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">Bambou</a>
@@ -32,14 +31,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home </a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Restaurant <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="restaurant.html">Restaurant</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="takeway.html">meenemen</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="overview.html">overzicht</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">overzicht<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="#">configuration</a>
@@ -51,20 +50,11 @@
         </form>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row" id="restaurantTables">
-        <!--/*@thymesVar id="tables" type="be.linyang.kassa.Model.Table"*/-->
-        <div th:id="'restaurantTable'+${table.tableNr}" class="col-xs-12 col-sm-12 col-md-12 col-lg-6 restaurantTable" th:each="table : ${tables}">
-            <button class="btn btn-success btn-lg btn-block tableBtn" type="button" th:text="'Tafel '+${table.tableNr}" data-toggle="collapse" th:attr="data-target='#table'+${table.tableNr},aria-controls='#table'+${table.tableNr}" aria-expanded="false"></button>
-            <div class="collapse" th:id="'table'+${table.tableNr}">
-                <div class="card card-block ticket">
-                    <div th:id="'tableContent' + ${table.tableNr}">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<nav class="navbar navbar-light bg-faded">
+    <form class="form-inline">
+        <button class="btn btn-outline-success" type="button">Main button</button>
+        <button class="btn btn-sm align-middle btn-outline-secondary" type="button">Smaller button</button>
+    </form>
+</nav>
 </body>
 </html>

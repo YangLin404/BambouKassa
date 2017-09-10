@@ -131,13 +131,15 @@ public class Ticket {
         this.setPayMethod(payMethod);
     }
 
-    public double getTotalPrice()
+    public String getTotalPrice()
     {
         if (this.items == null)
-            return 0d;
-        return this.items.stream()
+            return "0";
+        double total = this.items.stream()
                 .mapToDouble(TicketItem::getTotalPrice)
                 .sum();
+        return String.format ("%.2f", total);
+
     }
 
     public Status getStatus() {
