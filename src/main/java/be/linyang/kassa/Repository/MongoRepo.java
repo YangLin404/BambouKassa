@@ -10,6 +10,7 @@ import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,9 @@ public class MongoRepo {
 
     final Morphia morphia = new Morphia();
     final Datastore datastore = morphia.createDatastore(new MongoClient(), "bambou");
+
+    @Value("reset_db")
+    private boolean resetDb;
 
     @Autowired
     private DataFactory dataFactory;
@@ -36,7 +40,8 @@ public class MongoRepo {
         //this.setupTestData();
 
         datastore.ensureIndexes();
-        //this.resetData();
+        if (resetDb)
+            this.resetData();
 
     }
 
