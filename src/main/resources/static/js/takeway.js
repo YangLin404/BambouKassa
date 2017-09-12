@@ -15,8 +15,8 @@ $(document).ready(function () {
 })
 
 
-function retrieveTicket(ticketNr) {
-    if ($("#takewayTicketContent"+ticketNr).hasClass("col-lg-6")) {
+function retrieveTicket(ticketNr, pay) {
+    if (($("#takewayTicketContent"+ticketNr).hasClass("col-lg-6")) || pay) {
         $.get("/takeway/" + ticketNr, function (data, status) {
             $("#ticketContent" + ticketNr).empty().append(data);
             $("#inputTicket" + ticketNr).focus();
@@ -25,16 +25,24 @@ function retrieveTicket(ticketNr) {
                 addItemToTicket(ticketNr, itemQL);
             })
             $("#takewayTicketContent" + ticketNr).removeClass("col-lg-6");
-            /*
-            $(".tableBtn").click(function () {
-                $('.collapse').collapse('hide');
-            })
-            */
             initTypeahead();
-            $("#ticket" + ticketNr).on('hide.bs.collapse', function () {
+            $("#ticket" + ticketNr).on('hidden.bs.collapse', function () {
                 $("#takewayTicketContent" + ticketNr).addClass("col-lg-6");
             });
         })
+    }
+    if (pay) {
+        $("#ticket" + ticketNr).collapse("toggle");
+    }
+
+    updateTicketBtn(ticketNr,pay);
+}
+
+function updateTicketBtn(ticketNr, pay) {
+    var ticketPrice = $("#amountToPay"+ticketNr).text();
+    $("#ticketTotalOnBtn"+ticketNr).text("€ " + ticketPrice);
+    if (pay) {
+        $("#takewayTicketBtnContainer"+ticketNr).append("<div class='p-2 bg-success text-white'>betaald</div>");
     }
 }
 
@@ -42,7 +50,7 @@ function payTicket(ticketNr, tableNr, payMethod) {
     $('#payModal'+ticketNr).on('hidden.bs.modal', function (e) {
         $.post("/restaurant/" + ticketNr + "/pay?payMethod="+ payMethod, function (data) {
             //todo after payment close collapse
-            retrieveTicket(ticketNr);
+            retrieveTicket(ticketNr, true);
         });
     });
 }

@@ -78,9 +78,10 @@
             <td></td>
             <td></td>
             <td>
-	            <button th:id="'payTicketModalBtn'+${ticket.ticketNr}" type="button" class="btn btn-warning btn-lg btn-block" data-toggle="modal" th:attr="data-target='#payModal'+${ticket.ticketNr}">
+	            <button th:if="${!ticket.isPaid()}" th:id="'payTicketModalBtn'+${ticket.ticketNr}" type="button" class="btn btn-warning btn-lg btn-block" data-toggle="modal" th:attr="data-target='#payModal'+${ticket.ticketNr}">
 		            Betalen
 	            </button>
+                <h4 th:if="${ticket.isPaid()}" class="text-center bg-success text-white display-4">Betaald</h4>
 	            <!-- Modal -->
 	            <div class="modal fade" th:id="'payModal'+${ticket.ticketNr}" tabindex="-1" role="dialog" th:attr="aria-labelledby='payModalTitle'+${ticket.ticketNr}" aria-hidden="true">
 		            <div class="modal-dialog" role="document">
