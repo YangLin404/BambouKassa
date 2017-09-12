@@ -24,7 +24,7 @@ public class MongoRepo {
     final Morphia morphia = new Morphia();
     final Datastore datastore = morphia.createDatastore(new MongoClient(), "bambou");
 
-    @Value("reset_db")
+    @Value("${reset_db}")
     private boolean resetDb;
 
     @Autowired
