@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 @Entity("tickets")
 public class Ticket {
@@ -138,7 +139,7 @@ public class Ticket {
         double total = this.items.stream()
                 .mapToDouble(TicketItem::getTotalPrice)
                 .sum();
-        return String.format ("%.2f", total);
+        return String.format (Locale.ENGLISH, "%.2f", total);
 
     }
 

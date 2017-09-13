@@ -34,13 +34,6 @@ public class RestaurantController {
         return "fragments/ticket :: newTicketBtn";
     }
 
-    @GetMapping(value = "/takeway/{ticketNr}")
-    public String showTicket(Model model, @PathVariable("ticketNr") int ticketNr) {
-        Ticket ticketToShow = restoManager.findTodayTicketByNr(ticketNr);
-        model.addAttribute("ticket", ticketToShow);
-        return "fragments/ticket :: ticket";
-    }
-
     @GetMapping(value = "/restaurant/getTables", produces = "application/json")
     public @ResponseBody
     List<Table> getTableCount()
@@ -61,24 +54,6 @@ public class RestaurantController {
         Ticket createdTicket = restoManager.createTicket(ticket);
         model.addAttribute("ticket",createdTicket);
         return "fragments/ticket :: ticket";
-    }
-
-    @PostMapping(value = "/takeway/createTicket")
-    @ResponseBody
-    public Ticket createTicket(Model model) {
-        Ticket ticket = restoManager.createTicket();
-        if (ticket != null)
-            return ticket;
-        return null;
-    }
-
-    @PostMapping(value = "/takeway/updateTicket/{ticketNr}")
-    @ResponseBody
-    public Ticket updateTicket(Model model, @PathVariable("ticketNr") int ticketNr,
-                               @RequestParam("name") String name,
-                               @RequestParam("time") String time) {
-        return restoManager.updateTicket(ticketNr,name,time);
-
     }
 
     @PostMapping(value = "/restaurant/addItemToTicket/{ticketNr}")
@@ -121,6 +96,31 @@ public class RestaurantController {
         model.addAttribute("tickets", restoManager.getTodaysTakewayTicket());
 
         return "takeway";
+    }
+
+    @PostMapping(value = "/takeway/createTicket")
+    @ResponseBody
+    public Ticket createTicket(Model model) {
+        Ticket ticket = restoManager.createTicket();
+        if (ticket != null)
+            return ticket;
+        return null;
+    }
+
+    @PostMapping(value = "/takeway/updateTicket/{ticketNr}")
+    @ResponseBody
+    public Ticket updateTicket(Model model, @PathVariable("ticketNr") int ticketNr,
+                               @RequestParam("name") String name,
+                               @RequestParam("time") String time) {
+        return restoManager.updateTicket(ticketNr,name,time);
+
+    }
+
+    @GetMapping(value = "/takeway/{ticketNr}")
+    public String showTicket(Model model, @PathVariable("ticketNr") int ticketNr) {
+        Ticket ticketToShow = restoManager.findTodayTicketByNr(ticketNr);
+        model.addAttribute("ticket", ticketToShow);
+        return "fragments/ticket :: ticket";
     }
 
     @GetMapping("/test")

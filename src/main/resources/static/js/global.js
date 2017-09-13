@@ -27,7 +27,8 @@ function payTicket(ticketNr, tableNr, payMethod) {
 function payAmountChanged(ticketNr) {
     var amountToPay = $("#amountToPay" + ticketNr).text();
     var payAmount = $("#payAmount" + ticketNr).val();
-    $("#payBackAmount" + ticketNr).text('€ ' + ((payAmount - amountToPay).toFixed(2)));
+    var payback = (Number(payAmount) - Number(amountToPay)).toFixed(2);
+    $("#payBackAmount" + ticketNr).text('€ ' + payback);
 }
 
 
@@ -75,6 +76,12 @@ function initTypeahead() {
         '<span class="quicklink">{{name}}</span>' +
         '</span>',
         templateValue: "{{quicklink}}",
-        cancelButton: false
+        cancelButton: true
     });
 }
+
+Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});

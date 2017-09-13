@@ -4,6 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/global.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery.typeahead.js}"></script>
+    <script type="text/javascript" th:src="@{/js/overview.js}"></script>
     <link rel="stylesheet" type="text/css" media="all"
           href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
     <link rel="stylesheet" type="text/css" media="all"
@@ -44,17 +45,30 @@
                 <a class="nav-link " href="#">configuration</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>
-<nav class="navbar navbar-light bg-faded">
-    <form class="form-inline">
-        <button class="btn btn-outline-success" type="button">Main button</button>
-        <button class="btn btn-sm align-middle btn-outline-secondary" type="button">Smaller button</button>
-    </form>
-</nav>
+<div class="container-fluid">
+    <div class="col-11 clearfix">
+        <ul class="nav nav-tabs" role="tablist" id="overviewTabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#dayOverviewTab" role="tab" data-toggle="tab">dag overzicht</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">buzz</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#references" role="tab" data-toggle="tab">references</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="dayOverviewTab">
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="buzz"></div>
+            <div role="tabpanel" class="tab-pane fade" id="references"></div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

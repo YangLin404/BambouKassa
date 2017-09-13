@@ -49,7 +49,6 @@ function updateTicketBtn(ticketNr, pay) {
 function payTicket(ticketNr, tableNr, payMethod) {
     $('#payModal'+ticketNr).on('hidden.bs.modal', function (e) {
         $.post("/restaurant/" + ticketNr + "/pay?payMethod="+ payMethod, function (data) {
-            //todo after payment close collapse
             retrieveTicket(ticketNr, true);
         });
     });
@@ -82,7 +81,6 @@ function addItemToTicket(elem) {
 }
 
 function addExtraToTicketItem(extra, ticketNr, quicklink, tableNr) {
-    //todo no extra if not maindishe
     $('#modal'+ticketNr+'_'+quicklink).on('hidden.bs.modal', function (e) {
         $.post("/restaurant/"+ticketNr+"/"+quicklink+"/AddExtraToItem?extra="+extra, function (data, status) {
             $("#ticketContent"+ticketNr).empty().append(data);

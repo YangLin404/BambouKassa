@@ -5,6 +5,7 @@ import be.linyang.kassa.Model.Table;
 import be.linyang.kassa.Model.TicketItem;
 import be.linyang.kassa.Model.items.Extra;
 import be.linyang.kassa.Model.items.Item;
+import be.linyang.kassa.Model.items.ItemType;
 import be.linyang.kassa.Model.ticket.PayMethod;
 import be.linyang.kassa.Model.ticket.Ticket;
 import be.linyang.kassa.Repository.MongoRepo;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,22 +87,24 @@ public class RestoManager {
 
     public Ticket addExtraToItem(int ticketNr, String quicklink, String extra) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
-        TicketItem ticketItem = ticket.getItems().stream()
-                .filter(t -> t.getItem().getQuicklink().equals(quicklink))
-                .findFirst()
-                .orElse(null);
-        Extra extraToAdd = extras.stream()
-                .filter(e -> e.getName().toLowerCase().equals(extra.toLowerCase()))
-                .findFirst()
-                .orElse(null);
-        if (ticketItem.isMaxExtra()) {
-            ticketItem.replaceLastExtra(extraToAdd);
-        } else {
-            if (ticketItem == null || extraToAdd == null)
-                return null;
-            else {
-                ticketItem.addExtra(extraToAdd);
-                mongoRepo.saveTicketItem(ticketItem);
+        if (this.isMaindishe(quicklink)) {
+            TicketItem ticketItem = ticket.getItems().stream()
+                    .filter(t -> t.getItem().getQuicklink().equals(quicklink))
+                    .findFirst()
+                    .orElse(null);
+            Extra extraToAdd = extras.stream()
+                    .filter(e -> e.getName().toLowerCase().equals(extra.toLowerCase()))
+                    .findFirst()
+                    .orElse(null);
+            if (ticketItem.isMaxExtra()) {
+                ticketItem.replaceLastExtra(extraToAdd);
+            } else {
+                if (ticketItem == null || extraToAdd == null)
+                    return null;
+                else {
+                    ticketItem.addExtra(extraToAdd);
+                    mongoRepo.saveTicketItem(ticketItem);
+                }
             }
         }
         return ticket;
@@ -171,5 +175,29 @@ public class RestoManager {
                 .filter(t -> t.getTicketNr() == ticketNr)
                 .findFirst()
                 .orElse(null);
+    }
+
+    private boolean isMaindishe(String quicklink) {
+        Item item = items.stream()
+                .filter(i -> i.getQuicklink().equals(quicklink))
+                .findFirst()
+                .orElse(null);
+        if (item == null || item.getItemType() != ItemType.MainDishe)
+            return false;
+        else
+            return true;
+    }
+
+    public List<Ticket> getTicketByDate(String date, String filter) {
+        LocalDate dateToSearch = LocalDate.parse(date);
+        List<Ticket> tickets;
+        if (filter.isEmpty()) {
+                tickets = mongoRepo.findAllTicketByDate(dateToSearch);
+            } else {
+                PayMethod payMethod = PayMethod.valueOf(filter);
+                tickets = mongoRepo.findAllTicketByDate(dateToSearch, payMethod);
+            }
+        return tickets;
+
     }
 }

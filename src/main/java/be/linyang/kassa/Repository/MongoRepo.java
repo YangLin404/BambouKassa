@@ -5,12 +5,15 @@ import be.linyang.kassa.Model.TicketItem;
 import be.linyang.kassa.Model.items.Extra;
 import be.linyang.kassa.Model.items.Item;
 import be.linyang.kassa.Model.items.ItemType;
+import be.linyang.kassa.Model.ticket.PayMethod;
 import be.linyang.kassa.Model.ticket.Ticket;
 import com.mongodb.MongoClient;
+import org.apache.log4j.Logger;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -18,11 +21,13 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
+@PropertySource(value = "file:config/application.properties", ignoreResourceNotFound = true)
 @Repository
 public class MongoRepo {
 
     final Morphia morphia = new Morphia();
     final Datastore datastore = morphia.createDatastore(new MongoClient(), "bambou");
+    final Logger logger = Logger.getLogger(MongoRepo.class);
 
     @Value("${reset_db}")
     private boolean resetDb;
@@ -40,9 +45,10 @@ public class MongoRepo {
         //this.setupTestData();
 
         datastore.ensureIndexes();
-        if (resetDb)
+        if (resetDb) {
+            logger.debug("reset_db is set to true, resetting the database");
             this.resetData();
-
+        }
     }
 
     private void setupTestData(){
@@ -153,6 +159,14 @@ public class MongoRepo {
         return datastore.createQuery(Ticket.class)
                 .field("date").equal(date.toString())
                 .asList();
+    }
+
+    public List<Ticket> findAllTicketByDate(LocalDate date, PayMethod payMethod) {
+        return datastore.createQuery(Ticket.class)
+                .field("date").equal(date.toString())
+                .field("payMethod").equal(payMethod)
+                .asList();
+
     }
 
     public Ticket findTicketByNr(String ticketNr) {
