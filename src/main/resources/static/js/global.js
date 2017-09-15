@@ -2,7 +2,7 @@
 
 var items = [];
 
-$(document).ready(function () {
+$(function () {
     initItems();
 })
 

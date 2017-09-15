@@ -1,27 +1,27 @@
 'use strict';
 
-function searchTickets(elem) {
-    var date = $("#inputDate").val();
-    var bcc = $("#checkBcc").val();
-    var cash = $("#checkCash").val();
-
+function searchTickets() {
+    var paymothod = $('input[name=payMothodRadioBtn]:checked').val();
+    var date = $('#inputDate').val();
+    var url = '/overview/dayOverview/findTicketsByDate?date=' + date + '&filter=' + paymothod;
+        $.get(url, function (data) {
+            $('#result').empty().append(data);
+        })
 }
 
 function initDayOverview() {
-    $('#dayOverviewForm').change(function () {
-        searchTickets($(this));
+    $('#dayOverviewForm :input').change(function () {
+        searchTickets();
     })
 }
 
-$(document).ready(function () {
+$(function () {
     initTabs();
-    initDayOverview();
-
     $.get("/overview/dayOverview", function (data) {
         console.log(data);
         $("#dayOverviewTab").empty().append(data).addClass('show');
         $("#inputDate").val(new Date().toDateInputValue());
-
+        initDayOverview();
     });
 });
 

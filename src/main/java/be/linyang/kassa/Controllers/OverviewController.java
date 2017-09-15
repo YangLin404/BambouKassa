@@ -28,11 +28,13 @@ public class OverviewController {
         return "fragments/dayOverview :: dayOverview";
     }
 
-    @GetMapping("/overview/dayOverview")
+    @GetMapping("/overview/dayOverview/findTicketsByDate")
     public String findTicketByDate(Model model,
                                    @RequestParam("date") String date,
                                    @RequestParam("filter") String filter) {
-        List<Ticket> tickets = restoManager.getTicketByDate(date,filter);
+        List<Ticket> tickets = restoManager.getTicketByDate(date,filter.equals("all")?"":filter);
+        if (tickets.isEmpty())
+            return "fragments/result :: noResult";
         model.addAttribute("tickets", tickets);
 
         return "fragments/result :: result";

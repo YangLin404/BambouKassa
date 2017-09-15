@@ -45,7 +45,7 @@ public class Ticket {
         this.time = LocalTime.now().format(timeFormatter);
         this.status = Status.ACTIVE;
         this.items = new LinkedList<>();
-        this.payMethod = PayMethod.Cash;
+        this.payMethod = PayMethod.None;
         this.tableNr = "";
     }
 

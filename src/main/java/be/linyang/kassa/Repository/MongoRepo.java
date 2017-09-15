@@ -26,10 +26,13 @@ import java.util.List;
 public class MongoRepo {
 
     final Morphia morphia = new Morphia();
-    final Datastore datastore = morphia.createDatastore(new MongoClient(), "bambou");
+    private Datastore datastore;
     final Logger logger = Logger.getLogger(MongoRepo.class);
 
-    @Value("${reset_db}")
+    @Value("${mongodb.port}")
+    private int port;
+
+    @Value("${mongodb.reset_db}")
     private boolean resetDb;
 
     @Autowired
@@ -38,6 +41,7 @@ public class MongoRepo {
     @PostConstruct
     private void init()
     {
+        datastore = morphia.createDatastore(new MongoClient("localhost",port), "bambou");
         // tell Morphia where to find your classes
         // can be called multiple times with different packages or classes
         morphia.mapPackage("be.linyang.kassa.Model");

@@ -1,83 +1,134 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/global.js}"></script>
-    <script type="text/javascript" th:src="@{/js/takeway.js}"></script>
-    <script type="text/javascript" th:src="@{/js/jquery.typeahead.js}"></script>
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../static/css/global.css" th:href="@{/css/global.css}" />
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../static/css/jquery.typeahead.css" th:href="@{/css/jquery.typeahead.css}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/global.js}"></script>
+	<script type="text/javascript" th:src="@{/js/takeway.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.typeahead.js}"></script>
+	<link rel="stylesheet" type="text/css" media="all"
+	      href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+	<link rel="stylesheet" type="text/css" media="all"
+	      href="../static/css/global.css" th:href="@{/css/global.css}"/>
+	<link rel="stylesheet" type="text/css" media="all"
+	      href="../static/css/jquery.typeahead.css" th:href="@{/css/jquery.typeahead.css}"/>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+	      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+	        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+	        crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+	        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+	        crossorigin="anonymous"></script>
 
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Bambou</title>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Bambou</title>
 </head>
 <body>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="#">Bambou</a>
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+	        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<a class="navbar-brand" href="#">Bambou</a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="restaurant.html">Restaurant</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link " href="#">meenemen<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="overview.html">overzicht</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="#">configuration</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="/">Home </a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="restaurant.html">Restaurant</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link " href="#">meenemen<span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="overview.html">overzicht</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link " href="#">configuration</a>
+			</li>
+		</ul>
+		<form class="form-inline my-2 my-lg-0">
+			<input class="form-control mr-sm-2" type="text" placeholder="Search"/>
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		</form>
+	</div>
 </nav>
 
 <div class="container-fluid">
-    <div class="row" id="takewayTicketsContainer">
-        <div th:id="'resultTicketContent'+${ticket.ticketNr}" class="ticketContent col-xs-12 col-sm-12 col-md-12 col-lg-6" th:each="ticket : ${tickets}">
-            <button class="btn btn-info btn-block tableBtn" type="button" data-toggle="collapse" th:attr="data-target='#ticket'+${ticket.ticketNr},aria-controls='#ticket'+${ticket.tableNr},data-parent='#resultTicketContent'+${ticket.ticketNr}" aria-expanded="false" th:onclick="'retrieveTicket(\''+${ticket.ticketNr}+'\')'">
-                <div th:id="'TicketBtnContainer'+${ticket.ticketNr}" class="d-flex flex-row justify-content-between">
-                    <div class="p-2" th:text="'Nr:' + ${ticket.ticketNr}"></div>
-                    <div class="p-2" th:id="'ticketNameLabel'+${ticket.ticketNr}" th:text="${ticket.name}"></div>
-                    <div class="p-2" th:id="'ticketTimeLabel'+${ticket.ticketNr}" th:text="'Uur:' + ${ticket.time}"></div>
-                    <div th:id="'ticketTotalOnBtn'+ticket.ticketNr" class="p-2" th:inline="text" th:text="'Total: €' + ${ticket.totalPrice}"></div>
-                    <div class="p-2 bg-success text-white" th:if="${ticket.isPaid()}">betaald</div>
-                </div>
-            </button>
-            <div class="collapse" th:attr="id='ticket'+${ticket.ticketNr}">
-                <div class="card card-block">
-                    <div class="form-inline">
-                        <button class="btn btn-danger col-2" type="button" onclick="deleteTicket(this);" th:value="${ticket.ticketNr}">verwijderen ticket</button>
-                    </div>
-                </div>
-                <div class="card card-block ticket">
-                    <div th:id="'ticketContent' + ${ticket.ticketNr}">
+	<div class="row" id="takewayTicketsContainer">
+		<div th:id="'takewayTicketContent'+${ticket.ticketNr}"
+		     class="ticketContent col-xs-12 col-sm-12 col-md-12 col-lg-6" th:each="ticket : ${tickets}">
+			<button class="btn btn-info btn-block tableBtn" type="button" data-toggle="collapse"
+			        th:attr="data-target='#ticket'+${ticket.ticketNr},aria-controls='#ticket'+${ticket.tableNr},data-parent='#takewayTicketContent'+${ticket.ticketNr}"
+			        aria-expanded="false" th:onclick="'retrieveTicket(\''+${ticket.ticketNr}+'\')'">
+				<div th:id="'takewayTicketBtnContainer'+${ticket.ticketNr}"
+				     class="d-flex flex-row justify-content-between">
+					<div class="p-2" th:text="'Nr:' + ${ticket.ticketNr}"></div>
+					<div class="p-2" th:id="'ticketNameLabel'+${ticket.ticketNr}" th:text="${ticket.name}"></div>
+					<div class="p-2" th:id="'ticketTimeLabel'+${ticket.ticketNr}"
+					     th:text="'Uur:' + ${ticket.time}"></div>
+					<div th:id="'ticketTotalOnBtn'+ticket.ticketNr" class="p-2" th:inline="text"
+					     th:text="'Total: €' + ${ticket.totalPrice}"></div>
+					<div class="p-2 bg-success text-white" th:if="${ticket.isPaid()}">betaald</div>
+				</div>
+			</button>
+			<div class="collapse" th:attr="id='ticket'+${ticket.ticketNr}">
+				<div class="card card-block">
+					<div class="form-inline">
+						<button class="btn btn-warning col-2 mr-2" type="button" data-toggle="modal"
+						        data-target="#myModal"
+						        th:attr="data-name=${ticket.name}, data-time=${ticket.time}, data-ticketnr=${ticket.ticketNr}">
+							Edit
+						</button>
+						<button class="btn btn-danger col-2" type="button" onclick="deleteTicket(this);"
+						        th:value="${ticket.ticketNr}">verwijderen ticket
+						</button>
+					</div>
+				</div>
+				<div class="card card-block ticket">
+					<div th:id="'ticketContent' + ${ticket.ticketNr}">
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	     aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">pas aan</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="client-name" class="form-control-label">name:</label>
+							<input type="text" class="form-control" id="client-name" name="client-name"/>
+						</div>
+						<div class="form-group">
+							<label for="ticket-time" class="form-control-label">tijd:</label>
+							<input type="time" class="form-control" id="ticket-time" name="ticket-time"/>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button data-dismiss="modal" name="save" type="button" class="btn btn-primary">bewaar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ticketContent col-6">
+		<button class="btn btn-primary btn-lg btn-block" id="newTicket">New ticket</button>
+	</div>
 </div>
 </body>
 </html>

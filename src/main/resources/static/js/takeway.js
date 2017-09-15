@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function () {
+$(function () {
     $("#newTicket").click(function () {
         $.post("/takeway/createTicket", function (data) {
             if (data !== null) {
@@ -18,6 +18,7 @@ $(document).ready(function () {
 function retrieveTicket(ticketNr, pay) {
     if (($("#takewayTicketContent"+ticketNr).hasClass("col-lg-6")) || pay) {
         $.get("/takeway/" + ticketNr, function (data, status) {
+            console.log(data);
             $("#ticketContent" + ticketNr).empty().append(data);
             $("#inputTicket" + ticketNr).focus();
             $("#btnAddItem" + ticketNr).click(function () {
