@@ -10,7 +10,7 @@
 <div th:fragment="dayOverview" class="container-fluid m-1 overviewTab pt-1 pb-1">
     <h1></h1>
     <div class="row">
-        <div class="col">
+        <div class="col-12">
             <form class="form-inline" id="dayOverviewForm">
                 <input type="date" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inputDate"/>
                 <label class="form-check-label mr-1">
@@ -25,6 +25,13 @@
                 </label>
             </form>
             <div id="result"></div>
+        </div>
+        <div class="col-12">
+            <ul class="list-inline">
+                <li class="list-inline-item" id="resultTotal"></li>
+                <li class="list-inline-item" id="resultRestoTotal"></li>
+                <li class="list-inline-item" id="resultTakewayTotal"></li>
+            </ul>
         </div>
     </div>
 </div>

@@ -1,11 +1,16 @@
 'use strict';
 
+function updateResultTotal() {
+    $('resultTotal')
+}
+
 function searchTickets() {
     var paymothod = $('input[name=payMothodRadioBtn]:checked').val();
     var date = $('#inputDate').val();
     var url = '/overview/dayOverview/findTicketsByDate?date=' + date + '&filter=' + paymothod;
         $.get(url, function (data) {
             $('#result').empty().append(data);
+            updateResultTotal();
         })
 }
 
