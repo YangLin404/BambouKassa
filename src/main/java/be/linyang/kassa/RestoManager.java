@@ -51,6 +51,7 @@ public class RestoManager {
         extras = mongoRepo.findAllExtra();
         tables = mongoRepo.findAllTables();
         items = mongoRepo.findAllItems();
+
         ticketsToday = mongoRepo.findAllTicketByDate(LocalDate.now());
         ticketNrSequence = ticketsToday.size();
 
@@ -62,6 +63,7 @@ public class RestoManager {
                 .filter(t -> t.getTableNr().equals(ticket.getTableNr()))
                 .findFirst()
                 .get();
+        ticket.setTicketType(Ticket.TicketType.Resto);
         this.ticketsToday.add(ticket);
         ticket.setTicketNr(++ticketNrSequence);
         mongoRepo.createTicket(ticket);
@@ -69,8 +71,8 @@ public class RestoManager {
         return ticket;
     }
 
-    public Ticket createTicket() {
-        Ticket ticket = new Ticket();
+    public Ticket createTakewayTicket() {
+        Ticket ticket = new Ticket(Ticket.TicketType.Takeway);
         ticket.setTicketNr(++ticketNrSequence);
         this.ticketsToday.add(ticket);
         mongoRepo.createTicket(ticket);
@@ -141,33 +143,50 @@ public class RestoManager {
     }
 
     public Ticket addItemToTicket(int ticketNr, String itemQL) {
+        String[] keyword = itemQL.split(",");
         Ticket ticket = findTodayTicketByNr(ticketNr);
         if (ticket == null)
             return null;
-        Item item = items.stream()
-                .filter(t -> t.getQuicklink().equals(itemQL))
-                .findFirst()
-                .orElse(null);
+        Item item;
+        if (!(keyword[0].isEmpty() || keyword.length ==1)) {
+            item = items.stream()
+                    .filter(t -> t.getQuicklink().equals(keyword[0]))
+                    .findFirst()
+                    .orElse(null);
+        } else {
+            item = items.stream()
+                    .filter(t -> t.getItemType() == ItemType.Drink)
+                    .filter(t -> t.getName().equalsIgnoreCase(keyword.length==1?keyword[0]:keyword[1]))
+                    .findFirst()
+                    .orElse(null);
+            if (item == null) {
+                item = items.stream()
+                        .filter(t -> t.getQuicklink().equals(keyword[0]))
+                        .findFirst()
+                        .orElse(null);
+            }
+        }
+
         if (item == null)
             return null;
-
-        TicketItem ticketItem = ticket.getItems().stream()
-                .filter(i -> i.getItem().equals(item))
-                .findFirst()
-                .orElse(null);
-        if (ticketItem == null) {
-            TicketItem ticketItem1 = new TicketItem(item);
-            mongoRepo.saveTicketItem(ticketItem1);
-            ticket.getItems().add(ticketItem1);
-            mongoRepo.saveTicket(ticket);
-        }
         else {
-            ticketItem.addOne();
-            mongoRepo.saveTicketItem(ticketItem);
-            mongoRepo.saveTicket(ticket);
+            Item finalItem = item;
+            TicketItem ticketItem = ticket.getItems().stream()
+                    .filter(i -> i.getItem().equals(finalItem))
+                    .findFirst()
+                    .orElse(null);
+            if (ticketItem == null) {
+                TicketItem ticketItem1 = new TicketItem(item);
+                mongoRepo.saveTicketItem(ticketItem1);
+                ticket.getItems().add(ticketItem1);
+                mongoRepo.saveTicket(ticket);
+            } else {
+                ticketItem.addOne();
+                mongoRepo.saveTicketItem(ticketItem);
+                mongoRepo.saveTicket(ticket);
+            }
         }
-
-        return ticket;
+            return ticket;
     }
 
     public Ticket findTodayTicketByNr(int ticketNr) {
@@ -200,4 +219,16 @@ public class RestoManager {
         return tickets;
 
     }
+    /*
+    private boolean isDrink(String str) {
+        if(str.matches("\\d+"))
+            return false;
+        else {
+            if (!str.matches("\\d"))
+                return false;
+            else
+                return true;
+        }
+    }
+    */
 }

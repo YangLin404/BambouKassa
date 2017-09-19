@@ -77,21 +77,21 @@
 				</div>
 			</button>
 			<div class="collapse" th:attr="id='ticket'+${ticket.ticketNr}">
-				<div class="card card-block">
-					<div class="form-inline">
-						<button class="btn btn-warning col-2 mr-2" type="button" data-toggle="modal"
-						        data-target="#myModal"
-						        th:attr="data-name=${ticket.name}, data-time=${ticket.time}, data-ticketnr=${ticket.ticketNr}">
-							Edit
-						</button>
-						<button class="btn btn-danger col-2" type="button" onclick="deleteTicket(this);"
-						        th:value="${ticket.ticketNr}">verwijderen ticket
-						</button>
-					</div>
-				</div>
 				<div class="card card-block ticket">
 					<div th:id="'ticketContent' + ${ticket.ticketNr}">
 
+					</div>
+				</div>
+				<div class="card card-block">
+					<div class="form-inline">
+						<button class="btn btn-warning col-2 mr-2" type="button" data-toggle="modal"
+								data-target="#myModal"
+								th:attr="data-name=${ticket.name}, data-time=${ticket.time}, data-ticketnr=${ticket.ticketNr}">
+							Edit
+						</button>
+						<button class="btn btn-danger col-2" type="button" onclick="deleteTicket(this);"
+								th:value="${ticket.ticketNr}">verwijderen ticket
+						</button>
 					</div>
 				</div>
 			</div>

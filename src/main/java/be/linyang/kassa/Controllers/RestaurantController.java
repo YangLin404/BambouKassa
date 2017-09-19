@@ -57,7 +57,9 @@ public class RestaurantController {
     }
 
     @PostMapping(value = "/restaurant/addItemToTicket/{ticketNr}")
-    public String addItemToTicket(Model model, @PathVariable("ticketNr") String ticketNr, @RequestParam("quicklink") String quicklink) {
+    public String addItemToTicket(Model model,
+                                  @PathVariable("ticketNr") String ticketNr,
+                                  @RequestParam("quicklink") String quicklink) {
         Ticket ticket = restoManager.addItemToTicket(Integer.valueOf(ticketNr), quicklink);
         model.addAttribute("ticket", ticket);
 
@@ -101,7 +103,7 @@ public class RestaurantController {
     @PostMapping(value = "/takeway/createTicket")
     @ResponseBody
     public Ticket createTicket(Model model) {
-        Ticket ticket = restoManager.createTicket();
+        Ticket ticket = restoManager.createTakewayTicket();
         if (ticket != null)
             return ticket;
         return null;

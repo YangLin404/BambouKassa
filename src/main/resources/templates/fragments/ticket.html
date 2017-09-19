@@ -6,6 +6,18 @@
 </head>
 <body>
 <div th:fragment="ticket" th:id="'ticket' + ${ticket.ticketNr}">
+    <div>
+        <form class="form-inline" id="addItem">
+            <div class="typeahead__container" style="width: 90%">
+                <div class="typeahead__field">
+                    <span class="typeahead__query">
+                        <input type="search" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0 js-typeahead" th:id="'inputTicket'+${ticket.ticketNr}" placeholder="voeg een product toe" autocomplete="off" style="width: 100%"/>
+                    </span>
+                </div>
+            </div>
+            <button type="submit" class="col-1 text-center btn btn-primary" th:id="'btnAddItem'+${ticket.ticketNr}" th:value="${ticket.ticketNr}" onclick="addItemToTicket(this)">+</button>
+        </form>
+    </div>
     <input id="hiddenTicketNr" type="hidden" th:text="${ticket.ticketNr}" th:value="${ticket.ticketNr}" />
     <table class="table">
         <thead>
@@ -116,18 +128,6 @@
         </tbody>
 
     </table>
-    <div>
-        <form class="form-inline" id="addItem">
-            <div class="typeahead__container" style="width: 90%">
-                <div class="typeahead__field">
-                    <span class="typeahead__query">
-                        <input type="search" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0 js-typeahead" th:id="'inputTicket'+${ticket.ticketNr}" placeholder="voeg een product toe" autocomplete="off" style="width: 100%"/>
-                    </span>
-                </div>
-            </div>
-            <button type="submit" class="col-1 text-center btn btn-primary" th:id="'btnAddItem'+${ticket.ticketNr}" th:value="${ticket.ticketNr}" onclick="addItemToTicket(this)">+</button>
-        </form>
-    </div>
 
 </div>
 <button th:fragment="newTicketBtn" th:id="'createNewTicketBtn'+${tableNr}" type="button" class="btn btn-primary btn-lg">voeg een ticket toe</button>

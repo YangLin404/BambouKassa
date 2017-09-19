@@ -197,7 +197,7 @@ public class MongoRepo {
         List<Extra> extras = dataFactory.initExtra();
         datastore.save(items);
         datastore.save(extras);
-        for (int i=1; i<=10; i++) {
+        for (int i=1; i<=14; i++) {
             datastore.save(new Table(String.valueOf(i)));
         }
     }

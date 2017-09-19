@@ -33,6 +33,8 @@ public class Ticket {
     private Status status;
     private PayMethod payMethod;
 
+    private TicketType ticketType;
+
     @Reference
     private List<TicketItem> items;
 
@@ -47,6 +49,11 @@ public class Ticket {
         this.items = new LinkedList<>();
         this.payMethod = PayMethod.None;
         this.tableNr = "";
+    }
+
+    public Ticket(TicketType ticketType) {
+        this();
+        this.ticketType = ticketType;
     }
 
     public Ticket(String date, List<TicketItem> items) {
@@ -171,8 +178,19 @@ public class Ticket {
         return this.status == Status.PAID;
     }
 
+    public TicketType getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(TicketType ticketType) {
+        this.ticketType = ticketType;
+    }
 
     public enum Status{
         ACTIVE,PAID;
+    }
+
+    public enum  TicketType {
+        Resto, Takeway
     }
 }

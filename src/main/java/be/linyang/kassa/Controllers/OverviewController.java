@@ -35,7 +35,25 @@ public class OverviewController {
         List<Ticket> tickets = restoManager.getTicketByDate(date,filter.equals("all")?"":filter);
         if (tickets.isEmpty())
             return "fragments/result :: noResult";
-        model.addAttribute("tickets", tickets);
+        else {
+            Double resultTotal = tickets.stream()
+                                    .mapToDouble(t -> Double.valueOf(t.getTotalPrice()))
+                                    .sum();
+            Double resultRestoTotal = tickets.stream()
+                                    .filter(t -> t.getTicketType() == Ticket.TicketType.Resto)
+                                    .mapToDouble(t -> Double.valueOf(t.getTotalPrice()))
+                                    .sum();
+            Double resultTakewayTotal = tickets.stream()
+                    .filter(t -> t.getTicketType() == Ticket.TicketType.Takeway)
+                    .mapToDouble(t -> Double.valueOf(t.getTotalPrice()))
+                    .sum();
+            model.addAttribute("tickets", tickets);
+            model.addAttribute("resultTotal", resultTotal);
+            model.addAttribute("resultRestoTotal", resultRestoTotal);
+            model.addAttribute("resultTakewayTotal", resultTakewayTotal);
+
+        }
+
 
         return "fragments/result :: result";
     }

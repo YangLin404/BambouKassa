@@ -65,7 +65,7 @@ function initItems() {
 
 function initTypeahead() {
     $('.js-typeahead').typeahead({
-        order: "asc",
+        order: "desc",
         display: ["quicklink", "name"],
         source: items,
         minLength: 1,
@@ -75,7 +75,7 @@ function initTypeahead() {
         '<span class="name">{{quicklink}} | </span>' +
         '<span class="quicklink">{{name}}</span>' +
         '</span>',
-        templateValue: "{{quicklink}}",
+        templateValue: "{{quicklink}},{{name}}",
         cancelButton: true
     });
 }
