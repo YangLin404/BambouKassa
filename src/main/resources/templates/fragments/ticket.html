@@ -25,7 +25,7 @@
             <th></th>
             <th>Nr</th>
             <th>omschrijving</th>
-            <th>aantal</th>
+            <th class="text-center">aantal</th>
             <th>totaal</th>
         </tr>
         </thead>
@@ -82,7 +82,15 @@
                     <div th:if="${item.extras}==null"></div>
                 </div>
             </td>
-            <td th:id="'itemCount'+${ticket.ticketNr}+'_'+${item.item.quicklink}" class="text-center" th:text="${item.count}"></td>
+            <td>
+                <div class="d-inline-flex flex-row p-1 text-center">
+                    <div th:text="${item.count}" class="p-1 text-center itemCount" th:id="'itemCount' + ${ticket.ticketNr}"></div>
+                    <div class="p-1" th:attr="data-ticketnr=${ticket.ticketNr}, data-quicklink=${item.item.quicklink}, data-name=${item.item.name}">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="editTicketCount(this, true)">+</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="editTicketCount(this, false)">-</button>
+                    </div>
+                </div>
+            </td>
             <td class="text-center" th:text="'€ ' + ${item.totalPrice}"></td>
         </tr>
         <tr>

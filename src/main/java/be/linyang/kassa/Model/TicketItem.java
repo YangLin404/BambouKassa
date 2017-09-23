@@ -54,6 +54,11 @@ public class TicketItem {
         this.count++;
     }
 
+    public boolean removeOne() {
+        this.count--;
+        return this.count == 0;
+    }
+
     public ObjectId getId() {
         return id;
     }

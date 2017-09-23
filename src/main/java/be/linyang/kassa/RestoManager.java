@@ -143,38 +143,15 @@ public class RestoManager {
     }
 
     public Ticket addItemToTicket(int ticketNr, String itemQL) {
-        String[] keyword = itemQL.split(",");
         Ticket ticket = findTodayTicketByNr(ticketNr);
         if (ticket == null)
             return null;
-        Item item;
-        if (!(keyword[0].isEmpty() || keyword.length ==1)) {
-            item = items.stream()
-                    .filter(t -> t.getQuicklink().equals(keyword[0]))
-                    .findFirst()
-                    .orElse(null);
-        } else {
-            item = items.stream()
-                    .filter(t -> t.getItemType() == ItemType.Drink)
-                    .filter(t -> t.getName().equalsIgnoreCase(keyword.length==1?keyword[0]:keyword[1]))
-                    .findFirst()
-                    .orElse(null);
-            if (item == null) {
-                item = items.stream()
-                        .filter(t -> t.getQuicklink().equals(keyword[0]))
-                        .findFirst()
-                        .orElse(null);
-            }
-        }
-
+        String[] keyword = itemQL.split(",");
+        Item item = findItem(keyword);
         if (item == null)
             return null;
         else {
-            Item finalItem = item;
-            TicketItem ticketItem = ticket.getItems().stream()
-                    .filter(i -> i.getItem().equals(finalItem))
-                    .findFirst()
-                    .orElse(null);
+            TicketItem ticketItem = findTicketItemByItem(ticket.getItems(),item);
             if (ticketItem == null) {
                 TicketItem ticketItem1 = new TicketItem(item);
                 mongoRepo.saveTicketItem(ticketItem1);
@@ -187,6 +164,30 @@ public class RestoManager {
             }
         }
             return ticket;
+    }
+
+    public Ticket removeItemFromTicket(int ticketNr, String itemQL) {
+        String[] keyword = itemQL.split(",");
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        if (ticket == null)
+            return null;
+        Item item = findItem(keyword);
+        if (item == null)
+            return null;
+        else {
+            TicketItem ticketItem = findTicketItemByItem(ticket.getItems(),item);
+            if (ticketItem != null) {
+                if (ticketItem.removeOne()) {
+                    //if ticketItem is empty
+                    mongoRepo.deleteTicketItem(ticketItem);
+                    ticket.getItems().remove(ticketItem);
+                    mongoRepo.saveTicket(ticket);
+                } else {
+                    mongoRepo.saveTicketItem(ticketItem);
+                }
+            }
+        }
+        return ticket;
     }
 
     public Ticket findTodayTicketByNr(int ticketNr) {
@@ -218,6 +219,40 @@ public class RestoManager {
             }
         return tickets;
 
+    }
+
+    private Item findItem(String[] keyword) {
+        Item item;
+        if (isQuicklinkProvided(keyword)) {
+            item = items.stream()
+                    .filter(t -> t.getQuicklink().equals(keyword[0]))
+                    .findFirst()
+                    .orElse(null);
+        } else {
+            item = items.stream()
+                    .filter(t -> t.getItemType() == ItemType.Drink)
+                    .filter(t -> t.getName().equalsIgnoreCase(keyword.length==1?keyword[0]:keyword[1]))
+                    .findFirst()
+                    .orElse(null);
+            if (item == null) {
+                item = items.stream()
+                        .filter(t -> t.getQuicklink().equals(keyword[0]))
+                        .findFirst()
+                        .orElse(null);
+            }
+        }
+        return item;
+    }
+
+    private boolean isQuicklinkProvided(String[] keyword) {
+        return !(keyword[0].isEmpty() || keyword.length ==1);
+    }
+
+    private TicketItem findTicketItemByItem(List<TicketItem> items, Item item) {
+        return items.stream()
+                .filter(i -> i.getItem().equals(item))
+                .findFirst()
+                .orElse(null);
     }
     /*
     private boolean isDrink(String str) {

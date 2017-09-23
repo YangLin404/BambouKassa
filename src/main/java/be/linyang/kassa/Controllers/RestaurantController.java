@@ -130,4 +130,30 @@ public class RestaurantController {
         model.addAttribute("tables", restoManager.getTables());
         return "test";
     }
+
+    @PostMapping("/restaurant/{ticketNr}/addExistItem")
+    public String addExistItem(Model model, @PathVariable("ticketNr") int ticketNr,
+                               @RequestParam("name") String name,
+                               @RequestParam("quicklink") String quicklink) {
+
+        if (quicklink.equalsIgnoreCase("undefined"))
+            quicklink = "";
+        String keyword = quicklink + "," + name;
+        Ticket ticket = restoManager.addItemToTicket(ticketNr, keyword);
+        model.addAttribute("ticket", ticket);
+        return "fragments/ticket :: ticket";
+    }
+
+    @PostMapping("/restaurant/{ticketNr}/removeExistItem")
+    public String removeExistItem(Model model, @PathVariable("ticketNr") int ticketNr,
+                                  @RequestParam("name") String name,
+                                  @RequestParam("quicklink") String quicklink) {
+
+        if (quicklink.equalsIgnoreCase("undefined"))
+            quicklink = "";
+        String keyword = quicklink + "," + name;
+        Ticket ticket = restoManager.removeItemFromTicket(ticketNr, keyword);
+        model.addAttribute("ticket", ticket);
+        return "fragments/ticket :: ticket";
+    }
 }
