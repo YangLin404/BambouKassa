@@ -42,14 +42,8 @@ function initTabs() {
 }
 
 function retrieveTicket(ticketNr) {
-    if (($("#resultTicketContent"+ticketNr).hasClass("col-lg-6"))) {
         $.get("/takeway/" + ticketNr, function (data) {
             $("#ticketContent" + ticketNr).empty().append(data);
-            $("#resultTicketContent" + ticketNr).removeClass("col-lg-6");
-            $("#ticket" + ticketNr).on('hidden.bs.collapse', function () {
-                $("#resultTicketContent" + ticketNr).addClass("col-lg-6");
-            });
         })
-    }
 }
 
