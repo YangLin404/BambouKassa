@@ -166,6 +166,8 @@ public class Ticket {
         return payMethod;
     }
 
+    public boolean payWithCard() { return payMethod == PayMethod.Card;}
+
     public void setPayMethod(PayMethod payMethod) {
         this.payMethod = payMethod;
     }

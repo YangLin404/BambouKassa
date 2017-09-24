@@ -10,17 +10,25 @@
 <body>
 <div th:fragment="result" class="mt-1">
     <div class="col-12">
-        <ul class="list-inline">
-            <li class="list-inline-item">Dag total: € </li>
-            <li class="list-inline-item mr-2" id="resultTotal" th:text="${resultTotal}"></li>
-            <li class="list-inline-item">Resto Total: € </li>
-            <li class="list-inline-item mr-2" id="resultRestoTotal" th:text="${resultRestoTotal}"></li>
-            <li class="list-inline-item">Meeneem Total: € </li>
-            <li class="list-inline-item mr-2" id="resultTakewayTotal" th:text="${resultTakewayTotal}"></li>
-        </ul>
+        <table class="table table-bordered">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Resto</th>
+                    <th>Meeneem</th>
+                    <th>Dag total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="resultRestoTotal" th:text="${resultRestoTotal}"></td>
+                    <td id="resultTakewayTotal" th:text="${resultTakewayTotal}"></td>
+                    <td id="resultTotal" th:text="${resultTotal}"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div th:id="'resultTicketContent'+${ticket.ticketNr}"
-         class="ticketContent col-xs-12 col-sm-12 col-md-12 col-lg-6" th:each="ticket : ${tickets}">
+         class="ticketContent col-xs-12 col-12" th:each="ticket : ${tickets}">
         <button th:if="${ticket.isTakeway()}" class="btn btn-info btn-block tableBtn" type="button" data-toggle="collapse"
                 th:attr="data-target='#ticket'+${ticket.ticketNr},aria-controls='#ticket'+${ticket.tableNr},data-parent='#resultTicketContent'+${ticket.ticketNr}"
                 aria-expanded="false" th:onclick="'retrieveTicket(\''+${ticket.ticketNr}+'\')'">
@@ -32,7 +40,8 @@
                      th:text="'Uur:' + ${ticket.time}"></div>
                 <div th:id="'ticketTotalOnBtn'+ticket.ticketNr" class="p-2" th:inline="text"
                      th:text="'Total: €' + ${ticket.totalPrice}"></div>
-                <div class="p-2 bg-success text-white" th:if="${ticket.isPaid()}">betaald</div>
+                <div class="p-2 bg-success text-white" th:if="${ticket.payWithCard()}">Card</div>
+                <div class="p-2 bg-primary text-white" th:if="${!ticket.payWithCard()}">Cash</div>
             </div>
         </button>
         <button th:if="${!ticket.isTakeway()}" class="btn btn-warning btn-block tableBtn" type="button" data-toggle="collapse"
@@ -46,7 +55,8 @@
                      th:text="'Uur:' + ${ticket.time}"></div>
                 <div th:id="'ticketTotalOnBtn'+ticket.ticketNr" class="p-2" th:inline="text"
                      th:text="'Total: €' + ${ticket.totalPrice}"></div>
-                <div class="p-2 bg-success text-white" th:if="${ticket.isPaid()}">betaald</div>
+                <div class="p-2 bg-success text-white" th:if="${ticket.payWithCard()}">Card</div>
+                <div class="p-2 bg-primary text-white" th:if="${!ticket.payWithCard()}">Cash</div>
             </div>
         </button>
         <div class="collapse" th:attr="id='ticket'+${ticket.ticketNr}">
