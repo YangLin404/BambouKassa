@@ -142,12 +142,11 @@ public class RestoManager {
 
     }
 
-    public Ticket addItemToTicket(int ticketNr, String itemQL) {
+    public Ticket addItemToTicket(int ticketNr, String quicklink) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         if (ticket == null)
             return null;
-        String[] keyword = itemQL.split(",");
-        Item item = findItem(keyword);
+        Item item = findItem(quicklink);
         if (item == null)
             return null;
         else {
@@ -166,12 +165,11 @@ public class RestoManager {
             return ticket;
     }
 
-    public Ticket removeItemFromTicket(int ticketNr, String itemQL) {
-        String[] keyword = itemQL.split(",");
+    public Ticket removeItemFromTicket(int ticketNr, String quicklink) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         if (ticket == null)
             return null;
-        Item item = findItem(keyword);
+        Item item = findItem(quicklink);
         if (item == null)
             return null;
         else {
@@ -221,31 +219,11 @@ public class RestoManager {
 
     }
 
-    private Item findItem(String[] keyword) {
-        Item item;
-        if (isQuicklinkProvided(keyword)) {
-            item = items.stream()
-                    .filter(t -> t.getQuicklink().equals(keyword[0]))
-                    .findFirst()
-                    .orElse(null);
-        } else {
-            item = items.stream()
-                    .filter(t -> t.getItemType() == ItemType.Drink)
-                    .filter(t -> t.getName().equalsIgnoreCase(keyword.length==1?keyword[0]:keyword[1]))
-                    .findFirst()
-                    .orElse(null);
-            if (item == null) {
-                item = items.stream()
-                        .filter(t -> t.getQuicklink().equals(keyword[0]))
-                        .findFirst()
-                        .orElse(null);
-            }
-        }
-        return item;
-    }
-
-    private boolean isQuicklinkProvided(String[] keyword) {
-        return !(keyword[0].isEmpty() || keyword.length ==1);
+    private Item findItem(String quicklink) {
+        return items.stream()
+                .filter(t -> t.getQuicklink().equalsIgnoreCase(quicklink))
+                .findFirst()
+                .orElse(null);
     }
 
     private TicketItem findTicketItemByItem(List<TicketItem> items, Item item) {

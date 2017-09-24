@@ -133,26 +133,17 @@ public class RestaurantController {
 
     @PostMapping("/restaurant/{ticketNr}/addExistItem")
     public String addExistItem(Model model, @PathVariable("ticketNr") int ticketNr,
-                               @RequestParam("name") String name,
                                @RequestParam("quicklink") String quicklink) {
-
-        if (quicklink.equalsIgnoreCase("undefined"))
-            quicklink = "";
-        String keyword = quicklink + "," + name;
-        Ticket ticket = restoManager.addItemToTicket(ticketNr, keyword);
+        Ticket ticket = restoManager.addItemToTicket(ticketNr, quicklink);
         model.addAttribute("ticket", ticket);
         return "fragments/ticket :: ticket";
     }
 
     @PostMapping("/restaurant/{ticketNr}/removeExistItem")
     public String removeExistItem(Model model, @PathVariable("ticketNr") int ticketNr,
-                                  @RequestParam("name") String name,
                                   @RequestParam("quicklink") String quicklink) {
 
-        if (quicklink.equalsIgnoreCase("undefined"))
-            quicklink = "";
-        String keyword = quicklink + "," + name;
-        Ticket ticket = restoManager.removeItemFromTicket(ticketNr, keyword);
+        Ticket ticket = restoManager.removeItemFromTicket(ticketNr, quicklink);
         model.addAttribute("ticket", ticket);
         return "fragments/ticket :: ticket";
     }

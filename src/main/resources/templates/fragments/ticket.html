@@ -11,7 +11,7 @@
             <div class="typeahead__container" style="width: 90%">
                 <div class="typeahead__field">
                     <span class="typeahead__query">
-                        <input type="search" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0 js-typeahead" th:id="'inputTicket'+${ticket.ticketNr}" placeholder="voeg een product toe" autocomplete="off" style="width: 100%"/>
+                        <input type="search" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0 js-typeahead" th:id="'inputTicket'+${ticket.ticketNr}" placeholder="voeg een product toe" autocomplete="off" style="width: 100%" th:attr="data-ticketnr=${ticket.ticketNr}"/>
                     </span>
                 </div>
             </div>
@@ -85,7 +85,7 @@
             <td>
                 <div class="d-inline-flex flex-row p-1 text-center">
                     <div th:text="${item.count}" class="p-1 text-center itemCount" th:id="'itemCount' + ${ticket.ticketNr}"></div>
-                    <div class="p-1" th:attr="data-ticketnr=${ticket.ticketNr}, data-quicklink=${item.item.quicklink}, data-name=${item.item.name}">
+                    <div class="p-1" th:attr="data-ticketnr=${ticket.ticketNr}, data-quicklink=${item.item.quicklink}">
                         <button type="button" class="btn btn-primary btn-sm" onclick="editTicketCount(this, true)">+</button>
                         <button type="button" class="btn btn-danger btn-sm" onclick="editTicketCount(this, false)">-</button>
                     </div>
@@ -131,7 +131,7 @@
 		            </div>
 	            </div>
             </td>
-            <td class="text-center bg-primary text-white total" th:text="'€ ' + ${ticket.totalPrice}"></td>
+            <td th:id="'totalPriceTicket'+${ticket.ticketNr}" class="text-center bg-primary text-white total" th:text="'€ ' + ${ticket.totalPrice}"></td>
         </tr>
         </tbody>
 

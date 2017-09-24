@@ -59,25 +59,31 @@ function initTypeahead() {
         '<span class="name">{{quicklink}} | </span>' +
         '<span class="quicklink">{{name}}</span>' +
         '</span>',
-        templateValue: "{{quicklink}},{{name}}",
-        cancelButton: true
+        templateValue: "{{quicklink}}",
+        cancelButton: true,
+        callback: {
+            onClickAfter(node, a, item, event) {
+                const ticketNr = node.data('ticketnr');
+                $("btnAddItem"+ticketNr).trigger('click');
+            }
+        }
     });
 }
 
 function addItemToTicket(elem) {
     event.preventDefault();
 
-    var ticketNr = $(elem).val();
+    var ticketNr = $(elem).data("ticketnr");
     var inputElem = $("#inputTicket"+ticketNr);
 
     const content = findContent(inputElem, ticketNr);
-    if (!inputElem.val()) {
-
-    } else {
-        var quicklink = inputElem.val();
-        var postUrl = "/restaurant/addItemToTicket/"+ticketNr+"?quicklink="+quicklink;
-        $.post(postUrl, function (data, status) {
+    if (inputElem.val()) {
+        const quicklink = inputElem.val();
+        const postUrl = "/restaurant/addItemToTicket/"+ticketNr+"?quicklink="+quicklink;
+        $.post(postUrl, function (data) {
             content.empty().append(data);
+            const price = 'Total: €' + $("#totalPriceTicket"+ticketNr).text();
+            $("#ticketTotalOnBtn"+ticketNr).text(price);
             $("#inputTicket" + ticketNr).focus();
             $("#btnAddItem" + ticketNr).click(function () {
                 var itemQL = $("#inputTicket" + ticketNr).val();
@@ -88,20 +94,20 @@ function addItemToTicket(elem) {
             }
             initTypeahead();
         })
+    } else {
     }
 }
 
 function editTicketCount(elem, addMore) {
     const dataDiv =  $(elem).parent("div");
     const ticketNr = dataDiv.data("ticketnr");
-    const itemName = dataDiv.data("name");
     const quicklink = dataDiv.data("quicklink");
     const content = findContent(dataDiv, ticketNr);
     let url;
     if (addMore) {
-        url = "/restaurant/" + ticketNr + "/addExistItem?name="+itemName+"&quicklink="+quicklink;
+        url = "/restaurant/" + ticketNr + "/addExistItem?quicklink="+quicklink;
     } else {
-        url = "/restaurant/" + ticketNr + "/removeExistItem?name="+itemName+"&quicklink="+quicklink;
+        url = "/restaurant/" + ticketNr + "/removeExistItem?quicklink="+quicklink;
     }
     $.post(url, function (data, status) {
         content.empty().append(data);
@@ -110,7 +116,7 @@ function editTicketCount(elem, addMore) {
             var itemQL = $("#inputTicket" + ticketNr).val();
             addItemToTicket(ticketNr,itemQL);
         });
-        if (doesItemNeedExtra(quicklink)) {
+        if (doesItemNeedExtra(quicklink) && addMore) {
             $("#btnExtra"+ticketNr+'_'+quicklink).trigger("click");
         }
         initTypeahead();

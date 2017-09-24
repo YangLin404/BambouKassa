@@ -64,100 +64,102 @@ public class DataFactory {
     }
 
     private void addStrongDrink() {
-        startItems.add(new Item("","Cognac","",6d, ItemType.Drink));
-        startItems.add(new Item("","Grand Marnier","",5.5d, ItemType.Drink));
-        startItems.add(new Item("","Cointreau","",5.5d, ItemType.Drink));
-        startItems.add(new Item("","Amaretto","",5.5d, ItemType.Drink));
-        startItems.add(new Item("","Whisky","",5.5d, ItemType.Drink));
-        startItems.add(new Item("","Gin","",5.5d, ItemType.Drink));
-        startItems.add(new Item("","Granjenever","",4.5d, ItemType.Drink));
-        startItems.add(new Item("","Mei Kwei Lu","",5.5d, ItemType.Drink));
+        startItems.add(new Item("Cognac","Cognac","",6d, ItemType.Drink));
+        startItems.add(new Item("Grand Marnier","Grand Marnier","",5.5d, ItemType.Drink));
+        startItems.add(new Item("Cointreau","Cointreau","",5.5d, ItemType.Drink));
+        startItems.add(new Item("Amaretto","Amaretto","",5.5d, ItemType.Drink));
+        startItems.add(new Item("Whisky","Whisky","",5.5d, ItemType.Drink));
+        startItems.add(new Item("Gin","Gin","",5.5d, ItemType.Drink));
+        startItems.add(new Item("Granjenever","Granjenever","",4.5d, ItemType.Drink));
+        startItems.add(new Item("Mei Kwei Lu","Mei Kwei Lu","",5.5d, ItemType.Drink));
     }
 
     private void addWarmDrink() {
-        startItems.add(new Item("","Chinese thee","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Engelse thee","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Thee citroen","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Koffie","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Chinese thee","Chinese thee","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Engelse thee","Engelse thee","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Thee citroen","Thee citroen","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Koffie","Koffie","",2.5d, ItemType.Drink));
     }
 
     private void addColdDrink() {
-        startItems.add(new Item("","Bier","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Hoegaarden","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Alcoholvrij bier","",2.3d, ItemType.Drink));
-        startItems.add(new Item("","Palm","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Tonic","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Cola","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Fanta","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Ice tea","",2.5d, ItemType.Drink));
-        startItems.add(new Item("","Spa plat","",2d, ItemType.Drink));
-        startItems.add(new Item("","Spa bruis","",2d, ItemType.Drink));
-        startItems.add(new Item("","Fles spa plat","",6d, ItemType.Drink));
-        startItems.add(new Item("","Fles spa bruis","",6d, ItemType.Drink));
-        startItems.add(new Item("","Appelsiensap","",2.3d, ItemType.Drink));
-        startItems.add(new Item("","Appelsap","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Bier","Bier","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Hoegaarden","Hoegaarden","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Alcoholvrij bier","Alcoholvrij bier","",2.3d, ItemType.Drink));
+        startItems.add(new Item("Palm","Palm","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Tonic","Tonic","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Cola","Cola","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Cola light","Cola light","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Cola zero","Cola zero","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Fanta","Fanta","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Ice tea","Ice tea","",2.5d, ItemType.Drink));
+        startItems.add(new Item("Spa plat","Spa plat","",2d, ItemType.Drink));
+        startItems.add(new Item("Spa bruis","Spa bruis","",2d, ItemType.Drink));
+        startItems.add(new Item("Fles spa plat","Fles spa plat","",6d, ItemType.Drink));
+        startItems.add(new Item("Fles spa bruis","Fles spa bruis","",6d, ItemType.Drink));
+        startItems.add(new Item("Appelsiensap","Appelsiensap","",2.3d, ItemType.Drink));
+        startItems.add(new Item("Appelsap","Appelsap","",2.5d, ItemType.Drink));
     }
 
     private void addTableWine() {
-        startItems.add(new Item("","1/4 Rode wijn","",5d, ItemType.Drink));
-        startItems.add(new Item("","1/2 Rode wijn","",7.5d, ItemType.Drink));
-        startItems.add(new Item("","Fles Rode wijn","",13.5d, ItemType.Drink));
-        startItems.add(new Item("","1/4 Witte wijn","",5d, ItemType.Drink));
-        startItems.add(new Item("","1/2 Witte wijn","",7.5d, ItemType.Drink));
-        startItems.add(new Item("","Fles Witte wijn","",13.5d, ItemType.Drink));
-        startItems.add(new Item("","1/4 Rosé wijn","",5d, ItemType.Drink));
-        startItems.add(new Item("","1/2 Rosé wijn","",7.5d, ItemType.Drink));
-        startItems.add(new Item("","Fles Rosé wijn","",13.5d, ItemType.Drink));
+        startItems.add(new Item("1/4 Rode wijn","1/4 Rode wijn","",5d, ItemType.Drink));
+        startItems.add(new Item("1/2 Rode wijn","1/2 Rode wijn","",7.5d, ItemType.Drink));
+        startItems.add(new Item("Fles Rode wijn","Fles Rode wijn","",13.5d, ItemType.Drink));
+        startItems.add(new Item("1/4 Witte wijn","1/4 Witte wijn","",5d, ItemType.Drink));
+        startItems.add(new Item("1/2 Witte wijn","1/2 Witte wijn","",7.5d, ItemType.Drink));
+        startItems.add(new Item("Fles Witte wijn","Fles Witte wijn","",13.5d, ItemType.Drink));
+        startItems.add(new Item("1/4 Rosé wijn","1/4 Rosé wijn","",5d, ItemType.Drink));
+        startItems.add(new Item("/2 Rosé wijn","1/2 Rosé wijn","",7.5d, ItemType.Drink));
+        startItems.add(new Item("Fles Rosé wijn","Fles Rosé wijn","",13.5d, ItemType.Drink));
     }
 
     private void addRoseWine() {
-        startItems.add(new Item("","Cabernet d'Anjou","",15d, ItemType.Drink));
-        startItems.add(new Item("","Côtes de Provence","",16d, ItemType.Drink));
-        startItems.add(new Item("","Rose de loire","",15d, ItemType.Drink));
+        startItems.add(new Item("Cabernet d'Anjou","Cabernet d'Anjou","",15d, ItemType.Drink));
+        startItems.add(new Item("Côtes de Provence","Côtes de Provence","",16d, ItemType.Drink));
+        startItems.add(new Item("Rose de loire","Rose de loire","",15d, ItemType.Drink));
     }
 
     private void addWhiteWine() {
-        startItems.add(new Item("","Chablis","",20d, ItemType.Drink));
-        startItems.add(new Item("","Chardonnay","",17d, ItemType.Drink));
+        startItems.add(new Item("Chablis","Chablis","",20d, ItemType.Drink));
+        startItems.add(new Item("Chardonnay","Chardonnay","",17d, ItemType.Drink));
     }
 
     private void addRedWine() {
-        startItems.add(new Item("","Côtes du Rhône","",18d, ItemType.Drink));
-        startItems.add(new Item("","Montagne Saint-Emilion","",19d, ItemType.Drink));
-        startItems.add(new Item("","Chateauneuf du Pape","",24d, ItemType.Drink));
-        startItems.add(new Item("","Haut-Médoc","",25d, ItemType.Drink));
+        startItems.add(new Item("Côtes du Rhône","Côtes du Rhône","",18d, ItemType.Drink));
+        startItems.add(new Item("Montagne Saint-Emilion","Montagne Saint-Emilion","",19d, ItemType.Drink));
+        startItems.add(new Item("Chateauneuf du Pape","Chateauneuf du Pape","",24d, ItemType.Drink));
+        startItems.add(new Item("Haut-Médoc","Haut-Médoc","",25d, ItemType.Drink));
     }
 
     private void addChineseWine() {
-        startItems.add(new Item("","Fles Lychee wijn","",16d, ItemType.Drink));
-        startItems.add(new Item("","Fles Chinese rode wijn","",16d, ItemType.Drink));
-        startItems.add(new Item("","Fles Chinese witte wijn","",16d, ItemType.Drink));
-        startItems.add(new Item("","Fles Kuei Hua Chen Chiew","",16d, ItemType.Drink));
+        startItems.add(new Item("Fles Lychee wijn","Fles Lychee wijn","",16d, ItemType.Drink));
+        startItems.add(new Item("Fles Chinese rode wijn","Fles Chinese rode wijn","",16d, ItemType.Drink));
+        startItems.add(new Item("Fles Chinese witte wijn","Fles Chinese witte wijn","",16d, ItemType.Drink));
+        startItems.add(new Item("Fles Kuei Hua Chen Chiew","Fles Kuei Hua Chen Chiew","",16d, ItemType.Drink));
     }
 
     private void addGlassWine() {
-        startItems.add(new Item("","Glas witte wijn","",4d, ItemType.Drink));
-        startItems.add(new Item("","Glas rode wijn","",4d, ItemType.Drink));
-        startItems.add(new Item("","Glas rosé wijn","",4d, ItemType.Drink));
-        startItems.add(new Item("","Glas lychee wijn","",5.5d, ItemType.Drink));
-        startItems.add(new Item("","Glas Chinese rode wijn","",4.5d, ItemType.Drink));
-        startItems.add(new Item("","Glas Chinese witte wijn","",4.5d, ItemType.Drink));
-        startItems.add(new Item("","Kuei Hua Chen Chiew","",4.5d, ItemType.Drink));
+        startItems.add(new Item("Glas witte wijn","Glas witte wijn","",4d, ItemType.Drink));
+        startItems.add(new Item("Glas rode wijn","Glas rode wijn","",4d, ItemType.Drink));
+        startItems.add(new Item("Glas rosé wijn","Glas rosé wijn","",4d, ItemType.Drink));
+        startItems.add(new Item("Glas lychee wijn","Glas lychee wijn","",5.5d, ItemType.Drink));
+        startItems.add(new Item("Glas Chinese rode wijn","Glas Chinese rode wijn","",4.5d, ItemType.Drink));
+        startItems.add(new Item("Glas Chinese witte wijn","Glas Chinese witte wijn","",4.5d, ItemType.Drink));
+        startItems.add(new Item("Kuei Hua Chen Chiew","Kuei Hua Chen Chiew","",4.5d, ItemType.Drink));
     }
 
     private void addApertive() {
-        startItems.add(new Item("","Campari","",4.5d, ItemType.Drink));
-        startItems.add(new Item("","Campari soda","",5d, ItemType.Drink));
-        startItems.add(new Item("","Campari orange","",5d, ItemType.Drink));
-        startItems.add(new Item("","Martini wit","",3.5d, ItemType.Drink));
-        startItems.add(new Item("","Martini rood","",3.5d, ItemType.Drink));
-        startItems.add(new Item("","Porto wit","",3.5d, ItemType.Drink));
-        startItems.add(new Item("","Porto rood","",3.5d, ItemType.Drink));
-        startItems.add(new Item("","Sherry","",3.5d, ItemType.Drink));
-        startItems.add(new Item("","Gancia","",3.5d, ItemType.Drink));
-        startItems.add(new Item("","Gin Tonic","",6.5d, ItemType.Drink));
-        startItems.add(new Item("","Lychee wijn","",3.5d, ItemType.Drink));
-        startItems.add(new Item("","Kuei Hua Chen Chiew","",3.5d, ItemType.Drink));
+        startItems.add(new Item("Campari","Campari","",4.5d, ItemType.Drink));
+        startItems.add(new Item("Campari soda","Campari soda","",5d, ItemType.Drink));
+        startItems.add(new Item("Campari orange","Campari orange","",5d, ItemType.Drink));
+        startItems.add(new Item("Martini wit","Martini wit","",3.5d, ItemType.Drink));
+        startItems.add(new Item("Martini rood","Martini rood","",3.5d, ItemType.Drink));
+        startItems.add(new Item("Porto wit","Porto wit","",3.5d, ItemType.Drink));
+        startItems.add(new Item("Porto rood","Porto rood","",3.5d, ItemType.Drink));
+        startItems.add(new Item("Sherry","Sherry","",3.5d, ItemType.Drink));
+        startItems.add(new Item("Gancia","Gancia","",3.5d, ItemType.Drink));
+        startItems.add(new Item("Gin Tonic","Gin Tonic","",6.5d, ItemType.Drink));
+        startItems.add(new Item("Lychee wijn","Lychee wijn","",3.5d, ItemType.Drink));
+        startItems.add(new Item("Kuei Hua Chen Chiew","Kuei Hua Chen Chiew","",3.5d, ItemType.Drink));
     }
 
     private void addMenu() {

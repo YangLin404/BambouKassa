@@ -21,7 +21,6 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-@PropertySource(value = "file:config/application.properties", ignoreResourceNotFound = true)
 @Repository
 public class MongoRepo {
 
