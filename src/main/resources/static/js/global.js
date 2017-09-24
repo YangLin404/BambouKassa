@@ -60,13 +60,7 @@ function initTypeahead() {
         '<span class="quicklink">{{name}}</span>' +
         '</span>',
         templateValue: "{{quicklink}}",
-        cancelButton: true,
-        callback: {
-            onClickAfter(node, a, item, event) {
-                const ticketNr = node.data('ticketnr');
-                $("btnAddItem"+ticketNr).trigger('click');
-            }
-        }
+        cancelButton: true
     });
 }
 

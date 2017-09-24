@@ -48,9 +48,9 @@ public class OverviewController {
                     .mapToDouble(t -> Double.valueOf(t.getTotalPrice()))
                     .sum();
             model.addAttribute("tickets", tickets);
-            model.addAttribute("resultTotal", resultTotal);
-            model.addAttribute("resultRestoTotal", resultRestoTotal);
-            model.addAttribute("resultTakewayTotal", resultTakewayTotal);
+            model.addAttribute("resultTotal", String.format("%.2f", resultTotal));
+            model.addAttribute("resultRestoTotal", String.format("%.2f",resultRestoTotal));
+            model.addAttribute("resultTakewayTotal", String.format("%.2f",resultTakewayTotal));
 
         }
 

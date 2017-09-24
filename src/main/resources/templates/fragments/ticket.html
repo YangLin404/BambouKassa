@@ -11,11 +11,11 @@
             <div class="typeahead__container" style="width: 90%">
                 <div class="typeahead__field">
                     <span class="typeahead__query">
-                        <input type="search" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0 js-typeahead" th:id="'inputTicket'+${ticket.ticketNr}" placeholder="voeg een product toe" autocomplete="off" style="width: 100%" th:attr="data-ticketnr=${ticket.ticketNr}"/>
+                        <input type="search" class="form-control col-10 mb-2 mr-sm-1 mb-sm-0 js-typeahead" th:id="'inputTicket'+${ticket.ticketNr}" placeholder="voeg een product toe" autocomplete="off" style="width: 100%"/>
                     </span>
                 </div>
             </div>
-            <button type="submit" class="col-1 text-center btn btn-primary" th:id="'btnAddItem'+${ticket.ticketNr}" th:value="${ticket.ticketNr}" onclick="addItemToTicket(this)">+</button>
+            <button type="submit" class="col-1 text-center btn btn-primary" th:id="'btnAddItem'+${ticket.ticketNr}" th:value="${ticket.ticketNr}" onclick="addItemToTicket(this)" th:attr="data-ticketnr=${ticket.ticketNr}">+</button>
         </form>
     </div>
     <input id="hiddenTicketNr" type="hidden" th:text="${ticket.ticketNr}" th:value="${ticket.ticketNr}" />
