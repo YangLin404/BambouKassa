@@ -32,9 +32,13 @@
         <tbody>
         <tr th:each="item : ${ticket.items}">
             <td>
-                <button th:id="'btnExtra'+${ticket.ticketNr}+'_'+${item.item.quicklink}" type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:attr="data-target='#modal'+${ticket.ticketNr}+'_'+${item.item.quicklink}">
-                    config
-                </button>
+                <div class="d-inline-flex flex-row p-1 text-center">
+                    <div th:text="${item.count}" class="p-1 text-center itemCount" th:id="'itemCount' + ${ticket.ticketNr}"></div>
+                    <div class="p-1" th:attr="data-ticketnr=${ticket.ticketNr}, data-quicklink=${item.item.quicklink}">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="editTicketCount(this, true)">+</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="editTicketCount(this, false)">-</button>
+                    </div>
+                </div>
                 <!-- Modal -->
                 <div class="modal fade" th:id="'modal'+${ticket.ticketNr}+'_'+${item.item.quicklink}" tabindex="-1" role="dialog" th:attr="aria-labelledby='modalExtra'+${ticket.ticketNr}+'_'+${item.item.quicklink}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -83,13 +87,9 @@
                 </div>
             </td>
             <td>
-                <div class="d-inline-flex flex-row p-1 text-center">
-                    <div th:text="${item.count}" class="p-1 text-center itemCount" th:id="'itemCount' + ${ticket.ticketNr}"></div>
-                    <div class="p-1" th:attr="data-ticketnr=${ticket.ticketNr}, data-quicklink=${item.item.quicklink}">
-                        <button type="button" class="btn btn-primary btn-sm" onclick="editTicketCount(this, true)">+</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="editTicketCount(this, false)">-</button>
-                    </div>
-                </div>
+                <button th:id="'btnExtra'+${ticket.ticketNr}+'_'+${item.item.quicklink}" type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:attr="data-target='#modal'+${ticket.ticketNr}+'_'+${item.item.quicklink}">
+                    config
+                </button>
             </td>
             <td class="text-center" th:text="'€ ' + ${item.totalPrice}"></td>
         </tr>
