@@ -34,6 +34,12 @@ public class TicketItem {
 	@JsonView(View.Summary.class)
     private double totalPrice = 0;
 
+	@JsonView(View.Summary.class)
+	private double totalTax = 0;
+
+	@JsonView(View.Summary.class)
+	private double totalPriceWithoutTax = 0;
+
     public TicketItem(){
         this.extras = new LinkedList<>();
     }
@@ -48,12 +54,12 @@ public class TicketItem {
     public void addOne()
     {
         this.count++;
-        this.totalPrice = getTotalPrice();
+        this.calcPrice();
     }
 
     public boolean removeOne() {
         this.count--;
-	    this.totalPrice = getTotalPrice();
+        this.calcPrice();
         return this.count == 0;
     }
 
@@ -71,7 +77,7 @@ public class TicketItem {
 
     public void setItem(Item item) {
         this.item = item;
-        this.totalPrice = getTotalPrice();
+        calcPrice();
     }
 
     public void setCount(int count) {
@@ -84,21 +90,27 @@ public class TicketItem {
 
     public void setExtras(List<Extra> extras) {
         this.extras = extras;
-        this.totalPrice = getTotalPrice();
+        calcPrice();
     }
 
     public void addExtra(Extra extra) {
         this.extras.add(extra);
-        this.totalPrice = getTotalPrice();
+        calcPrice();
+    }
+
+    private void calcPrice() {
+	    double totalExtraPrice = extras.stream()
+			    .mapToDouble(Extra::getPrice)
+			    .sum();
+
+	    this.totalPrice = roundToTwoDecimal((item.getPrice() * this.count) + totalExtraPrice);
+	    this.totalPriceWithoutTax = roundToTwoDecimal(this.totalPrice / item.getTaxLevel().getPercent());
+	    this.totalTax = this.totalPrice - this.totalPriceWithoutTax;
+
     }
 
     public double getTotalPrice() {
-        double extraPrice = extras.stream()
-                                .mapToDouble(Extra::getPrice)
-                                .sum();
-        return BigDecimal.valueOf((item.getPrice() * count)+extraPrice)
-                .setScale(2, RoundingMode.HALF_UP)
-                .doubleValue();
+    	return this.totalPrice;
     }
 
     public boolean isMaxExtra() {
@@ -112,5 +124,17 @@ public class TicketItem {
         }
     }
 
+    private double roundToTwoDecimal(double price) {
+	    return BigDecimal.valueOf(price)
+			    .setScale(2, RoundingMode.HALF_UP)
+			    .doubleValue();
+    }
 
+	public double getTotalTax() {
+		return totalTax;
+	}
+
+	public double getTotalPriceWithoutTax() {
+		return totalPriceWithoutTax;
+	}
 }

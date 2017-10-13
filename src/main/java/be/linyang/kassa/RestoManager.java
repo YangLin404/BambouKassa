@@ -162,7 +162,7 @@ public class RestoManager {
             if (ticketItem == null) {
                 TicketItem ticketItem1 = new TicketItem(item);
                 mongoRepo.saveTicketItem(ticketItem1);
-                ticket.getItems().add(ticketItem1);
+                ticket.addItem(ticketItem1);
                 mongoRepo.saveTicket(ticket);
             } else {
                 ticketItem.addOne();

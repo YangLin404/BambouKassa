@@ -19,7 +19,11 @@ public class Item {
 	@JsonView(View.Summary.class)
     private double price;
 	@JsonView(View.Summary.class)
-    private double tax;
+	private Tax taxLevel;
+	@JsonView(View.Summary.class)
+	private double tax;
+	@JsonView(View.Summary.class)
+	private double priceWithoutTax;
 	@JsonView(View.Summary.class)
     private ItemType itemType;
 
@@ -35,9 +39,16 @@ public class Item {
         this.price = price;
         this.ch_name = ch_name;
         this.itemType = itemType;
+        this.taxLevel = this.itemType == ItemType.Drink ? Tax.High : Tax.Low;
+        this.calcTax();
     }
 
-    public ObjectId getId() {
+	private void calcTax() {
+		this.priceWithoutTax = this.price / this.taxLevel.getPercent();
+		this.tax = this.price - this.priceWithoutTax;
+	}
+
+	public ObjectId getId() {
         return id;
     }
 
@@ -65,7 +76,31 @@ public class Item {
         this.price = price;
     }
 
-    public String getCh_name() {
+	public Tax getTaxLevel() {
+		return taxLevel;
+	}
+
+	public double getTax() {
+		return tax;
+	}
+
+	public double getPriceWithoutTax() {
+		return priceWithoutTax;
+	}
+
+	public void setTaxLevel(Tax taxLevel) {
+		this.taxLevel = taxLevel;
+	}
+
+	public void setTax(double tax) {
+		this.tax = tax;
+	}
+
+	public void setPriceWithoutTax(double priceWithoutTax) {
+		this.priceWithoutTax = priceWithoutTax;
+	}
+
+	public String getCh_name() {
         return ch_name;
     }
 

@@ -163,6 +163,11 @@ public class Ticket {
 
     }
 
+    public void addItem(TicketItem item) {
+    	this.items.add(item);
+
+    }
+
     public Status getStatus() {
         return status;
     }
