@@ -1,5 +1,7 @@
 package be.linyang.kassa.Model.items;
 
+import be.linyang.kassa.Model.View;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -8,7 +10,9 @@ import org.mongodb.morphia.annotations.Id;
 public class Extra {
     @Id
     private ObjectId id;
+	@JsonView(View.Summary.class)
     private String name;
+	@JsonView(View.Summary.class)
     private double price;
 
     public Extra() {}

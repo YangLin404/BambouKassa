@@ -3,6 +3,7 @@ package be.linyang.kassa.Model;
 import be.linyang.kassa.Model.items.Extra;
 import be.linyang.kassa.Model.items.Item;
 import be.linyang.kassa.Model.ticket.Ticket;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -19,13 +20,19 @@ public class TicketItem {
     @Id
     private ObjectId id;
 
+	@JsonView(View.Summary.class)
     @Reference
     private Item item;
 
+	@JsonView(View.Summary.class)
     private int count;
 
+	@JsonView(View.Summary.class)
     @Reference
     private List<Extra> extras;
+
+	@JsonView(View.Summary.class)
+    private double totalPrice = 0;
 
     public TicketItem(){
         this.extras = new LinkedList<>();
@@ -34,28 +41,19 @@ public class TicketItem {
     public TicketItem(Item item)
     {
         this();
-        this.item = item;
-        this.count = 1;
-    }
-
-    public TicketItem(Item item, int count) {
-        this();
-        this.item = item;
-        this.count = count;
-    }
-
-    public TicketItem(Item item, int count, List<Extra> extras) {
-        this(item, count);
-        this.extras = extras;
+	    this.count = 1;
+        this.setItem(item);
     }
 
     public void addOne()
     {
         this.count++;
+        this.totalPrice = getTotalPrice();
     }
 
     public boolean removeOne() {
         this.count--;
+	    this.totalPrice = getTotalPrice();
         return this.count == 0;
     }
 
@@ -73,6 +71,7 @@ public class TicketItem {
 
     public void setItem(Item item) {
         this.item = item;
+        this.totalPrice = getTotalPrice();
     }
 
     public void setCount(int count) {
@@ -85,10 +84,12 @@ public class TicketItem {
 
     public void setExtras(List<Extra> extras) {
         this.extras = extras;
+        this.totalPrice = getTotalPrice();
     }
 
     public void addExtra(Extra extra) {
         this.extras.add(extra);
+        this.totalPrice = getTotalPrice();
     }
 
     public double getTotalPrice() {

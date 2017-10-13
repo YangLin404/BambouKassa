@@ -1,7 +1,8 @@
 package be.linyang.kassa.Model.ticket;
 
 import be.linyang.kassa.Model.TicketItem;
-import be.linyang.kassa.Model.items.Item;
+import be.linyang.kassa.Model.View;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -23,22 +24,33 @@ public class Ticket {
     @Id
     private ObjectId id;
 
+	@JsonView(View.Summary.class)
     private int ticketNr;
+	@JsonView(View.Summary.class)
+    private String ticketIdentifier;
 
+	@JsonView(View.Summary.class)
     private String name;
 
+	@JsonView(View.Summary.class)
     private String date;
+
+	@JsonView(View.Summary.class)
     private String time;
 
+	@JsonView(View.Summary.class)
     private Status status;
+	@JsonView(View.Summary.class)
     private PayMethod payMethod;
 
+	@JsonView(View.Summary.class)
     private TicketType ticketType;
 
+	@JsonView(View.Summary.class)
     @Reference
     private List<TicketItem> items;
 
-
+	@JsonView(View.Summary.class)
     private String tableNr;
 
     public Ticket()
@@ -72,7 +84,7 @@ public class Ticket {
 
     public Ticket(int ticketNr, String name, List<TicketItem> items, String tableNr) {
         this();
-        this.ticketNr = ticketNr;
+        this.setTicketNr(ticketNr);
         this.name = name;
         this.items = items;
         this.tableNr = tableNr;
@@ -112,6 +124,7 @@ public class Ticket {
 
     public void setTicketNr(int ticketNr) {
          this.ticketNr = ticketNr;
+         this.ticketIdentifier = this.date + '_' + this.ticketNr;
     }
 
     public void setTime(String time) {
@@ -188,7 +201,15 @@ public class Ticket {
         this.ticketType = ticketType;
     }
 
-    public enum Status{
+	public String getTicketIdentifier() {
+		return ticketIdentifier;
+	}
+
+	public void setTicketIdentifier(String ticketIdentifier) {
+		this.ticketIdentifier = ticketIdentifier;
+	}
+
+	public enum Status{
         ACTIVE,PAID;
     }
 

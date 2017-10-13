@@ -58,6 +58,13 @@ public class RestoManager {
 
     }
 
+    public Ticket createTicketOnTable(String tableNr) {
+	    Ticket ticket = new Ticket();
+	    ticket.setTableNr(tableNr);
+	    return createTicket(ticket);
+
+    }
+
     public Ticket createTicket(Ticket ticket) {
         Table table = this.tables.stream()
                 .filter(t -> t.getTableNr().equals(ticket.getTableNr()))
@@ -68,6 +75,7 @@ public class RestoManager {
         ticket.setTicketNr(++ticketNrSequence);
         mongoRepo.createTicket(ticket);
         table.setTicket(ticket);
+        table.setTicketNr(ticket.getTicketNr());
         return ticket;
     }
 

@@ -1,6 +1,7 @@
 package be.linyang.kassa.Model;
 
 import be.linyang.kassa.Model.ticket.Ticket;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -11,9 +12,13 @@ public class Table {
 
     @Id
     private ObjectId id;
+	@JsonView(View.Summary.class)
     private String tableNr;
     @NotSaved
     private Ticket ticket;
+    @NotSaved
+    @JsonView(View.Summary.class)
+    private int ticketNr;
 
 
     public Table(){}
@@ -49,4 +54,12 @@ public class Table {
     public boolean isTableEmpty() {
         return this.ticket == null;
     }
+
+	public int getTicketNr() {
+		return ticketNr;
+	}
+
+	public void setTicketNr(int ticketNr) {
+		this.ticketNr = ticketNr;
+	}
 }
