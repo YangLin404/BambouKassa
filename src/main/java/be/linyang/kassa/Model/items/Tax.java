@@ -12,4 +12,8 @@ public enum Tax {
 	public double getPercent() {
 		return percent;
 	}
+
+	public double getCalcPercent() {
+		return 1 + this.percent;
+	}
 }

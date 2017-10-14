@@ -104,7 +104,7 @@ public class TicketItem {
 			    .sum();
 
 	    this.totalPrice = roundToTwoDecimal((item.getPrice() * this.count) + totalExtraPrice);
-	    this.totalPriceWithoutTax = roundToTwoDecimal(this.totalPrice / item.getTaxLevel().getPercent());
+	    this.totalPriceWithoutTax = roundToTwoDecimal(this.totalPrice / item.getTaxLevel().getCalcPercent());
 	    this.totalTax = this.totalPrice - this.totalPriceWithoutTax;
 
     }

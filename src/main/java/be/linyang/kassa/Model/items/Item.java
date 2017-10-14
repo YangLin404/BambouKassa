@@ -44,7 +44,7 @@ public class Item {
     }
 
 	private void calcTax() {
-		this.priceWithoutTax = this.price / this.taxLevel.getPercent();
+		this.priceWithoutTax = this.price / this.taxLevel.getCalcPercent();
 		this.tax = this.price - this.priceWithoutTax;
 	}
 
