@@ -82,4 +82,19 @@ public class RestAPI {
 		LOGGER.info("api payTicket called, paymethod is " + payMethod + ", ticketNr is " + ticketNr);
 		return this.restoManager.payTicket(ticketNr,payMethod) != null;
 	}
+
+	@JsonView(View.Summary.class)
+	@CrossOrigin(origins = "*")
+	@GetMapping(value = "/api/takeaway/getTodaysTakeawayTicket")
+	public List<Ticket> getTodaysTakeawayTicket() {
+		LOGGER.info("api getTodaysTakeawayTicket called");
+		return this.restoManager.getTodaysTakewayTicket();
+	}
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/api/takeaway/createTicket")
+	public int createTakeawayTicket() {
+		LOGGER.info("api createTakeawayTicket called");
+		return this.restoManager.createTakewayTicket().getTicketNr();
+	}
 }
