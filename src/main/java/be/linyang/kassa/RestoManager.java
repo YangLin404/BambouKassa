@@ -123,8 +123,20 @@ public class RestoManager {
     public Ticket payTicket(int ticketNr, String payMethod) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         ticket.payTicket(PayMethod.valueOf(payMethod));
+        removeTicketFromTable(ticket.getTableNr());
         mongoRepo.saveTicket(ticket);
         return ticket;
+    }
+
+    private void removeTicketFromTable(String tableNr) {
+        Table table = this.tables.stream()
+                .filter(t -> t.getTableNr().equalsIgnoreCase(tableNr))
+                .findFirst()
+                .orElse(null);
+        if (table != null) {
+            table.setTicket(null);
+            table.setTicketNr(0);
+        }
     }
 
     public boolean deleteTodayTicket(int ticketNr) {

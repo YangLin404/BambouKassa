@@ -75,4 +75,11 @@ public class RestAPI {
 		LOGGER.info("api removeItemFromTicket called, quicklink is " + quicklink + ", ticketNr is " + ticketNr);
 		return restoManager.removeItemFromTicket(ticketNr,quicklink) != null;
 	}
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/api/ticket/{ticketNr}/pay")
+	public boolean payTicket(@RequestBody String payMethod, @PathVariable("ticketNr") int ticketNr) {
+		LOGGER.info("api payTicket called, paymethod is " + payMethod + ", ticketNr is " + ticketNr);
+		return this.restoManager.payTicket(ticketNr,payMethod) != null;
+	}
 }
