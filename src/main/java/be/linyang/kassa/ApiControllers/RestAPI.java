@@ -97,4 +97,11 @@ public class RestAPI {
 		LOGGER.info("api createTakeawayTicket called");
 		return this.restoManager.createTakewayTicket().getTicketNr();
 	}
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/api/takeaway/updateTicket/{ticketNr}")
+    public boolean updateTicketInfo(@PathVariable("ticketNr") int ticketNr, @RequestBody TicketInfoObjectWrapper json) {
+        LOGGER.info("api updateTicketInfo called." + json);
+        return this.restoManager.updateTicket(ticketNr, json.getName(), json.getTime()) != null;
+    }
 }

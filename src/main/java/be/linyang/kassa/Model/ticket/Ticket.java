@@ -53,6 +53,9 @@ public class Ticket {
 	@JsonView(View.Summary.class)
     private String tableNr;
 
+	@JsonView(View.Summary.class)
+    private boolean isTaken;
+
     public Ticket()
     {
         this.date = LocalDate.now().toString();
@@ -61,6 +64,7 @@ public class Ticket {
         this.items = new LinkedList<>();
         this.payMethod = PayMethod.None;
         this.tableNr = "";
+        this.isTaken = false;
     }
 
     public Ticket(TicketType ticketType) {
@@ -214,7 +218,15 @@ public class Ticket {
 		this.ticketIdentifier = ticketIdentifier;
 	}
 
-	public enum Status{
+    public boolean isTaken() {
+        return isTaken;
+    }
+
+    public void setTaken(boolean taken) {
+        isTaken = taken;
+    }
+
+    public enum Status{
         ACTIVE,PAID;
     }
 
