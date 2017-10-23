@@ -56,6 +56,9 @@ public class Ticket {
 	@JsonView(View.Summary.class)
     private boolean isTaken;
 
+    @JsonView(View.Summary.class)
+    private boolean isPaid;
+
     public Ticket()
     {
         this.date = LocalDate.now().toString();
@@ -65,6 +68,7 @@ public class Ticket {
         this.payMethod = PayMethod.None;
         this.tableNr = "";
         this.isTaken = false;
+        this.isPaid = false;
     }
 
     public Ticket(TicketType ticketType) {
@@ -151,9 +155,18 @@ public class Ticket {
         this.tableNr = tableNr;
     }
 
+    public void setPaid(boolean paid) {
+        this.isPaid = paid;
+    }
+
+    public boolean isPaid() {
+        return this.isPaid;
+    }
+
     public void payTicket(PayMethod payMethod) {
         this.setStatus(Status.PAID);
         this.setPayMethod(payMethod);
+        this.isPaid = payMethod != PayMethod.None;
     }
 
     public String getTotalPrice()
@@ -164,7 +177,6 @@ public class Ticket {
                 .mapToDouble(TicketItem::getTotalPrice)
                 .sum();
         return String.format (Locale.ENGLISH, "%.2f", total);
-
     }
 
     public void addItem(TicketItem item) {
@@ -198,10 +210,6 @@ public class Ticket {
         return this.tableNr.isEmpty();
     }
 
-    public boolean isPaid() {
-        return this.status == Status.PAID;
-    }
-
     public TicketType getTicketType() {
         return ticketType;
     }
@@ -224,6 +232,22 @@ public class Ticket {
 
     public void setTaken(boolean taken) {
         isTaken = taken;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketNr=" + ticketNr +
+                ", name='" + name + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", status=" + status +
+                ", payMethod=" + payMethod +
+                ", ticketType=" + ticketType +
+                ", tableNr='" + tableNr + '\'' +
+                ", isTaken=" + isTaken +
+                ", isPaid=" + isPaid +
+                '}';
     }
 
     public enum Status{

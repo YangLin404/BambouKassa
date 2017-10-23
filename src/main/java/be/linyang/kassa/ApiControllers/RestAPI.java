@@ -80,7 +80,11 @@ public class RestAPI {
 	@PostMapping(value = "/api/ticket/{ticketNr}/pay")
 	public boolean payTicket(@RequestBody String payMethod, @PathVariable("ticketNr") int ticketNr) {
 		LOGGER.info("api payTicket called, paymethod is " + payMethod + ", ticketNr is " + ticketNr);
-		return this.restoManager.payTicket(ticketNr,payMethod) != null;
+		Ticket paidTicket = this.restoManager.payTicket(ticketNr,payMethod);
+		if (paidTicket != null) {
+            LOGGER.info("paid ticket is " + paidTicket.toString());
+        }
+		return paidTicket != null ;
 	}
 
 	@JsonView(View.Summary.class)
@@ -100,8 +104,24 @@ public class RestAPI {
 
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/api/takeaway/updateTicket/{ticketNr}")
-    public boolean updateTicketInfo(@PathVariable("ticketNr") int ticketNr, @RequestBody TicketInfoObjectWrapper json) {
-        LOGGER.info("api updateTicketInfo called." + json);
-        return this.restoManager.updateTicket(ticketNr, json.getName(), json.getTime()) != null;
+    public boolean updateTicketName(@PathVariable("ticketNr") int ticketNr, @RequestBody String name) {
+        LOGGER.info("api updateTicketName called." + name);
+        return this.restoManager.updateTicketName(ticketNr, name) != null;
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/api/takeaway/ticket/{ticketNr}/time")
+    public boolean updateTicketTime(@PathVariable("ticketNr") int ticketNr, @RequestBody String time) {
+        LOGGER.info("api updateTicketTime called." + time);
+        return this.restoManager.updateTicketTime(ticketNr, time) != null;
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/api/takeaway/ticket/{ticketNr}/taken")
+    public boolean updateTicketTaken(@PathVariable("ticketNr") int ticketNr, @RequestBody boolean taken) {
+        LOGGER.info("api updateTicketTaken called." + taken);
+        return this.restoManager.updateTicketTaken(ticketNr, taken) != null;
+    }
+
+
 }

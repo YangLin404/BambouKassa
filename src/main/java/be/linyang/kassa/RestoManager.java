@@ -95,6 +95,27 @@ public class RestoManager {
         return ticket;
     }
 
+    public Ticket updateTicketName(int ticketNr, String name) {
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        ticket.setName(name);
+        mongoRepo.saveTicket(ticket);
+        return ticket;
+    }
+
+    public Ticket updateTicketTime(int ticketNr, String time) {
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        ticket.setTime(time);
+        mongoRepo.saveTicket(ticket);
+        return ticket;
+    }
+
+    public Ticket updateTicketTaken(int ticketNr, boolean taken) {
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        ticket.setTaken(taken);
+        mongoRepo.saveTicket(ticket);
+        return ticket;
+    }
+
     public Ticket addExtraToItem(int ticketNr, String quicklink, String extra) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         if (this.isMaindishe(quicklink)) {
