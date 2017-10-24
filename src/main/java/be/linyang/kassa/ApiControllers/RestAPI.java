@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,6 +63,13 @@ public class RestAPI {
 		return restoManager.createTicketOnTable(tableNr).getTicketNr();
 	}
 
+    @CrossOrigin(origins = "*")
+    @DeleteMapping(value = "/api/ticket/{ticketNr}")
+    public boolean removeTicket(@PathVariable("ticketNr") int ticketNr) {
+        LOGGER.info("api removeTicket called, tablticketNreNr is " + ticketNr);
+        return restoManager.deleteTodayTicket(ticketNr);
+    }
+
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/api/ticket/{ticketNr}/addItemToTicket")
 	public boolean addItemToTicket(@RequestBody String quicklink, @PathVariable("ticketNr") int ticketNr) {
@@ -103,14 +111,14 @@ public class RestAPI {
 	}
 
     @CrossOrigin(origins = "*")
-    @PostMapping(value = "/api/takeaway/updateTicket/{ticketNr}")
+    @PostMapping(value = "/api/ticket/{ticketNr}/name")
     public boolean updateTicketName(@PathVariable("ticketNr") int ticketNr, @RequestBody String name) {
         LOGGER.info("api updateTicketName called." + name);
         return this.restoManager.updateTicketName(ticketNr, name) != null;
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping(value = "/api/takeaway/ticket/{ticketNr}/time")
+    @PostMapping(value = "/api/ticket/{ticketNr}/time")
     public boolean updateTicketTime(@PathVariable("ticketNr") int ticketNr, @RequestBody String time) {
         LOGGER.info("api updateTicketTime called." + time);
         return this.restoManager.updateTicketTime(ticketNr, time) != null;
