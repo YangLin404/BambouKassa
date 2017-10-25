@@ -3,6 +3,7 @@ package be.linyang.kassa.ApiControllers;
 
 import be.linyang.kassa.Model.Table;
 import be.linyang.kassa.Model.View;
+import be.linyang.kassa.Model.items.Extra;
 import be.linyang.kassa.Model.items.Item;
 import be.linyang.kassa.Model.ticket.Ticket;
 import be.linyang.kassa.RestoManager;
@@ -36,6 +37,16 @@ public class RestAPI {
     public List<Item> getAllItems() {
 		LOGGER.info("api getAllItems called");
         return restoManager.getItems();
+    }
+
+    @JsonView(View.Summary.class)
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/api/extras")
+    public List<Extra> getAllExtras() {
+        LOGGER.info("api getAllExtras called");
+        List<Extra> extras = restoManager.getExtras();
+        LOGGER.info("extras are: " + extras.toString());
+        return extras;
     }
 
 	@JsonView(View.Summary.class)
@@ -123,6 +134,26 @@ public class RestAPI {
         LOGGER.info("api updateTicketTime called." + time);
         return this.restoManager.updateTicketTime(ticketNr, time) != null;
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/api/ticket/{ticketNr}/ticketItem/{quicklink}/remark")
+    public boolean updateTicketRemark(@PathVariable("ticketNr") int ticketNr,
+                                      @PathVariable("quicklink") String quicklink,
+                                      @RequestBody String remark) {
+        LOGGER.info("api updateTicketRemark called. remark: " + remark);
+        return this.restoManager.updateTicketItemRemark(ticketNr,quicklink,remark);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/api/ticket/{ticketNr}/ticketItem/{quicklink}/extra")
+    public boolean addExtraToTicketItem(@PathVariable("ticketNr") int ticketNr,
+                                      @PathVariable("quicklink") String quicklink,
+                                      @RequestBody String extra) {
+        LOGGER.info("api addExtraToTicketItem called. extra: " + extra);
+        return this.restoManager.addExtraToItem(ticketNr,quicklink,extra) != null;
+    }
+
+
 
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/api/takeaway/ticket/{ticketNr}/taken")

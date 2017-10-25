@@ -51,7 +51,6 @@ public class DataFactory {
         addColdDrink();
         addWarmDrink();
         addStrongDrink();
-        addExtra();
         return this.startItems;
     }
 

@@ -31,6 +31,9 @@ public class TicketItem {
     @Reference
     private List<Extra> extras;
 
+    @JsonView(View.Summary.class)
+    private String remark;
+
 	@JsonView(View.Summary.class)
     private double totalPrice = 0;
 
@@ -42,6 +45,7 @@ public class TicketItem {
 
     public TicketItem(){
         this.extras = new LinkedList<>();
+        this.remark = "";
     }
 
     public TicketItem(Item item)
@@ -124,13 +128,26 @@ public class TicketItem {
         }
     }
 
+    public void removeLastExtra() {
+        if (this.extras.size() > 0)
+            this.extras.remove(this.extras.size() -1);
+    }
+
     private double roundToTwoDecimal(double price) {
 	    return BigDecimal.valueOf(price)
 			    .setScale(2, RoundingMode.HALF_UP)
 			    .doubleValue();
     }
 
-	public double getTotalTax() {
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public double getTotalTax() {
 		return totalTax;
 	}
 

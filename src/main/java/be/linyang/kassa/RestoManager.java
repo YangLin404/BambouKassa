@@ -47,6 +47,10 @@ public class RestoManager {
 
     public List<Item> getItems() { return this.items;}
 
+    public List<Extra> getExtras() {
+        return this.extras;
+    }
+
     private void loadData() {
         extras = mongoRepo.findAllExtra();
         tables = mongoRepo.findAllTables();
@@ -116,13 +120,24 @@ public class RestoManager {
         return ticket;
     }
 
+    public boolean updateTicketItemRemark(int ticketNr, String quicklink, String remark){
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        Item item = findItem(quicklink);
+        if (item != null) {
+            TicketItem ticketItem = findTicketItemByItem(ticket.getItems(), item);
+            ticketItem.setRemark(remark);
+            mongoRepo.saveTicketItem(ticketItem);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public Ticket addExtraToItem(int ticketNr, String quicklink, String extra) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
-        if (this.isMaindishe(quicklink)) {
-            TicketItem ticketItem = ticket.getItems().stream()
-                    .filter(t -> t.getItem().getQuicklink().equals(quicklink))
-                    .findFirst()
-                    .orElse(null);
+        Item item = findItem(quicklink);
+        if (item.getItemType() == ItemType.MainDishe) {
+            TicketItem ticketItem = findTicketItemByItem(ticket.getItems(), item);
             Extra extraToAdd = extras.stream()
                     .filter(e -> e.getName().toLowerCase().equals(extra.toLowerCase()))
                     .findFirst()
@@ -222,6 +237,7 @@ public class RestoManager {
                     ticket.getItems().remove(ticketItem);
                     mongoRepo.saveTicket(ticket);
                 } else {
+                    ticketItem.removeLastExtra();
                     mongoRepo.saveTicketItem(ticketItem);
                 }
             }
