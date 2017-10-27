@@ -152,6 +152,8 @@ public class RestoManager {
                     mongoRepo.saveTicketItem(ticketItem);
                 }
             }
+            ticket.reCalPrice();
+            mongoRepo.saveTicket(ticket);
         }
         return ticket;
     }
@@ -180,6 +182,9 @@ public class RestoManager {
         if (ticket != null) {
             mongoRepo.deleteTicket(ticket);
             this.ticketsToday.remove(ticket);
+            if (!(ticket.getTableNr().isEmpty() || ticket.getTableNr().equals("0"))) {
+                this.removeTicketFromTable(ticket.getTableNr());
+            }
             return true;
         } else
             return false;
@@ -211,12 +216,14 @@ public class RestoManager {
                 TicketItem ticketItem1 = new TicketItem(item);
                 mongoRepo.saveTicketItem(ticketItem1);
                 ticket.addItem(ticketItem1);
-                mongoRepo.saveTicket(ticket);
             } else {
                 ticketItem.addOne();
                 mongoRepo.saveTicketItem(ticketItem);
-                mongoRepo.saveTicket(ticket);
             }
+
+
+            ticket.reCalPrice();
+            mongoRepo.saveTicket(ticket);
         }
             return ticket;
     }
@@ -235,13 +242,14 @@ public class RestoManager {
                     //if ticketItem is empty
                     mongoRepo.deleteTicketItem(ticketItem);
                     ticket.getItems().remove(ticketItem);
-                    mongoRepo.saveTicket(ticket);
                 } else {
                     ticketItem.removeLastExtra();
                     mongoRepo.saveTicketItem(ticketItem);
                 }
             }
         }
+        ticket.reCalPrice();
+        mongoRepo.saveTicket(ticket);
         return ticket;
     }
 
@@ -274,6 +282,11 @@ public class RestoManager {
             }
         return tickets;
 
+    }
+
+    public List<Ticket> getTicketByDate(String date) {
+        LocalDate dateToSearch = LocalDate.parse(date);
+        return mongoRepo.findAllTicketByDate(dateToSearch);
     }
 
     private Item findItem(String quicklink) {

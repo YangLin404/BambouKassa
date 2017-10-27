@@ -108,6 +108,8 @@ public class Item {
         this.ch_name = ch_name;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

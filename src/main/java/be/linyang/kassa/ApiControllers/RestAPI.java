@@ -77,7 +77,7 @@ public class RestAPI {
     @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/api/ticket/{ticketNr}")
     public boolean removeTicket(@PathVariable("ticketNr") int ticketNr) {
-        LOGGER.info("api removeTicket called, tablticketNreNr is " + ticketNr);
+        LOGGER.info("api removeTicket called, ticketNr is " + ticketNr);
         return restoManager.deleteTodayTicket(ticketNr);
     }
 
@@ -160,6 +160,13 @@ public class RestAPI {
     public boolean updateTicketTaken(@PathVariable("ticketNr") int ticketNr, @RequestBody boolean taken) {
         LOGGER.info("api updateTicketTaken called." + taken);
         return this.restoManager.updateTicketTaken(ticketNr, taken) != null;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/api/overview/tickets")
+    public List<Ticket> getTicketByDate(@RequestParam("date") String date) {
+        LOGGER.info("api getTicketByDate called. " + date);
+        return this.restoManager.getTicketByDate(date);
     }
 
 

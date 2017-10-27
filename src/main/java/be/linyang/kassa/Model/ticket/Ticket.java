@@ -2,6 +2,7 @@ package be.linyang.kassa.Model.ticket;
 
 import be.linyang.kassa.Model.TicketItem;
 import be.linyang.kassa.Model.View;
+import be.linyang.kassa.Model.items.ItemType;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
@@ -58,6 +59,17 @@ public class Ticket {
 
     @JsonView(View.Summary.class)
     private boolean isPaid;
+
+    @JsonView(View.Summary.class)
+    private double totalPriceWithTax = 0;
+    @JsonView(View.Summary.class)
+    private double totalPriceWithoutTax = 0;
+    @JsonView(View.Summary.class)
+    private double totalTaxDrink = 0;
+    @JsonView(View.Summary.class)
+    private double totalTaxFood = 0;
+    @JsonView(View.Summary.class)
+    private double totalTaxTakeaway = 0;
 
     public Ticket()
     {
@@ -163,6 +175,46 @@ public class Ticket {
         return this.isPaid;
     }
 
+    public double getTotalPriceWithTax() {
+        return totalPriceWithTax;
+    }
+
+    public void setTotalPriceWithTax(double totalPriceWithTax) {
+        this.totalPriceWithTax = totalPriceWithTax;
+    }
+
+    public double getTotalPriceWithoutTax() {
+        return totalPriceWithoutTax;
+    }
+
+    public void setTotalPriceWithoutTax(double totalPriceWithoutTax) {
+        this.totalPriceWithoutTax = totalPriceWithoutTax;
+    }
+
+    public double getTotalTaxDrink() {
+        return totalTaxDrink;
+    }
+
+    public void setTotalTaxDrink(double totalTaxDrink) {
+        this.totalTaxDrink = totalTaxDrink;
+    }
+
+    public double getTotalTaxFood() {
+        return totalTaxFood;
+    }
+
+    public void setTotalTaxFood(double totalTaxFood) {
+        this.totalTaxFood = totalTaxFood;
+    }
+
+    public double getTotalTaxTakeaway() {
+        return totalTaxTakeaway;
+    }
+
+    public void setTotalTaxTakeaway(double totalTaxTakeaway) {
+        this.totalTaxTakeaway = totalTaxTakeaway;
+    }
+
     public void payTicket(PayMethod payMethod) {
         this.setStatus(Status.PAID);
         this.setPayMethod(payMethod);
@@ -181,7 +233,6 @@ public class Ticket {
 
     public void addItem(TicketItem item) {
     	this.items.add(item);
-
     }
 
     public Status getStatus() {
@@ -232,6 +283,29 @@ public class Ticket {
 
     public void setTaken(boolean taken) {
         isTaken = taken;
+    }
+
+    public void reCalPrice() {
+        this.resetPrice();
+        this.items.forEach(i -> {
+            this.totalPriceWithTax += i.getTotalPrice();
+            this.totalPriceWithoutTax += i.getTotalPriceWithoutTax();
+            if (ticketType == TicketType.Takeway) {
+                this.totalTaxTakeaway += i.getTotalTax();
+            } else if (i.getItem().getItemType() == ItemType.Drink) {
+                this.totalTaxDrink += i.getTotalTax();
+            } else {
+                this.totalTaxFood += i.getTotalTax();
+            }
+        });
+    }
+
+    private void resetPrice() {
+        this.totalPriceWithTax = 0;
+        this.totalPriceWithoutTax = 0;
+        this.totalTaxDrink = 0;
+        this.totalTaxFood = 0;
+        this.totalTaxTakeaway = 0;
     }
 
     @Override
