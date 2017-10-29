@@ -169,5 +169,12 @@ public class RestAPI {
         return this.restoManager.getTicketByDate(date);
     }
 
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/api/config/reload")
+	public boolean reloadData() {
+		LOGGER.info("api reloadData called. ");
+		return this.restoManager.reloadData();
+	}
+
 
 }

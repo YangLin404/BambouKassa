@@ -289,6 +289,11 @@ public class RestoManager {
         return mongoRepo.findAllTicketByDate(dateToSearch);
     }
 
+    public boolean reloadData() {
+        this.loadData();
+        return true;
+    }
+
     private Item findItem(String quicklink) {
         return items.stream()
                 .filter(t -> t.getQuicklink().equalsIgnoreCase(quicklink))
