@@ -181,6 +181,7 @@ public class DataFactory {
         startItems.add(new Item("s12","Oestersaus","",2.3d, ItemType.Supplement));
         startItems.add(new Item("s13","Ketchup","",1.4d, ItemType.Supplement));
         startItems.add(new Item("s14","Mayonaise","",1.4d, ItemType.Supplement));
+        startItems.add(new Item("s15","supplement","", 1.4d, ItemType.Supplement));
     }
 
     private void addVegi() {
