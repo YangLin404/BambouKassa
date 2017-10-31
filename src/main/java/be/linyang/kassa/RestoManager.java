@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -105,7 +104,7 @@ public class RestoManager {
     }
 
     public Ticket createTakewayTicket() {
-        Ticket ticket = new Ticket(Ticket.TicketType.Takeway);
+        Ticket ticket = new Ticket(Ticket.TicketType.Takeaway);
         ticket.setTicketNr(++ticketNrSequence);
         this.ticketsToday.add(ticket);
         mongoRepo.createTicket(ticket);

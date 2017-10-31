@@ -44,7 +44,7 @@ public class OverviewController {
                                     .mapToDouble(t -> Double.valueOf(t.getTotalPrice()))
                                     .sum();
             Double resultTakewayTotal = tickets.stream()
-                    .filter(t -> t.getTicketType() == Ticket.TicketType.Takeway)
+                    .filter(t -> t.getTicketType() == Ticket.TicketType.Takeaway)
                     .mapToDouble(t -> Double.valueOf(t.getTotalPrice()))
                     .sum();
             model.addAttribute("tickets", tickets);

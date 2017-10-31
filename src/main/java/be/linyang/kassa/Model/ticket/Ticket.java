@@ -70,6 +70,14 @@ public class Ticket {
     private double totalTaxFood = 0;
     @JsonView(View.Summary.class)
     private double totalTaxTakeaway = 0;
+    @JsonView(View.Summary.class)
+    private double totalTakeaway = 0;
+    @JsonView(View.Summary.class)
+    private double totalResto = 0;
+    @JsonView(View.Summary.class)
+    private double totalDrink = 0;
+    @JsonView(View.Summary.class)
+    private double totalFood = 0;
 
     public Ticket()
     {
@@ -285,17 +293,52 @@ public class Ticket {
         isTaken = taken;
     }
 
+    public double getTotalTakeaway() {
+        return totalTakeaway;
+    }
+
+    public void setTotalTakeaway(double totalTakeaway) {
+        this.totalTakeaway = totalTakeaway;
+    }
+
+    public double getTotalResto() {
+        return totalResto;
+    }
+
+    public void setTotalResto(double totalResto) {
+        this.totalResto = totalResto;
+    }
+
+    public double getTotalDrink() {
+        return totalDrink;
+    }
+
+    public void setTotalDrink(double totalDrink) {
+        this.totalDrink = totalDrink;
+    }
+
+    public double getTotalFood() {
+        return totalFood;
+    }
+
+    public void setTotalFood(double totalFood) {
+        this.totalFood = totalFood;
+    }
+
     public void reCalPrice() {
         this.resetPrice();
         this.items.forEach(i -> {
             this.totalPriceWithTax += i.getTotalPrice();
             this.totalPriceWithoutTax += i.getTotalPriceWithoutTax();
-            if (ticketType == TicketType.Takeway) {
+            if (ticketType == TicketType.Takeaway) {
                 this.totalTaxTakeaway += i.getTotalTax();
+                this.totalTakeaway += i.getTotalPrice();
             } else if (i.getItem().getItemType() == ItemType.Drink) {
                 this.totalTaxDrink += i.getTotalTax();
+                this.totalDrink += i.getTotalPrice();
             } else {
                 this.totalTaxFood += i.getTotalTax();
+                this.totalFood += i.getTotalPrice();
             }
         });
     }
@@ -325,10 +368,10 @@ public class Ticket {
     }
 
     public enum Status{
-        ACTIVE,PAID;
+        ACTIVE,PAID
     }
 
     public enum  TicketType {
-        Resto, Takeway
+        Resto, Takeaway
     }
 }
