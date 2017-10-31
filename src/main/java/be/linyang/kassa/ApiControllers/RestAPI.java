@@ -30,6 +30,13 @@ public class RestAPI {
     @Autowired
     private RestoManager restoManager;
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/api")
+    public boolean healthCheck() {
+        LOGGER.info("api healthCheck called");
+        return restoManager != null;
+    }
+
 
 	@JsonView(View.Summary.class)
 	@CrossOrigin(origins = "*")
