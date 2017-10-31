@@ -69,6 +69,27 @@ public class RestoManager {
 
     }
 
+    public boolean changeTable(String fromTableNr, String toTableNr) {
+        Table fromTable = findTable(fromTableNr);
+        Table toTable = findTable(toTableNr);
+        if (fromTable != null && toTable != null) {
+            Ticket fromTicket = fromTable.getTicket();
+            if (toTable.getTicket() != null) {
+                Ticket toTicket = toTable.getTicket();
+                fromTable.setTicket(toTicket);
+                toTicket.setTableNr(fromTable.getTableNr());
+                mongoRepo.saveTicket(toTicket);
+            }
+            toTable.setTicket(fromTicket);
+            fromTicket.setTableNr(toTable.getTableNr());
+            mongoRepo.saveTicket(fromTicket);
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
     public Ticket createTicket(Ticket ticket) {
         Table table = this.tables.stream()
                 .filter(t -> t.getTableNr().equals(ticket.getTableNr()))
@@ -292,6 +313,13 @@ public class RestoManager {
     public boolean reloadData() {
         this.loadData();
         return true;
+    }
+
+    private Table findTable(String tableNr) {
+        return this.tables.stream()
+                .filter(t -> t.getTableNr().equalsIgnoreCase(tableNr))
+                .findFirst()
+                .orElse(null);
     }
 
     private Item findItem(String quicklink) {

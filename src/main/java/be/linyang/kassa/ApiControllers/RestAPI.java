@@ -75,6 +75,13 @@ public class RestAPI {
 	}
 
     @CrossOrigin(origins = "*")
+    @PostMapping(value = "/api/resto/table/{fromTable}/changeTable")
+    public boolean changeTable(@PathVariable("fromTable") String fromTable ,@RequestBody String toTable) {
+        LOGGER.info("api changeTable called, from Table: " + fromTable + " to table: " + toTable);
+        return restoManager.changeTable(fromTable, toTable);
+    }
+
+    @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/api/ticket/{ticketNr}")
     public boolean removeTicket(@PathVariable("ticketNr") int ticketNr) {
         LOGGER.info("api removeTicket called, ticketNr is " + ticketNr);
