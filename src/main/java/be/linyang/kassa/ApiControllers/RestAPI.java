@@ -5,6 +5,7 @@ import be.linyang.kassa.Model.Table;
 import be.linyang.kassa.Model.View;
 import be.linyang.kassa.Model.items.Extra;
 import be.linyang.kassa.Model.items.Item;
+import be.linyang.kassa.Model.items.ItemJsonWrapper;
 import be.linyang.kassa.Model.ticket.Ticket;
 import be.linyang.kassa.RestoManager;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -188,6 +189,15 @@ public class RestAPI {
 	public boolean reloadData() {
 		LOGGER.info("api reloadData called. ");
 		return this.restoManager.reloadData();
+	}
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/api/config/menu/item")
+	public boolean addItemToMenu(@RequestBody ItemJsonWrapper itemJsonWrapper) {
+		LOGGER.info("api addItemToMenu called. ");
+		LOGGER.debug("Json is: " + itemJsonWrapper.toString());
+		Item item = new Item(itemJsonWrapper.getQuicklink(), itemJsonWrapper.getName(), itemJsonWrapper.getCh_name(), itemJsonWrapper.getPrice(), itemJsonWrapper.getItemType());
+		return this.restoManager.addItem(item);
 	}
 
 

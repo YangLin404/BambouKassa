@@ -309,6 +309,13 @@ public class RestoManager {
         return mongoRepo.findAllTicketByDate(dateToSearch);
     }
 
+    public boolean addItem(Item item) {
+        this.mongoRepo.addItem(item);
+        this.items.add(item);
+        return true;
+
+    }
+
     public boolean reloadData() {
         this.loadData();
         return true;

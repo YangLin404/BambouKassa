@@ -192,6 +192,10 @@ public class MongoRepo {
 
     public void deleteTicketItem(TicketItem ticketItem) {this.datastore.delete(ticketItem);}
 
+    public void addItem(Item item) {
+        this.datastore.save(item);
+    }
+
     private void resetData() {
         datastore.getDB().dropDatabase();
         List<Item> items = dataFactory.initItems();
