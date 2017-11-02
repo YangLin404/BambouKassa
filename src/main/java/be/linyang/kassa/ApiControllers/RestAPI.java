@@ -177,6 +177,7 @@ public class RestAPI {
         return this.restoManager.updateTicketTaken(ticketNr, taken) != null;
     }
 
+	@JsonView(View.Summary.class)
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/api/overview/tickets")
     public List<Ticket> getTicketByDate(@RequestParam("date") String date) {
