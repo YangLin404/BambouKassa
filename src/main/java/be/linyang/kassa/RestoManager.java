@@ -57,8 +57,20 @@ public class RestoManager {
 
         ticketsToday = mongoRepo.findAllTicketByDate(LocalDate.now());
         ticketNrSequence = ticketsToday.size();
+        this.setTicketToTableAfterRestart();
 
+    }
 
+    private void setTicketToTableAfterRestart() {
+        ticketsToday.forEach(t -> {
+            if (!t.isPaid() && !t.getTableNr().isEmpty()) {
+                Table table = this.findTable(t.getTableNr());
+                if (table.isTableEmpty()) {
+                    table.setTicket(t);
+                    table.setTicketNr(t.getTicketNr());
+                }
+            }
+        });
     }
 
     public Ticket createTicketOnTable(String tableNr) {

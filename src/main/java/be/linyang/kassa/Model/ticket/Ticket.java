@@ -350,7 +350,7 @@ public class Ticket {
         this.totalTaxDrink = 0;
         this.totalTaxFood = 0;
         this.totalTaxTakeaway = 0;
-        
+
         this.totalDrink = 0;
         this.totalFood = 0;
         this.totalTakeaway = 0;
