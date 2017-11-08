@@ -182,7 +182,7 @@ public class RestAPI {
     @GetMapping(value = "/api/overview/tickets")
     public List<Ticket> getTicketByDate(@RequestParam("date") String date) {
         LOGGER.info("api getTicketByDate called. " + date);
-        return this.restoManager.getTicketByDate(date);
+        return this.restoManager.getNotDeletedTicketByDate(date);
     }
 
 	@CrossOrigin(origins = "*")

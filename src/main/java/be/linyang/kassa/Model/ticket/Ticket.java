@@ -239,6 +239,14 @@ public class Ticket {
         return String.format (Locale.ENGLISH, "%.2f", total);
     }
 
+    public void deleteTicket() {
+        this.status = Status.DELETED;
+    }
+
+    public boolean isDeleted() {
+        return this.status == Status.DELETED;
+    }
+
     public void addItem(TicketItem item) {
     	this.items.add(item);
     }
@@ -373,7 +381,7 @@ public class Ticket {
     }
 
     public enum Status{
-        ACTIVE,PAID
+        ACTIVE,PAID, DELETED
     }
 
     public enum  TicketType {

@@ -41,6 +41,7 @@ public class RestoManager {
     public List<Ticket> getTodaysTakewayTicket() {
         return ticketsToday.stream()
                 .filter(Ticket::isTakeway)
+                .filter(t -> !t.isDeleted())
                 .collect(Collectors.toList());
     }
 
@@ -63,7 +64,7 @@ public class RestoManager {
 
     private void setTicketToTableAfterRestart() {
         ticketsToday.forEach(t -> {
-            if (!t.isPaid() && !t.getTableNr().isEmpty()) {
+            if (!t.isPaid() && !t.isDeleted() && !t.getTableNr().isEmpty()) {
                 Table table = this.findTable(t.getTableNr());
                 if (table.isTableEmpty()) {
                     table.setTicket(t);
@@ -212,10 +213,11 @@ public class RestoManager {
     public boolean deleteTodayTicket(int ticketNr) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         if (ticket != null) {
-            mongoRepo.deleteTicket(ticket);
-            this.ticketsToday.remove(ticket);
+            ticket.deleteTicket();
+            mongoRepo.saveTicket(ticket);
             if (!(ticket.getTableNr().isEmpty() || ticket.getTableNr().equals("0"))) {
                 this.removeTicketFromTable(ticket.getTableNr());
+                ticket.setTableNr("");
             }
             return true;
         } else
@@ -316,9 +318,11 @@ public class RestoManager {
 
     }
 
-    public List<Ticket> getTicketByDate(String date) {
+    public List<Ticket> getNotDeletedTicketByDate(String date) {
         LocalDate dateToSearch = LocalDate.parse(date);
-        return mongoRepo.findAllTicketByDate(dateToSearch);
+        return mongoRepo.findAllTicketByDate(dateToSearch).stream()
+                .filter(t -> !t.isDeleted())
+                .collect(Collectors.toList());
     }
 
     public boolean addItem(Item item) {
