@@ -147,10 +147,8 @@ public class MongoRepo {
     }
 
     public List<Table> findAllTables() {
-        List<Table> tables = datastore.createQuery(Table.class)
+        return datastore.createQuery(Table.class)
                 .asList();
-        tables.forEach(t -> t.setTicket(findActiveTicketByTable(t.getTableNr())));
-        return tables;
     }
 
     public List<Extra> findAllExtra() {

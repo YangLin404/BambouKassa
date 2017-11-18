@@ -93,6 +93,8 @@ public class RestoManager {
                 mongoRepo.saveTicket(toTicket);
             }
             toTable.setTicket(fromTicket);
+            toTable.setTicketNr(fromTicket.getTicketNr());
+            fromTable.setTicketNr(0);
             fromTicket.setTableNr(toTable.getTableNr());
             mongoRepo.saveTicket(fromTicket);
             return true;
