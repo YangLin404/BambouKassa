@@ -75,6 +75,16 @@ public class RestAPI {
 		return ticket;
 	}
 
+    @JsonView(View.Summary.class)
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/api/ticket")
+    public Ticket getTicketByIdentifier(@RequestParam("ID") String ticketID) {
+        LOGGER.info("api getTicketByIdentifier called");
+        Ticket ticket = restoManager.getTicketByID(ticketID);
+        LOGGER.info("ticket: " + ticket);
+        return ticket;
+    }
+
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/api/resto/createTicket")
 	public int createRestoTicket(@RequestBody String tableNr) {

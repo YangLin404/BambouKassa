@@ -129,6 +129,12 @@ public class MongoRepo {
                 .asList();
     }
 
+    public Ticket findTicketByID(String ticketID) {
+        return datastore.createQuery(Ticket.class)
+                .field("ticketIdentifier").equal(ticketID)
+                .get();
+    }
+
     public Ticket findActiveTicketByTable(String tableNr)
     {
         return datastore.createQuery(Ticket.class)

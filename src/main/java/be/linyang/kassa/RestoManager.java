@@ -226,9 +226,15 @@ public class RestoManager {
             return false;
     }
 
-    public Ticket getTicketByNr(String ticketNr) {
-        return mongoRepo.findTicketByNr(ticketNr);
+    public Ticket getTicketByID(String ticketID) {
+        Ticket ticket = findTodayTicketByTicketID(ticketID);
+        if (ticket == null) {
+            ticket = mongoRepo.findTicketByID(ticketID);
+        }
+        return ticket;
     }
+
+
 
     public Ticket getActiveTicketOfTable(String tableNr) {
         return ticketsToday.stream()
@@ -292,6 +298,13 @@ public class RestoManager {
     public Ticket findTodayTicketByNr(int ticketNr) {
         return ticketsToday.stream()
                 .filter(t -> t.getTicketNr() == ticketNr)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Ticket findTodayTicketByTicketID(String ticketID) {
+        return ticketsToday.stream()
+                .filter(t -> t.getTicketIdentifier().equals(ticketID))
                 .findFirst()
                 .orElse(null);
     }

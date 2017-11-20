@@ -27,6 +27,7 @@ public class Ticket {
 
 	@JsonView(View.Summary.class)
     private int ticketNr;
+
 	@JsonView(View.Summary.class)
     private String ticketIdentifier;
 
@@ -368,6 +369,7 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "ticketNr=" + ticketNr +
+                ", ticketID=" + ticketIdentifier +
                 ", name='" + name + '\'' +
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +

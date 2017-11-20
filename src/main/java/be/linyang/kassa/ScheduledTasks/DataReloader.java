@@ -14,7 +14,7 @@ public class DataReloader {
     @Autowired
     private RestoManager restoManager;
 
-    @Scheduled(cron = "0 0 12 1/1 * ? *")
+    @Scheduled(cron = "0 0 12 * * *")
     public void reloadData() {
         if (restoManager.reloadData()) {
             LOGGER.info("sheduled task: reload resto manager data succeed");
