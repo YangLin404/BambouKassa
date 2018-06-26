@@ -109,7 +109,7 @@ public class DataFactory {
         startItems.add(new Item("1/2 Witte wijn","1/2 Witte wijn","",7.5d, ItemType.Drink));
         startItems.add(new Item("Fles Witte wijn","Fles Witte wijn","",13.5d, ItemType.Drink));
         startItems.add(new Item("1/4 Rosé wijn","1/4 Rosé wijn","",5d, ItemType.Drink));
-        startItems.add(new Item("/2 Rosé wijn","1/2 Rosé wijn","",7.5d, ItemType.Drink));
+        startItems.add(new Item("1/2 Rosé wijn","1/2 Rosé wijn","",7.5d, ItemType.Drink));
         startItems.add(new Item("Fles Rosé wijn","Fles Rosé wijn","",13.5d, ItemType.Drink));
     }
 
@@ -164,8 +164,8 @@ public class DataFactory {
     }
 
     private void addMenu() {
-        startItems.add(new Item("r1","R1","",20d, ItemType.Menu));
-        startItems.add(new Item("r2","R2","",25d, ItemType.Menu));
+        startItems.add(new Item("r1","Chinese rijsttafel A","",20d, ItemType.Menu));
+        startItems.add(new Item("r2","Chinese rijsttafel B","",25d, ItemType.Menu));
         startItems.add(new Item("NY2","nieuwjaar menu 2p","",30d, ItemType.Menu));
         startItems.add(new Item("NY4","nieuwjaar menu 4p","",38d, ItemType.Menu));
         startItems.add(new Item("NY2K","nieuwjaar menu 2p korting","",27d, ItemType.Menu));
@@ -186,9 +186,9 @@ public class DataFactory {
         startItems.add(new Item("116","supplement 1.0","", 1d, ItemType.Supplement));
         startItems.add(new Item("117","supplement 1.2","", 1.2d, ItemType.Supplement));
         startItems.add(new Item("118","supplement 1.4","", 1.4d, ItemType.Supplement));
-        startItems.add(new Item("117","supplement 1.6","", 1.6d, ItemType.Supplement));
-        startItems.add(new Item("118","supplement 1.8","", 1.8d, ItemType.Supplement));
-        startItems.add(new Item("119","supplement 2.0","", 2.0d, ItemType.Supplement));
+        startItems.add(new Item("119","supplement 1.6","", 1.6d, ItemType.Supplement));
+        startItems.add(new Item("120","supplement 1.8","", 1.8d, ItemType.Supplement));
+        startItems.add(new Item("121","supplement 2.0","", 2.0d, ItemType.Supplement));
     }
 
     private void addVegi() {
