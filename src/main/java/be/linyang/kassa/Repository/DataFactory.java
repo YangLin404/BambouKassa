@@ -59,9 +59,9 @@ public class DataFactory {
     private void addExtra() {
         startExtra.add(new Extra("Rijst", 0d));
         startExtra.add(new Extra("Friet", 0d));
-        startExtra.add(new Extra("Nasi", 1.2d));
-        startExtra.add(new Extra("Bami", 1.2d));
-        startExtra.add(new Extra("Mihoen", 1.2d));
+        startExtra.add(new Extra("Nasi", 2d));
+        startExtra.add(new Extra("Bami", 2d));
+        startExtra.add(new Extra("Mihoen", 2d));
     }
 
     private void addStrongDrink() {
@@ -166,15 +166,15 @@ public class DataFactory {
     private void addMenu() {
         startItems.add(new Item("r1","Chinese rijsttafel A","",20d, ItemType.Menu));
         startItems.add(new Item("r2","Chinese rijsttafel B","",25d, ItemType.Menu));
-        startItems.add(new Item("NY2","nieuwjaar menu 2p","",30d, ItemType.Menu));
-        startItems.add(new Item("NY4","nieuwjaar menu 4p","",38d, ItemType.Menu));
-        startItems.add(new Item("NY2K","nieuwjaar menu 2p korting","",27d, ItemType.Menu));
-        startItems.add(new Item("NY4K","nieuwjaar menu 4p korting","",34.2d, ItemType.Menu));
+        startItems.add(new Item("NY2","Nieuwjaar menu 2p","",30d, ItemType.Menu));
+        startItems.add(new Item("NY4","Nieuwjaar menu 4p","",38d, ItemType.Menu));
+        startItems.add(new Item("NY2K","Nieuwjaar menu 2p korting","",27d, ItemType.Menu));
+        startItems.add(new Item("NY4K","Nieuwjaar menu 4p korting","",34.2d, ItemType.Menu));
     }
 
     private void addSupplements() {
         startItems.add(new Item("106","Currysaus","",2.5d, ItemType.Supplement));
-        startItems.add(new Item("107","zoetzure saus","",2.5d, ItemType.Supplement));
+        startItems.add(new Item("107","Zoetzure saus","",2.5d, ItemType.Supplement));
         startItems.add(new Item("108","Witte rijst","",2.5d, ItemType.Supplement));
         startItems.add(new Item("109","Frieten","",2.5d, ItemType.Supplement));
         startItems.add(new Item("110","Gebakken rijst bij gerecht","",2d, ItemType.Supplement));
@@ -239,7 +239,7 @@ public class DataFactory {
 
     private void addGonBao() {
         startItems.add(new Item("76","Eend in Gon Bao saus","",14.5d, ItemType.MainDishe));
-        startItems.add(new Item("77","kippenblokjes in Gon Bao saus","",12.0d, ItemType.MainDishe));
+        startItems.add(new Item("77","Kippenblokjes in Gon Bao saus","",12.0d, ItemType.MainDishe));
         startItems.add(new Item("78","Chinese garnalen in Gon Bao saus","",15.3d, ItemType.MainDishe));
         startItems.add(new Item("79","Rundvlees in Gon Bao saus","",13.0d, ItemType.MainDishe));
         startItems.add(new Item("80","Varkensvlees in Gon Bao saus","",12.5d, ItemType.MainDishe));
@@ -276,7 +276,7 @@ public class DataFactory {
         startItems.add(new Item("46","Gebraden kip met Chinese champignons","",9.5d, ItemType.MainDishe));
         startItems.add(new Item("47","Kippenblokjes met tausi","",9.0d, ItemType.MainDishe));
         startItems.add(new Item("48","Kippenblokjes met bamboe en groenten","",9.5d, ItemType.MainDishe));
-        startItems.add(new Item("49","Kippenblokjes met Chinese champignons","",9.0d, ItemType.MainDishe));
+        startItems.add(new Item("49","Kippenblokjes met Chinese champignons","",9.5d, ItemType.MainDishe));
         startItems.add(new Item("50","Kippenblokjes met champignons","",9.0d, ItemType.MainDishe));
         startItems.add(new Item("51","Kippenblokjes met ananas","",9.5d, ItemType.MainDishe));
         startItems.add(new Item("52","Kippenblokjes met verse ananas","",12.0d, ItemType.MainDishe));
@@ -289,7 +289,7 @@ public class DataFactory {
     }
 
     private void addChopChoy() {
-        startItems.add(new Item("37","Chop-choy met Kip","",9d, ItemType.MainDishe));
+        startItems.add(new Item("37","Chop-choy met kip","",9d, ItemType.MainDishe));
         startItems.add(new Item("38","Chop-choy met varkensvlees","",9.5d, ItemType.MainDishe));
         startItems.add(new Item("39","Chop-choy met Chinese garnalen","",14.5d, ItemType.MainDishe));
         startItems.add(new Item("40","Chop-choy met kippenlevers","",9.5d, ItemType.MainDishe));
@@ -316,7 +316,7 @@ public class DataFactory {
         startItems.add(new Item("32","Mihoen met kip","",10.0d, ItemType.Nasi));
         startItems.add(new Item("33","Mihoen met varkensvlees","",10.5d, ItemType.Nasi));
         startItems.add(new Item("34","Mihoen met Chinese garnalen","",14.5d, ItemType.Nasi));
-        startItems.add(new Item("35","Mihoen met special op Chinese wijze","",12.0d, ItemType.Nasi));
+        startItems.add(new Item("35","Mihoen met speciaal op Chinese wijze","",12.0d, ItemType.Nasi));
         startItems.add(new Item("36","Singapore mihoen","",13.0d, ItemType.Nasi));
 
     }
@@ -344,7 +344,7 @@ public class DataFactory {
         startItems.add(new Item("5","Maissoep","",4.0d, ItemType.Soup));
         startItems.add(new Item("6","Wantan soep","",4.5d, ItemType.Soup));
         startItems.add(new Item("7","Kippenleversoep","",3.5d, ItemType.Soup));
-        startItems.add(new Item("8","Tomatensoep","",3.5d, ItemType.Soup));
+        startItems.add(new Item("8","Tomatensoep","",3.0d, ItemType.Soup));
         startItems.add(new Item("9","Haaienvinnensoep","",4.0d, ItemType.Soup));
         startItems.add(new Item("10","Pikante soep","",3.5d, ItemType.Soup));
     }
