@@ -35,6 +35,9 @@ public class Ticket {
     private String name;
 
 	@JsonView(View.Summary.class)
+    private int persons;
+
+	@JsonView(View.Summary.class)
     private String date;
 
 	@JsonView(View.Summary.class)
@@ -166,6 +169,10 @@ public class Ticket {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPersons(int persons) {
+        this.persons = persons;
     }
 
     public String getTable() {

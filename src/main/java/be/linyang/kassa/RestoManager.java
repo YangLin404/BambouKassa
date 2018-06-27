@@ -141,6 +141,13 @@ public class RestoManager {
         return ticket;
     }
 
+    public Ticket updateTicketPersons(int ticketNr, int persons) {
+        Ticket ticket = findTodayTicketByNr(ticketNr);
+        ticket.setPersons(persons);
+        mongoRepo.saveTicket(ticket);
+        return ticket;
+    }
+
     public Ticket updateTicketTime(int ticketNr, String time) {
         Ticket ticket = findTodayTicketByNr(ticketNr);
         ticket.setTime(time);

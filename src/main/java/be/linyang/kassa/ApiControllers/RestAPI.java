@@ -154,6 +154,13 @@ public class RestAPI {
     }
 
     @CrossOrigin(origins = "*")
+    @PostMapping(value = "/api/ticket/{ticketNr}/persons")
+    public boolean updateTicketPersons(@PathVariable("ticketNr") int ticketNr, @RequestBody int persons) {
+        LOGGER.info("api updateTicketPersons called." + persons);
+        return this.restoManager.updateTicketPersons(ticketNr, persons) != null;
+    }
+
+    @CrossOrigin(origins = "*")
     @PostMapping(value = "/api/ticket/{ticketNr}/time")
     public boolean updateTicketTime(@PathVariable("ticketNr") int ticketNr, @RequestBody String time) {
         LOGGER.info("api updateTicketTime called." + time);
