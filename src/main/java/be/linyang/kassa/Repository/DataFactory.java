@@ -294,7 +294,7 @@ public class DataFactory {
         startItems.add(new Item("39","Chop-choy met Chinese garnalen","",14.5d, ItemType.MainDishe));
         startItems.add(new Item("40","Chop-choy met kippenlevers","",9.5d, ItemType.MainDishe));
         startItems.add(new Item("41","Chop-choy met geroosterd varkensvlees","",10.0d, ItemType.MainDishe));
-        startItems.add(new Item("34","Chop-choy speciaal op Chinese wijze","",11.0d, ItemType.MainDishe));
+        startItems.add(new Item("42","Chop-choy speciaal op Chinese wijze","",11.0d, ItemType.MainDishe));
     }
 
     private void addBami() {
