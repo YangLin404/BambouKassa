@@ -4,7 +4,6 @@ import be.linyang.kassa.Model.items.Extra;
 import be.linyang.kassa.Model.items.Item;
 import be.linyang.kassa.Model.items.ItemType;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
@@ -88,6 +87,7 @@ public class DataFactory {
         startItems.add(new Item("Alcoholvrij bier","Alcoholvrij bier","",2.3d, ItemType.Drink));
         startItems.add(new Item("Palm","Palm","",2.5d, ItemType.Drink));
         startItems.add(new Item("Duval","Duval","",4d, ItemType.Drink));
+        startItems.add(new Item("Tsingdao","Tsingdao","",4d, ItemType.Drink));
         startItems.add(new Item("Tonic","Tonic","",2.5d, ItemType.Drink));
         startItems.add(new Item("Cola","Cola","",2.5d, ItemType.Drink));
         startItems.add(new Item("Cola light","Cola light","",2.5d, ItemType.Drink));
@@ -196,7 +196,7 @@ public class DataFactory {
         startItems.add(new Item("100","Nasi natuur","",8.5d, ItemType.Nasi));
         startItems.add(new Item("101","Bami natuur","",8.5d, ItemType.Bami));
         startItems.add(new Item("102","Mihoen natuur","",8.5d, ItemType.Supplement));
-        startItems.add(new Item("103","Chop choy natuur","",8.5d, ItemType.Supplement));
+        startItems.add(new Item("103","Chop-choy natuur","",8.5d, ItemType.Supplement));
         startItems.add(new Item("104","Diverse groenten","",8.5d, ItemType.Supplement));
         startItems.add(new Item("105","Omelet natuur","",8.5d, ItemType.Supplement));
     }
@@ -208,7 +208,7 @@ public class DataFactory {
         startItems.add(new Item("89","Chinese ribbetjes met look","",11.0d, ItemType.MainDishe));
         startItems.add(new Item("90","Chinese ribbetjes met peper en zout","",11.0d, ItemType.MainDishe));
         startItems.add(new Item("91","Kikkerbilletjes met look","",12.0d, ItemType.MainDishe));
-        startItems.add(new Item("92","Chinees garnalen met look","",14.0d, ItemType.MainDishe));
+        startItems.add(new Item("92","Chinese garnalen met look","",14.0d, ItemType.MainDishe));
         startItems.add(new Item("93","Inktvis in currysaus","",12.0d, ItemType.MainDishe));
         startItems.add(new Item("94","Inktvis in tausi","",12.5d, ItemType.MainDishe));
         startItems.add(new Item("95","Inkvis in pikante saus","",12.5d, ItemType.MainDishe));
@@ -228,7 +228,8 @@ public class DataFactory {
         startItems.add(new Item("d7","Mochi aardbei","",4.0d, ItemType.Dessert));
         startItems.add(new Item("d8","Mochi mango","",4.0d, ItemType.Dessert));
         startItems.add(new Item("d9","Mochi mucha","",4.0d, ItemType.Dessert));
-        startItems.add(new Item("d10","Mochi mix","",6.0d, ItemType.Dessert));
+        startItems.add(new Item("d10","Mochi choco","",5.0d, ItemType.Dessert));
+        startItems.add(new Item("d11","Mochi mix","",6.0d, ItemType.Dessert));
     }
 
     private void addOmelet() {
@@ -273,7 +274,7 @@ public class DataFactory {
     private void addChicken() {
         startItems.add(new Item("43","Gebraden halve kip met curry","",11.0d, ItemType.MainDishe));
         startItems.add(new Item("44","Gebraden halve kip met tomatensaus","",11.0d, ItemType.MainDishe));
-        startItems.add(new Item("45","Gebraden kip met groeten","",9.5d, ItemType.MainDishe));
+        startItems.add(new Item("45","Gebraden kip met groenten","",9.5d, ItemType.MainDishe));
         startItems.add(new Item("46","Gebraden kip met Chinese champignons","",9.5d, ItemType.MainDishe));
         startItems.add(new Item("47","Kippenblokjes met tausi","",9.0d, ItemType.MainDishe));
         startItems.add(new Item("48","Kippenblokjes met bamboe en groenten","",9.5d, ItemType.MainDishe));
@@ -349,5 +350,4 @@ public class DataFactory {
         startItems.add(new Item("9","Haaienvinnensoep","",4.0d, ItemType.Soup));
         startItems.add(new Item("10","Pikante soep","",3.5d, ItemType.Soup));
     }
-
 }
