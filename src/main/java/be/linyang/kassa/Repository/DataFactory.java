@@ -87,7 +87,7 @@ public class DataFactory {
         startItems.add(new Item("Alcoholvrij bier","Alcoholvrij bier","",2.3d, ItemType.Drink));
         startItems.add(new Item("Palm","Palm","",2.5d, ItemType.Drink));
         startItems.add(new Item("Duvel","Duvel","",4d, ItemType.Drink));
-        startItems.add(new Item("Tsingdao","Tsingdao","",4d, ItemType.Drink));
+        startItems.add(new Item("Tsingtao","Tsingtao","",4d, ItemType.Drink));
         startItems.add(new Item("Tonic","Tonic","",2.5d, ItemType.Drink));
         startItems.add(new Item("Cola","Cola","",2.5d, ItemType.Drink));
         startItems.add(new Item("Cola light","Cola light","",2.5d, ItemType.Drink));
